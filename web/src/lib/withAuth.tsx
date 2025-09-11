@@ -1,4 +1,3 @@
-// web/lib/withAuth.tsx
 "use client";
 
 import { useRouter } from "next/navigation";
