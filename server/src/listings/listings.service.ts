@@ -11,11 +11,14 @@ export class ListingsService {
   }
 
   findAll() {
-    return this.prismaService.listing.findMany();
+    return this.prismaService.listing.findMany({ include: { owner: true } });
   }
 
   findOne(id: string) {
-    return this.prismaService.listing.findUnique({ where: { id } });
+    return this.prismaService.listing.findUnique({
+      where: { id },
+      include: { owner: true },
+    });
   }
 
   update(id: string, data: Prisma.ListingUpdateInput) {

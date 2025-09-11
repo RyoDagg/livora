@@ -35,8 +35,9 @@ export class ListingsController {
   }
 
   @Get()
-  findAll() {
-    return this.listingsService.findAll();
+  async findAll() {
+    const listings = await this.listingsService.findAll();
+    return { ok: true, data: listings };
   }
 
   @Get(':id')
@@ -45,7 +46,7 @@ export class ListingsController {
     if (!listing) {
       throw new NotFoundException('Listing not found');
     }
-    return listing;
+    return { ok: true, data: listing };
   }
 
   @Patch(':id')
