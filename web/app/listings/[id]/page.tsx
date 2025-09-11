@@ -1,5 +1,13 @@
+import Image from "next/image";
 import { api } from "@/src/lib/api";
 import { Listing } from "@/src/types/Listing";
+import { BsCurrencyDollar, BsPersonCircle } from "react-icons/bs";
+import {
+  FaHome,
+  FaMapMarkerAlt,
+  FaRegCalendarAlt,
+  FaPhoneAlt,
+} from "react-icons/fa";
 
 async function fetchListing(id: string): Promise<Listing> {
   const { ok, data } = await api(`/listings/${id}`, {
@@ -10,37 +18,95 @@ async function fetchListing(id: string): Promise<Listing> {
   return data;
 }
 
+function InfoTag({
+  icon,
+  children,
+  className,
+}: {
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  className: string;
+}) {
+  return (
+    <span
+      className={`flex items-center gap-2 text-sm font-medium px-3 py-1 rounded-full ${className}`}
+    >
+      {icon} {children}
+    </span>
+  );
+}
+
 export default async function ListingPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const { id } = params;
-  const data = await fetchListing(id);
+  const listing = await fetchListing(params.id);
 
   return (
-    <main className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
-      <p>{data.description}</p>
-      <p>
-        <strong>Price:</strong> {data.price} TND
-      </p>
-      <p>
-        <strong>Type:</strong> {data.type}
-      </p>
-      <p>
-        <strong>State:</strong> {data.state}
-      </p>
-      <p>
-        <strong>Available At:</strong>{" "}
-        {new Date(data.availableAt).toLocaleDateString()}
-      </p>
-      <p>
-        <strong>Contact:</strong> {data.contact}
-      </p>
-      <p>
-        <strong>Owner:</strong> {data.owner.name ?? data.owner.email}
-      </p>
+    <main className="max-w-4xl mx-auto p-6">
+      <article className="bg-white shadow rounded-xl overflow-hidden">
+        {/* Image */}
+        <div className="relative h-72 w-full">
+          <Image
+            src="https://www.acropole-immo.net/annonces/location/appartement/tunisie/tunis--4418328/4418328_1.jpg"
+            alt={listing.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="p-6 space-y-4">
+          <h1 className="text-2xl font-bold">{listing.title}</h1>
+          <p className="text-gray-700">{listing.description}</p>
+
+          {/* Info Tags */}
+          <div className="flex flex-wrap gap-2">
+            <InfoTag
+              icon={<BsCurrencyDollar />}
+              className="bg-green-50 text-green-950"
+            >
+              {new Intl.NumberFormat("fr-TN", {
+                style: "currency",
+                currency: "TND",
+              }).format(listing.price)}
+            </InfoTag>
+
+            <InfoTag icon={<FaHome />} className="bg-blue-50 text-blue-950">
+              {listing.type}
+            </InfoTag>
+
+            <InfoTag
+              icon={<FaMapMarkerAlt />}
+              className="bg-gray-50 text-gray-950"
+            >
+              {listing.state}
+            </InfoTag>
+
+            <InfoTag
+              icon={<FaRegCalendarAlt />}
+              className="bg-yellow-50 text-yellow-950"
+            >
+              {new Date(listing.availableAt).toLocaleDateString("fr-TN")}
+            </InfoTag>
+
+            <InfoTag
+              icon={<FaPhoneAlt />}
+              className="bg-purple-50 text-purple-950"
+            >
+              {listing.contact}
+            </InfoTag>
+
+            <InfoTag
+              icon={<BsPersonCircle />}
+              className="bg-pink-50 text-pink-950"
+            >
+              {listing.owner.name ?? listing.owner.email}
+            </InfoTag>
+          </div>
+        </div>
+      </article>
     </main>
   );
 }
