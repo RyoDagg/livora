@@ -1,6 +1,16 @@
 import { api } from "@/src/lib/api";
 import { Listing } from "@/src/types/Listing";
+import Image from "next/image";
 import Link from "next/link";
+import { BsCurrencyDollar, BsHousesFill, BsPersonCircle } from "react-icons/bs";
+import {
+  FaHome,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaRegCalendarAlt,
+  FaSearch,
+} from "react-icons/fa";
+import { GiTunisia } from "react-icons/gi";
 
 async function fetchListings(): Promise<Listing[]> {
   const { ok, data } = await api("/listings", {
@@ -10,40 +20,112 @@ async function fetchListings(): Promise<Listing[]> {
   return data;
 }
 
+function InputWithIcon({
+  icon,
+  placeholder,
+}: {
+  icon: React.ReactNode;
+  placeholder: string;
+}) {
+  return (
+    <div className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 shadow-sm focus-within:border-gray-500 transition">
+      {icon}
+      <input
+        type="text"
+        placeholder={placeholder}
+        className="flex-1 outline-none text-sm placeholder-gray-400"
+      />
+    </div>
+  );
+}
+
 export default async function ListingsPage() {
   const listings = await fetchListings();
 
   return (
-    <main className="p-6 max-w-3xl mx-auto flex flex-col gap-4">
-      <h1 className="text-2xl mb-4">Listings</h1>
-      {listings.length === 0 && <p>No listings found.</p>}
-      {listings.map((listing) => (
-        <div key={listing.id} className="border p-4 rounded shadow">
-          <h2 className="text-xl font-bold">
-            <Link href={`/listings/${listing.id}`}>{listing.title}</Link>
-          </h2>
-          <p>{listing.description}</p>
-          <p>
-            <strong>Price:</strong> {listing.price} TND
-          </p>
-          <p>
-            <strong>Type:</strong> {listing.type}
-          </p>
-          <p>
-            <strong>State:</strong> {listing.state}
-          </p>
-          <p>
-            <strong>Available At:</strong>{" "}
-            {new Date(listing.availableAt).toLocaleDateString()}
-          </p>
-          <p>
-            <strong>Contact:</strong> {listing.contact}
-          </p>
-          <p>
-            <strong>Owner:</strong> {listing.owner.name ?? listing.owner.email}
-          </p>
-        </div>
-      ))}
+    <main className="p-6 max-w-6xl mx-auto">
+      <header className="mb-6">
+        <h1 className="flex items-center gap-2 text-3xl text-gray-800 font-bold">
+          <BsHousesFill className="text-[#53ba04] text-4xl" /> Listings
+        </h1>
+
+        <p className="text-gray-600">Browse the latest real estate offers</p>
+      </header>
+
+      {/* Filters */}
+      <section className="flex flex-wrap gap-3 mb-8">
+        <InputWithIcon
+          icon={<FaSearch className="text-gray-500" />}
+          placeholder="Search listings..."
+        />
+        <InputWithIcon
+          icon={<GiTunisia className="text-gray-500 text-xl" />}
+          placeholder="Filter by state..."
+        />
+      </section>
+
+      {/* No Results */}
+      {listings.length === 0 && (
+        <p className="text-gray-500 italic">No listings found.</p>
+      )}
+
+      {/* Listings */}
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {listings.map((listing) => (
+          <article
+            key={listing.id}
+            className="rounded-xl shadow hover:shadow-lg transition overflow-hidden bg-white flex flex-col"
+          >
+            <Image
+              src="https://www.acropole-immo.net/annonces/location/appartement/tunisie/tunis--4418328/4418328_1.jpg"
+              alt={listing.title}
+              width={400}
+              height={250}
+              className="object-cover w-full h-48"
+            />
+            <div className="p-4 flex flex-col flex-1">
+              <h2 className="text-lg font-semibold mb-1">
+                <Link
+                  href={`/listings/${listing.id}`}
+                  className="hover:underline"
+                >
+                  {listing.title}
+                </Link>
+              </h2>
+              <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                {listing.description}
+              </p>
+
+              {/* Info tags */}
+              <div className="flex flex-wrap gap-2">
+                <span className="flex items-center gap-2 bg-green-50 text-green-950 font-medium px-2 py-1 rounded-full">
+                  <BsCurrencyDollar />{" "}
+                  {new Intl.NumberFormat("fr-TN", {
+                    style: "currency",
+                    currency: "TND",
+                  }).format(listing.price)}
+                </span>
+                <span className="flex items-center gap-2 bg-blue-50 text-blue-950 font-medium px-2 py-1 rounded-full">
+                  <FaHome /> {listing.type}
+                </span>
+                <span className="flex items-center gap-2 bg-gray-50 text-gray-950 font-medium px-2 py-1 rounded-full">
+                  <FaMapMarkerAlt /> {listing.state}
+                </span>
+                <span className="flex items-center gap-2 bg-yellow-50 text-yellow-950 font-medium px-2 py-1 rounded-full">
+                  <FaRegCalendarAlt />{" "}
+                  {new Date(listing.availableAt).toLocaleDateString("fr-TN")}
+                </span>
+                <span className="flex items-center gap-2 bg-purple-50 text-purple-950 font-medium px-2 py-1 rounded-full">
+                  <FaPhoneAlt /> {listing.contact}
+                </span>
+                <span className="flex items-center gap-2 bg-pink-50 text-pink-950 font-medium px-2 py-1 rounded-full">
+                  <BsPersonCircle /> {listing.owner.name ?? listing.owner.email}
+                </span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </section>
     </main>
   );
 }
