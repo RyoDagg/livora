@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+.curvy-bg {
+  background: radial-gradient(
+    circle at 75% 10%,
+    #f6e4ff 40%,
+    #f0f0f0 43%,
+    #ffffff 75%
+  );
+}
