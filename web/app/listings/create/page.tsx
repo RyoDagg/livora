@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createListing, ListingInput } from "@/src/lib/listings";
+import { createListing } from "@/src/lib/listings";
+import { ListingInput } from "@/src/types/Listing";
 
 export default function CreateListingPage() {
   const router = useRouter();

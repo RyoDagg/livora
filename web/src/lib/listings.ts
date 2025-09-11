@@ -1,14 +1,5 @@
+import { ListingInput } from "../types/Listing";
 import { api } from "./api";
-
-export type ListingInput = {
-  title: string;
-  description: string;
-  price: number;
-  state: string;
-  type: "rent" | "sale";
-  availableAt: string; // ISO string
-  contact: string;
-};
 
 export async function createListing(data: ListingInput) {
   const res = await api("/listings", {
