@@ -25,13 +25,18 @@ model User {
 }
 
 model Listing {
-  id        String    @id @default(cuid())
-  ownerId   String
-  owner     User      @relation(fields: [ownerId], references: [id])
-  title     String
-  price     Float
-  forSale   Boolean
-  state     String
-  available DateTime?
-  createdAt DateTime  @default(now())
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Float
+  state       String // e.g., Tunis, Sfax, etc.
+  type        String // "rent" | "sale"
+  availableAt DateTime
+  contact     String
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
