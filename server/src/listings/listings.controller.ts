@@ -7,17 +7,31 @@ import {
   Param,
   Delete,
   NotFoundException,
+  UseGuards,
+  Req,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { ListingsService } from './listings.service';
 import { Prisma } from 'generated/prisma';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('listings')
 export class ListingsController {
   constructor(private readonly listingsService: ListingsService) {}
 
   @Post()
-  create(@Body() body: Prisma.ListingCreateInput) {
-    return this.listingsService.create(body);
+  @UseGuards(JwtAuthGuard)
+  async create(@Body() body: Prisma.ListingCreateInput, @Req() req: any) {
+    try {
+      const listing = await this.listingsService.create({
+        ...body,
+        owner: { connect: { id: req.user.userId } },
+      });
+      return { ok: true, data: listing };
+    } catch (error) {
+      console.error('Error creating listing:', error);
+      throw new InternalServerErrorException('Failed to create listing');
+    }
   }
 
   @Get()
