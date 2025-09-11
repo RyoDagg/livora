@@ -2,9 +2,10 @@
 
 import { useAuth } from "@/src/hooks/useAuth";
 import { logout } from "@/src/lib/auth";
+import { withAuth } from "@/src/lib/withAuth";
 import { useRouter } from "next/navigation";
 
-export default function ProfilePage() {
+function ProfilePage() {
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -31,3 +32,5 @@ export default function ProfilePage() {
     </main>
   );
 }
+
+export default withAuth(ProfilePage);
