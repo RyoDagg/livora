@@ -5,7 +5,7 @@ export const api = async (url: string, options: RequestInit = {}) => {
     headers: options.headers || {
       "Content-Type": "application/json",
     },
-    credentials: "include", // optional: if you use cookies
+    credentials: "include",
   });
 
   if (!res.ok) {
