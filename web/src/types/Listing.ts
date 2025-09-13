@@ -19,5 +19,5 @@ export type ListingInput = {
   type: "rent" | "sale";
   availableAt: string; // ISO string
   contact: string;
-  imageURL: string;
+  imageURL?: string;
 };
