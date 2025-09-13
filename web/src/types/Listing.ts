@@ -8,6 +8,7 @@ export type Listing = {
   availableAt: string;
   contact: string;
   owner: { id: string; name?: string; email: string };
+  imageURL: string;
 };
 
 export type ListingInput = {
@@ -18,4 +19,5 @@ export type ListingInput = {
   type: "rent" | "sale";
   availableAt: string; // ISO string
   contact: string;
+  imageURL: string;
 };

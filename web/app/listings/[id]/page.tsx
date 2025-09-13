@@ -49,7 +49,7 @@ export default async function ListingPage({
         {/* Image */}
         <div className="relative h-72 w-full">
           <Image
-            src="https://www.acropole-immo.net/annonces/location/appartement/tunisie/tunis--4418328/4418328_1.jpg"
+            src={listing.imageURL || "/listing-placeholder.png"}
             alt={listing.title}
             fill
             className="object-cover"

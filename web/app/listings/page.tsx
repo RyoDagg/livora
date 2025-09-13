@@ -1,5 +1,6 @@
 import { api } from "@/src/lib/api";
 import { Listing } from "@/src/types/Listing";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { BsCurrencyDollar, BsHousesFill, BsPersonCircle } from "react-icons/bs";
@@ -11,6 +12,11 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { GiTunisia } from "react-icons/gi";
+
+export const metadata: Metadata = {
+  title: "Listings - Livora",
+  description: "Browse the latest real estate listings in Tunisia.",
+};
 
 async function fetchListings(): Promise<Listing[]> {
   const { ok, data } = await api("/listings", {
@@ -74,14 +80,14 @@ export default async function ListingsPage() {
         {listings.map((listing) => (
           <article
             key={listing.id}
-            className="rounded-xl shadow hover:shadow-lg transition overflow-hidden bg-white flex flex-col"
+            className="rounded-xl shadow hover:shadow-lg transition overflow-hidden bg-white flex flex-col border border-gray-200"
           >
             <Image
-              src="https://www.acropole-immo.net/annonces/location/appartement/tunisie/tunis--4418328/4418328_1.jpg"
+              src={listing.imageURL || "/listing-placeholder.png"}
               alt={listing.title}
               width={400}
               height={250}
-              className="object-cover w-full h-48"
+              className="object-cover w-full h-52 border-b-2 border-gray-200"
             />
             <div className="p-4 flex flex-col flex-1">
               <h2 className="text-lg font-semibold mb-1">

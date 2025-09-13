@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createListing } from "@/src/lib/listings";
 import { ListingInput } from "@/src/types/Listing";
 import { withAuth } from "@/src/lib/withAuth";
+import ImagesUploader from "@/src/components/ImagesUploader";
 
 const TUNISIA_REGIONS = [
   "Ariana",
@@ -43,6 +44,7 @@ function CreateListingPage() {
     type: "sale",
     availableAt: "",
     contact: "",
+    imageURL: "",
   });
   const [error, setError] = useState("");
 
@@ -168,6 +170,8 @@ function CreateListingPage() {
             required
           />
         </div>
+
+        <ImagesUploader form={form} setForm={setForm} />
 
         <button
           type="submit"
