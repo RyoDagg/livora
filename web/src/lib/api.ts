@@ -2,9 +2,8 @@ export const api = async (url: string, options: RequestInit = {}) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const res = await fetch(`${baseUrl}${url}`, {
     ...options,
-    headers: {
+    headers: options.headers || {
       "Content-Type": "application/json",
-      ...(options.headers || {}),
     },
     credentials: "include", // optional: if you use cookies
   });

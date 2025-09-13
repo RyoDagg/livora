@@ -11,7 +11,10 @@ export class ListingsService {
   }
 
   findAll() {
-    return this.prismaService.listing.findMany({ include: { owner: true } });
+    return this.prismaService.listing.findMany({
+      include: { owner: true },
+      orderBy: { createdAt: 'desc' },
+    });
   }
 
   findOne(id: string) {
