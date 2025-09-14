@@ -62,6 +62,7 @@ export default function Navbar() {
           <div className="hidden w-2xl mx-auto sm:flex sm:space-x-8">
             <NavLink href="/listings">Listings</NavLink>
             {user && <NavLink href="/listings/create">Create Listing</NavLink>}
+            {user && <NavLink href="/dashboard">Dashboard</NavLink>}
           </div>
 
           {/* Desktop auth / profile */}
