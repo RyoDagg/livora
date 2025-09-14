@@ -10,6 +10,7 @@ import {
   UseGuards,
   Req,
   InternalServerErrorException,
+  Query,
 } from '@nestjs/common';
 import { ListingsService } from './listings.service';
 import { Prisma } from 'generated/prisma';
@@ -35,8 +36,8 @@ export class ListingsController {
   }
 
   @Get()
-  async findAll() {
-    const listings = await this.listingsService.findAll();
+  async findAll(@Query() query: any) {
+    const listings = await this.listingsService.findAll(query);
     return { ok: true, data: listings };
   }
 
