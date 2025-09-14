@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { login } from "@/src/lib/auth";
+import { useAuthStore } from "@/src/lib/store";
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const { setUser } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +21,10 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     try {
-      await login(email, password);
+      const { ok, user } = await login(email, password);
+      if (!ok) throw new Error("Login failed");
+
+      setUser(user);
       router.push(redirect);
     } catch (err: any) {
       setError(err.message || "Login failed");

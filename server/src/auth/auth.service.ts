@@ -10,12 +10,20 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(email: string, password: string, name: string) {
+  async register(
+    email: string,
+    password: string,
+    name: string,
+  ): Promise<{ access_token: string; user: any }> {
     const user = await this.usersService.create(email, password, name);
-    return this.signUser(user.id, user.email);
+    const { access_token } = await this.signUser(user.id, user.email);
+    return { access_token, user };
   }
 
-  async login(email: string, password: string) {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<{ access_token: string; user: any }> {
     const user = await this.usersService.findByEmail(email);
 
     if (!user) throw new UnauthorizedException('Invalid credentials');
@@ -24,7 +32,8 @@ export class AuthService {
     if (!isPasswordValid)
       throw new UnauthorizedException('Invalid credentials');
 
-    return this.signUser(user.id, user.email);
+    const { access_token } = await this.signUser(user.id, user.email);
+    return { access_token, user };
   }
 
   async signUser(userId: string, email: string) {

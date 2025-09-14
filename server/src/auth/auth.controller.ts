@@ -13,17 +13,17 @@ export class AuthController {
     @Body('name') name: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const token: { access_token: string } = await this.authService.register(
+    const { access_token, user } = await this.authService.register(
       email,
       password,
       name,
     );
 
-    res.cookie('jwt_token', token.access_token, {
+    res.cookie('jwt_token', access_token, {
       httpOnly: true,
       sameSite: 'lax',
     });
-    return { message: 'Registration successful' };
+    return { ok: true, user };
   }
 
   @Post('login')
@@ -32,16 +32,16 @@ export class AuthController {
     @Body('password') password: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const token: { access_token: string } = await this.authService.login(
+    const { access_token, user } = await this.authService.login(
       email,
       password,
     );
 
-    res.cookie('jwt_token', token.access_token, {
+    res.cookie('jwt_token', access_token, {
       httpOnly: true,
       sameSite: 'lax',
     });
-    return { message: 'Login successful' };
+    return { ok: true, user };
   }
 
   @Post('logout')

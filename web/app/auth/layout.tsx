@@ -1,6 +1,8 @@
 "use client";
+import Loader from "@/src/components/Loader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function AuthLayout({
   children,
@@ -10,10 +12,18 @@ export default function AuthLayout({
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  if (loading) return <p>Loading...</p>;
-  if (user) {
-    router.push("/profile");
-    return null;
+  useEffect(() => {
+    if (!loading && user) {
+      router.replace("/profile");
+    }
+  }, [user, loading, router]);
+
+  if (loading || user) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader />
+      </div>
+    );
   }
 
   return <>{children}</>;

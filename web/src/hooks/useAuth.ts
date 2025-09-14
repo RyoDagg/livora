@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { me } from "@/src/lib/auth";
+import { User } from "../types/User";
+import { useAuthStore } from "../lib/store";
 
-export function useAuth() {
-  const [user, setUser] = useState<any>(null);
+export function useAuth(): { user: User | null; loading: boolean } {
+  const { user, setUser } = useAuthStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
