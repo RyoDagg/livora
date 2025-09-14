@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { api } from "@/src/lib/api";
 import { Listing } from "@/src/types/Listing";
-import { BsCurrencyDollar, BsPersonCircle } from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs";
 import {
   FaHome,
   FaMapMarkerAlt,
   FaRegCalendarAlt,
   FaPhoneAlt,
 } from "react-icons/fa";
+import { HiOutlineCash } from "react-icons/hi";
 
 async function fetchListing(id: string): Promise<Listing> {
   const { ok, data } = await api(`/listings/${id}`, {
@@ -64,7 +65,7 @@ export default async function ListingPage({
           {/* Info Tags */}
           <div className="flex flex-wrap gap-2">
             <InfoTag
-              icon={<BsCurrencyDollar />}
+              icon={<HiOutlineCash />}
               className="bg-green-50 text-green-950"
             >
               {new Intl.NumberFormat("fr-TN", {

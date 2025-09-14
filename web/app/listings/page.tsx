@@ -3,7 +3,7 @@ import { Listing } from "@/src/types/Listing";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { BsCurrencyDollar, BsHousesFill, BsPersonCircle } from "react-icons/bs";
+import { BsHousesFill, BsPersonCircle } from "react-icons/bs";
 import {
   FaHome,
   FaMapMarkerAlt,
@@ -12,6 +12,7 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { GiTunisia } from "react-icons/gi";
+import { HiOutlineCash } from "react-icons/hi";
 
 export const metadata: Metadata = {
   title: "Listings - Livora",
@@ -105,7 +106,7 @@ export default async function ListingsPage() {
               {/* Info tags */}
               <div className="flex flex-wrap gap-2">
                 <span className="flex items-center gap-2 bg-green-50 text-green-950 font-medium px-2 py-1 rounded-full">
-                  <BsCurrencyDollar />{" "}
+                  <HiOutlineCash />{" "}
                   {new Intl.NumberFormat("fr-TN", {
                     style: "currency",
                     currency: "TND",
