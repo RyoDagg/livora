@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../hooks/useAuth";
 import { HiMenu, HiX, HiCog, HiLogout, HiBookmark } from "react-icons/hi";
+import Image from "next/image";
 
 function NavLink({
   href,
@@ -74,7 +75,9 @@ export default function Navbar() {
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                     className="flex items-center focus:outline-none"
                   >
-                    <img
+                    <Image
+                      width={40}
+                      height={40}
                       src={"/default-avatar.png"}
                       alt="Profile"
                       className="h-10 w-10 rounded-full border border-gray-300 object-cover cursor-pointer hover:ring-2 hover:ring-[#53ba04] transition"
@@ -87,7 +90,9 @@ export default function Navbar() {
                         href="/profile"
                         className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                       >
-                        <img
+                        <Image
+                          width={40}
+                          height={40}
                           src={"/default-avatar.png"}
                           alt="Profile"
                           className="h-6 w-6 rounded-full"

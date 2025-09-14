@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { api } from "../lib/api";
 import { ListingInput } from "../types/Listing";
 
@@ -46,10 +47,12 @@ function ImagesUploader({
       </label>
       {form.imageURL && (
         <div className="mt-4">
-          <img
+          <Image
             src={form.imageURL}
+            width={500}
+            height={500}
             alt="Uploaded"
-            className="max-w-full h-auto rounded"
+            className="w-auto max-w-full h-auto max-h-96 rounded"
           />
         </div>
       )}
