@@ -52,20 +52,20 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-sm relative z-50">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div className="flex h-16 items-center">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold text-gray-800">
+          <Link href="/" className="text-3xl font-bold text-gray-800 ml-12">
             Livora
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden sm:flex sm:ml-6 sm:space-x-8">
+          <div className="hidden w-2xl mx-auto sm:flex sm:space-x-8">
             <NavLink href="/listings">Listings</NavLink>
             {user && <NavLink href="/listings/create">Create Listing</NavLink>}
           </div>
 
           {/* Desktop auth / profile */}
-          <div className="hidden sm:flex sm:items-center relative">
+          <div className="hidden sm:flex sm:items-center justify-end relative w-48">
             {!loading &&
               (user ? (
                 <div className="relative" ref={dropdownRef}>
@@ -131,7 +131,7 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="sm:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
+            className="sm:hidden p-2 ml-auto rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <HiX size={24} /> : <HiMenu size={24} />}
