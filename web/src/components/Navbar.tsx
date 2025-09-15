@@ -15,7 +15,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
     <Link
       href={href}
       aria-current={isActive ? 'page' : undefined}
-      className={`inline-flex items-center px-4 pt-1 border-b-3 font-medium ${
+      className={`inline-flex items-center px-4 py-1 border-b-4 font-medium transition ${
         isActive
           ? 'border-[#53ba04] text-gray-900'
           : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
@@ -28,9 +28,9 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 
 export default function Navbar() {
   const router = useRouter();
-
   const { setUser } = useAuthStore();
   const { user, loading } = useAuth();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -47,9 +47,13 @@ export default function Navbar() {
   }, []);
 
   async function handleLogout() {
-    await api.post('/auth/logout');
-    setUser(null);
-    router.push('/auth/login');
+    try {
+      await api.post('/auth/logout');
+      setUser(null);
+      router.push('/auth/login');
+    } catch (err) {
+      console.error('Logout failed', err);
+    }
   }
 
   return (
@@ -75,7 +79,9 @@ export default function Navbar() {
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setDropdownOpen(!dropdownOpen)}
-                    className="flex items-center focus:outline-none"
+                    aria-haspopup="menu"
+                    aria-expanded={dropdownOpen}
+                    className="flex items-center focus:outline-none focus:ring-2 focus:ring-[#53ba04] rounded-full"
                   >
                     <Image
                       width={40}
@@ -87,7 +93,7 @@ export default function Navbar() {
                   </button>
 
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl py-2 border border-gray-100 animate-fadeIn">
+                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-xl py-2 border border-gray-100 ring-1 ring-black/5 transition animate-fadeIn">
                       <Link
                         href="/profile"
                         className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
@@ -105,19 +111,19 @@ export default function Navbar() {
                         href="/favorites"
                         className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                       >
-                        <HiBookmark className="text-gray-500" /> Saved Listings
+                        <HiBookmark className="text-gray-500" aria-hidden="true" /> Saved Listings
                       </Link>
                       <Link
                         href="/settings"
                         className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                       >
-                        <HiCog className="text-gray-500" /> Settings
+                        <HiCog className="text-gray-500" aria-hidden="true" /> Settings
                       </Link>
                       <button
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-red-50 flex items-center gap-2"
                       >
-                        <HiLogout className="text-red-500" /> Logout
+                        <HiLogout className="text-red-500" aria-hidden="true" /> Logout
                       </button>
                     </div>
                   )}
@@ -126,13 +132,13 @@ export default function Navbar() {
                 <div className="flex items-center gap-4">
                   <Link
                     href="/auth/login"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
                   >
                     Login
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
                   >
                     Register
                   </Link>
@@ -142,8 +148,10 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="sm:hidden p-2 ml-auto rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
+            className="sm:hidden p-2 ml-auto rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#53ba04]"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             {mobileOpen ? <HiX size={24} /> : <HiMenu size={24} />}
           </button>
@@ -152,7 +160,10 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="sm:hidden border-t border-gray-200 px-4 pb-4">
+        <div
+          id="mobile-menu"
+          className="sm:hidden border-t border-gray-200 px-4 pb-4 transition-all duration-150 ease-out"
+        >
           <div className="flex flex-col space-y-2 mt-2">
             <NavLink href="/listings">Listings</NavLink>
             {user && <NavLink href="/listings/create">Create Listing</NavLink>}
