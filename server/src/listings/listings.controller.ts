@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   NotFoundException,
@@ -11,6 +10,8 @@ import {
   Req,
   InternalServerErrorException,
   Query,
+  ForbiddenException,
+  Put,
 } from '@nestjs/common';
 import { ListingsService } from './listings.service';
 import { Prisma } from 'generated/prisma';
@@ -50,9 +51,22 @@ export class ListingsController {
     return { ok: true, data: listing };
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() body: Prisma.ListingUpdateInput) {
-    return this.listingsService.update(id, body);
+  @Put(':id')
+  @UseGuards(JwtAuthGuard)
+  async update(
+    @Param('id') id: string,
+    @Body() body: Prisma.ListingUpdateInput,
+    @Req() req: any,
+  ) {
+    const listing = await this.listingsService.findOne(id);
+
+    if (!listing || listing.ownerId !== req.user.userId) {
+      throw new ForbiddenException('Not allowed to update this listing');
+    }
+
+    const updated = await this.listingsService.update(id, body);
+
+    return { ok: true, data: updated };
   }
 
   @Delete(':id')
