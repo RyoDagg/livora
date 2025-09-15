@@ -1,10 +1,12 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../hooks/useAuth';
 import { HiMenu, HiX, HiCog, HiLogout, HiBookmark } from 'react-icons/hi';
 import Image from 'next/image';
+import { api } from '../lib/api';
+import { useAuthStore } from '../lib/store';
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
@@ -25,6 +27,9 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 }
 
 export default function Navbar() {
+  const router = useRouter();
+
+  const { setUser } = useAuthStore();
   const { user, loading } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -40,6 +45,12 @@ export default function Navbar() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  async function handleLogout() {
+    await api.post('/auth/logout');
+    setUser(null);
+    router.push('/auth/login');
+  }
 
   return (
     <nav className="bg-white shadow-sm relative z-50">
@@ -102,7 +113,10 @@ export default function Navbar() {
                       >
                         <HiCog className="text-gray-500" /> Settings
                       </Link>
-                      <button className="w-full text-left px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-red-50 flex items-center gap-2">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-red-50 flex items-center gap-2"
+                      >
                         <HiLogout className="text-red-500" /> Logout
                       </button>
                     </div>
@@ -166,7 +180,10 @@ export default function Navbar() {
                   >
                     Settings
                   </Link>
-                  <button className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-red-600 bg-red-50 hover:bg-red-100">
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-red-600 bg-red-50 hover:bg-red-100"
+                  >
                     Logout
                   </button>
                 </>
