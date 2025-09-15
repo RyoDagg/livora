@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuth } from '@/src/hooks/useAuth';
-import { logout } from '@/src/lib/auth';
+import { api } from '@/src/lib/api';
 import { withAuth } from '@/src/lib/withAuth';
 import { useRouter } from 'next/navigation';
 
@@ -13,7 +13,7 @@ function ProfilePage() {
   if (!user) return <p>You are not logged in.</p>;
 
   async function handleLogout() {
-    await logout();
+    await api.post('/auth/logout');
     router.push('/auth/login');
   }
 

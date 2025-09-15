@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { login } from '@/src/lib/auth';
 import { useAuthStore } from '@/src/lib/store';
+import { api } from '@/src/lib/api';
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
@@ -15,13 +15,13 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const redirect = searchParams.get('redirectTo') || '/listings'; // Todo: replace default redirect with Dashboard when ready
+  const redirect = searchParams.get('redirectTo') || '/listings';
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
     try {
-      const { ok, user } = await login(email, password);
+      const { ok, user } = await api.post('/auth/login', { email, password });
       if (!ok) throw new Error('Login failed');
 
       setUser(user);

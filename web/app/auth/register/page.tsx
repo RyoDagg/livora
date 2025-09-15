@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { register } from '@/src/lib/auth';
 import { useAuthStore } from '@/src/lib/store';
+import { api } from '@/src/lib/api';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -19,10 +19,11 @@ export default function RegisterPage() {
     e.preventDefault();
     setError('');
     try {
-      const { ok, user } = await register(name, email, password);
+      const { ok, user } = await api.post('/auth/register', { email, password, name });
       if (!ok) throw new Error('Registration failed');
 
       setUser(user);
+      router.push('/listings');
     } catch (err: any) {
       setError(err.message || 'Registration failed');
     }
