@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { register } from "@/src/lib/auth";
-import { useAuthStore } from "@/src/lib/store";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { register } from '@/src/lib/auth';
+import { useAuthStore } from '@/src/lib/store';
 
 export default function RegisterPage() {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
 
   const { setUser } = useAuthStore();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setError('');
     try {
       const { ok, user } = await register(name, email, password);
-      if (!ok) throw new Error("Registration failed");
+      if (!ok) throw new Error('Registration failed');
 
       setUser(user);
     } catch (err: any) {
-      setError(err.message || "Registration failed");
+      setError(err.message || 'Registration failed');
     }
   }
 

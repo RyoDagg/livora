@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { login } from "@/src/lib/auth";
-import { useAuthStore } from "@/src/lib/store";
+import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { login } from '@/src/lib/auth';
+import { useAuthStore } from '@/src/lib/store';
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
@@ -11,23 +11,23 @@ export default function LoginPage() {
 
   const { setUser } = useAuthStore();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const redirect = searchParams.get("redirectTo") || "/listings"; // Todo: replace default redirect with Dashboard when ready
+  const redirect = searchParams.get('redirectTo') || '/listings'; // Todo: replace default redirect with Dashboard when ready
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setError('');
     try {
       const { ok, user } = await login(email, password);
-      if (!ok) throw new Error("Login failed");
+      if (!ok) throw new Error('Login failed');
 
       setUser(user);
       router.push(redirect);
     } catch (err: any) {
-      setError(err.message || "Login failed");
+      setError(err.message || 'Login failed');
     }
   }
 

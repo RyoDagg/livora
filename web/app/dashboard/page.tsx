@@ -1,15 +1,15 @@
-"use client";
-import { withAuth } from "@/src/lib/withAuth";
-import { api } from "@/src/lib/api";
-import { Listing } from "@/src/types/Listing";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useAuthStore } from "@/src/lib/store";
+'use client';
+import { withAuth } from '@/src/lib/withAuth';
+import { api } from '@/src/lib/api';
+import { Listing } from '@/src/types/Listing';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useAuthStore } from '@/src/lib/store';
 
 function DashboardPage() {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const { user } = useAuthStore();
 
   useEffect(() => {
@@ -18,11 +18,11 @@ function DashboardPage() {
       try {
         setLoading(true);
         const { ok, data } = await api(`/listings?ownerId=${user.id}`);
-        if (!ok) throw new Error("Failed to fetch your listings");
+        if (!ok) throw new Error('Failed to fetch your listings');
         setListings(data);
       } catch (err: any) {
-        console.error("Error fetching listings", err);
-        setError("Something went wrong while loading your listings.");
+        console.error('Error fetching listings', err);
+        setError('Something went wrong while loading your listings.');
       } finally {
         setLoading(false);
       }
@@ -31,9 +31,9 @@ function DashboardPage() {
   }, [user]);
 
   function formatPrice(value: number) {
-    return new Intl.NumberFormat("fr-TN", {
-      style: "currency",
-      currency: "TND",
+    return new Intl.NumberFormat('fr-TN', {
+      style: 'currency',
+      currency: 'TND',
     }).format(value);
   }
 
@@ -55,9 +55,7 @@ function DashboardPage() {
       {!loading && !error && (
         <>
           {listings.length === 0 ? (
-            <p className="text-gray-600 italic">
-              You don’t have any listings yet.
-            </p>
+            <p className="text-gray-600 italic">You don’t have any listings yet.</p>
           ) : (
             <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-gray-100 text-left text-gray-700">
@@ -83,9 +81,7 @@ function DashboardPage() {
                       >
                         Edit
                       </Link>
-                      <button className="text-red-600 hover:underline">
-                        Delete
-                      </button>
+                      <button className="text-red-600 hover:underline">Delete</button>
                     </td>
                   </tr>
                 ))}

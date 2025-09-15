@@ -1,41 +1,41 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { forbidden, useParams } from "next/navigation";
-import { ListingInput } from "@/src/types/Listing";
-import { withAuth } from "@/src/lib/withAuth";
-import ImagesUploader from "@/src/components/ImagesUploader";
-import { BsPencilSquare, BsTelephone } from "react-icons/bs";
-import { HiOutlineCash } from "react-icons/hi";
-import { api } from "@/src/lib/api";
-import Loader from "@/src/components/Loader";
-import { useAuthStore } from "@/src/lib/store";
+import { useEffect, useState } from 'react';
+import { forbidden, useParams } from 'next/navigation';
+import { ListingInput } from '@/src/types/Listing';
+import { withAuth } from '@/src/lib/withAuth';
+import ImagesUploader from '@/src/components/ImagesUploader';
+import { BsPencilSquare, BsTelephone } from 'react-icons/bs';
+import { HiOutlineCash } from 'react-icons/hi';
+import { api } from '@/src/lib/api';
+import Loader from '@/src/components/Loader';
+import { useAuthStore } from '@/src/lib/store';
 
 const TUNISIA_REGIONS = [
-  "Ariana",
-  "Béja",
-  "Ben Arous",
-  "Bizerte",
-  "Gabès",
-  "Gafsa",
-  "Jendouba",
-  "Kairouan",
-  "Kasserine",
-  "Kebili",
-  "Kef",
-  "Mahdia",
-  "Manouba",
-  "Medenine",
-  "Monastir",
-  "Nabeul",
-  "Sfax",
-  "Sidi Bouzid",
-  "Siliana",
-  "Sousse",
-  "Tataouine",
-  "Tozeur",
-  "Tunis",
-  "Zaghouan",
+  'Ariana',
+  'Béja',
+  'Ben Arous',
+  'Bizerte',
+  'Gabès',
+  'Gafsa',
+  'Jendouba',
+  'Kairouan',
+  'Kasserine',
+  'Kebili',
+  'Kef',
+  'Mahdia',
+  'Manouba',
+  'Medenine',
+  'Monastir',
+  'Nabeul',
+  'Sfax',
+  'Sidi Bouzid',
+  'Siliana',
+  'Sousse',
+  'Tataouine',
+  'Tozeur',
+  'Tunis',
+  'Zaghouan',
 ];
 
 function EditListingPage() {
@@ -43,7 +43,7 @@ function EditListingPage() {
   const { user } = useAuthStore();
 
   const [form, setForm] = useState<ListingInput | undefined>();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ function EditListingPage() {
       try {
         const { ok, data } = await api(`/listings/${params.id}`);
 
-        if (!ok) throw new Error("Failed to load listing");
+        if (!ok) throw new Error('Failed to load listing');
         if (user?.id !== data.ownerId) forbidden();
 
         setForm({
@@ -60,12 +60,12 @@ function EditListingPage() {
           price: data.price,
           state: data.state,
           type: data.type,
-          availableAt: data.availableAt.split("T")[0],
+          availableAt: data.availableAt.split('T')[0],
           contact: data.contact,
           imageURL: data.imageURL,
         });
       } catch (err: any) {
-        setError(err.message || "Could not load listing");
+        setError(err.message || 'Could not load listing');
       } finally {
         setLoading(false);
       }
@@ -75,9 +75,7 @@ function EditListingPage() {
   }, [params.id, user?.id]);
 
   function handleChange(
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) {
     if (!form) return;
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -87,12 +85,12 @@ function EditListingPage() {
     e.preventDefault();
     if (!form) return;
 
-    setError("");
+    setError('');
     setLoading(true);
 
     try {
       const { ok, data } = await api(`/listings/${params.id}`, {
-        method: "PUT",
+        method: 'PUT',
         body: JSON.stringify({
           ...form,
           price: Number(form.price),
@@ -100,7 +98,7 @@ function EditListingPage() {
         }),
       });
 
-      if (!ok) throw new Error("Failed to update listing");
+      if (!ok) throw new Error('Failed to update listing');
 
       setForm({
         title: data.title,
@@ -108,12 +106,12 @@ function EditListingPage() {
         price: data.price,
         state: data.state,
         type: data.type,
-        availableAt: data.availableAt.split("T")[0],
+        availableAt: data.availableAt.split('T')[0],
         contact: data.contact,
         imageURL: data.imageURL,
       });
     } catch (err: any) {
-      setError(err.message || "Something went wrong");
+      setError(err.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -128,11 +126,7 @@ function EditListingPage() {
   }
 
   if (!form) {
-    return (
-      <main className="p-6 text-center text-red-500">
-        {error || "Listing not found"}
-      </main>
-    );
+    return <main className="p-6 text-center text-red-500">{error || 'Listing not found'}</main>;
   }
 
   return (
@@ -142,10 +136,7 @@ function EditListingPage() {
         <p className="text-gray-500">Update your property details</p>
       </header>
 
-      <form
-        onSubmit={handleSubmit}
-        className="grid gap-6 bg-white p-6 rounded-xl shadow"
-      >
+      <form onSubmit={handleSubmit} className="grid gap-6 bg-white p-6 rounded-xl shadow">
         {/* Title */}
         <div className="flex items-center gap-2 border-b border-gray-300 shadow-xs p-3 focus-within:ring-2 focus-within:ring-green-400">
           <input
@@ -164,10 +155,7 @@ function EditListingPage() {
 
         {/* Description */}
         <div>
-          <label
-            htmlFor="description"
-            className="block text-sm text-gray-700 font-medium mb-1"
-          >
+          <label htmlFor="description" className="block text-sm text-gray-700 font-medium mb-1">
             Description
           </label>
           <textarea
@@ -185,10 +173,7 @@ function EditListingPage() {
         {/* Price + State */}
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label
-              htmlFor="price"
-              className="block text-sm text-gray-700 font-medium mb-1"
-            >
+            <label htmlFor="price" className="block text-sm text-gray-700 font-medium mb-1">
               Price (TND)
             </label>
             <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
@@ -207,9 +192,7 @@ function EditListingPage() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-medium mb-1">
-              Governorate
-            </label>
+            <label className="block text-gray-700 text-sm font-medium mb-1">Governorate</label>
             <select
               name="state"
               value={form.state}
@@ -230,9 +213,7 @@ function EditListingPage() {
         {/* Type + Date */}
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-gray-700 text-sm font-medium mb-1">
-              Type
-            </label>
+            <label className="block text-gray-700 text-sm font-medium mb-1">Type</label>
             <select
               name="type"
               value={form.type}
@@ -245,10 +226,7 @@ function EditListingPage() {
           </div>
 
           <div>
-            <label
-              htmlFor="availableAt"
-              className="block text-gray-700 text-sm font-medium mb-1"
-            >
+            <label htmlFor="availableAt" className="block text-gray-700 text-sm font-medium mb-1">
               Available From
             </label>
 

@@ -1,20 +1,16 @@
-"use client";
-import Loader from "@/src/components/Loader";
-import { useAuth } from "@/src/hooks/useAuth";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+'use client';
+import Loader from '@/src/components/Loader';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (!loading && user) {
-      router.replace("/dashboard");
+      router.replace('/dashboard');
     }
   }, [loading, router]);
 

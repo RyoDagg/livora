@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useAuth } from "@/src/hooks/useAuth";
-import { logout } from "@/src/lib/auth";
-import { withAuth } from "@/src/lib/withAuth";
-import { useRouter } from "next/navigation";
+import { useAuth } from '@/src/hooks/useAuth';
+import { logout } from '@/src/lib/auth';
+import { withAuth } from '@/src/lib/withAuth';
+import { useRouter } from 'next/navigation';
 
 function ProfilePage() {
   const { user, loading } = useAuth();
@@ -14,7 +14,7 @@ function ProfilePage() {
 
   async function handleLogout() {
     await logout();
-    router.push("/auth/login");
+    router.push('/auth/login');
   }
 
   return (
@@ -23,10 +23,7 @@ function ProfilePage() {
       <p>
         Welcome, {user.name} ({user.email})
       </p>
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 text-white py-2 px-4 rounded mt-4"
-      >
+      <button onClick={handleLogout} className="bg-red-500 text-white py-2 px-4 rounded mt-4">
         Logout
       </button>
     </main>

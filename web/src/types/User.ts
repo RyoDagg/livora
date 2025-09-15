@@ -1,4 +1,4 @@
-import { Listing } from "./Listing";
+import { Listing } from './Listing';
 
 export type User = {
   id: string;

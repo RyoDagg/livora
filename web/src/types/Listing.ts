@@ -4,7 +4,7 @@ export type Listing = {
   description: string;
   price: number;
   state: string;
-  type: "rent" | "sale";
+  type: 'rent' | 'sale';
   availableAt: string;
   contact: string;
   owner: { id: string; name?: string; email: string };
@@ -16,7 +16,7 @@ export type ListingInput = {
   description: string;
   price: number;
   state: string;
-  type: "rent" | "sale";
+  type: 'rent' | 'sale';
   availableAt: string;
   contact: string;
   imageURL?: string;

@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { api } from "../lib/api";
-import { ListingInput } from "../types/Listing";
+import Image from 'next/image';
+import { api } from '../lib/api';
+import { ListingInput } from '../types/Listing';
 
 function ImagesUploader({
   form,
@@ -14,31 +14,24 @@ function ImagesUploader({
     if (!files || files.length === 0) return;
 
     const formData = new FormData();
-    formData.append("file", files[0]);
+    formData.append('file', files[0]);
 
     try {
-      const { url } = await api("/files/upload", {
-        method: "POST",
+      const { url } = await api('/files/upload', {
+        method: 'POST',
         body: formData,
         headers: {},
       });
 
       setForm({ ...form, imageURL: url });
     } catch (error) {
-      console.error("Upload failed:", error);
+      console.error('Upload failed:', error);
     }
   }
 
   return (
     <div>
-      <input
-        onChange={handleUpload}
-        type="file"
-        name=""
-        id="image"
-        accept="image/*"
-        hidden
-      />
+      <input onChange={handleUpload} type="file" name="" id="image" accept="image/*" hidden />
       <label
         htmlFor="image"
         className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"

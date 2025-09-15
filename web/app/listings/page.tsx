@@ -1,39 +1,27 @@
-import { api } from "@/src/lib/api";
-import { Listing } from "@/src/types/Listing";
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { BsHousesFill, BsPersonCircle } from "react-icons/bs";
-import {
-  FaHome,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaRegCalendarAlt,
-  FaSearch,
-} from "react-icons/fa";
-import { GiTunisia } from "react-icons/gi";
-import { HiOutlineCash } from "react-icons/hi";
+import { api } from '@/src/lib/api';
+import { Listing } from '@/src/types/Listing';
+import { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { BsHousesFill, BsPersonCircle } from 'react-icons/bs';
+import { FaHome, FaMapMarkerAlt, FaPhoneAlt, FaRegCalendarAlt, FaSearch } from 'react-icons/fa';
+import { GiTunisia } from 'react-icons/gi';
+import { HiOutlineCash } from 'react-icons/hi';
 
 export const metadata: Metadata = {
-  title: "Listings - Livora",
-  description: "Browse the latest real estate listings in Tunisia.",
+  title: 'Listings - Livora',
+  description: 'Browse the latest real estate listings in Tunisia.',
 };
 
 async function fetchListings(): Promise<Listing[]> {
-  const { ok, data } = await api("/listings", {
+  const { ok, data } = await api('/listings', {
     next: { revalidate: 10 },
   });
-  if (!ok) throw new Error("Failed to fetch listings");
+  if (!ok) throw new Error('Failed to fetch listings');
   return data;
 }
 
-function InputWithIcon({
-  icon,
-  placeholder,
-}: {
-  icon: React.ReactNode;
-  placeholder: string;
-}) {
+function InputWithIcon({ icon, placeholder }: { icon: React.ReactNode; placeholder: string }) {
   return (
     <div className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 shadow-sm focus-within:border-gray-500 transition">
       {icon}
@@ -72,9 +60,7 @@ export default async function ListingsPage() {
       </section>
 
       {/* No Results */}
-      {listings.length === 0 && (
-        <p className="text-gray-500 italic">No listings found.</p>
-      )}
+      {listings.length === 0 && <p className="text-gray-500 italic">No listings found.</p>}
 
       {/* Listings */}
       <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -84,7 +70,7 @@ export default async function ListingsPage() {
             className="rounded-xl shadow hover:shadow-lg transition overflow-hidden bg-white flex flex-col border border-gray-200"
           >
             <Image
-              src={listing.imageURL || "/listing-placeholder.png"}
+              src={listing.imageURL || '/listing-placeholder.png'}
               alt={listing.title}
               width={400}
               height={250}
@@ -92,24 +78,19 @@ export default async function ListingsPage() {
             />
             <div className="p-4 flex flex-col flex-1">
               <h2 className="text-lg font-semibold mb-1">
-                <Link
-                  href={`/listings/${listing.id}`}
-                  className="hover:underline"
-                >
+                <Link href={`/listings/${listing.id}`} className="hover:underline">
                   {listing.title}
                 </Link>
               </h2>
-              <p className="text-sm text-gray-600 line-clamp-2 mb-3">
-                {listing.description}
-              </p>
+              <p className="text-sm text-gray-600 line-clamp-2 mb-3">{listing.description}</p>
 
               {/* Info tags */}
               <div className="flex flex-wrap gap-2">
                 <span className="flex items-center gap-2 bg-green-50 text-green-950 font-medium px-2 py-1 rounded-full">
-                  <HiOutlineCash />{" "}
-                  {new Intl.NumberFormat("fr-TN", {
-                    style: "currency",
-                    currency: "TND",
+                  <HiOutlineCash />{' '}
+                  {new Intl.NumberFormat('fr-TN', {
+                    style: 'currency',
+                    currency: 'TND',
                   }).format(listing.price)}
                 </span>
                 <span className="flex items-center gap-2 bg-blue-50 text-blue-950 font-medium px-2 py-1 rounded-full">
@@ -119,8 +100,7 @@ export default async function ListingsPage() {
                   <FaMapMarkerAlt /> {listing.state}
                 </span>
                 <span className="flex items-center gap-2 bg-yellow-50 text-yellow-950 font-medium px-2 py-1 rounded-full">
-                  <FaRegCalendarAlt />{" "}
-                  {new Date(listing.availableAt).toLocaleDateString("fr-TN")}
+                  <FaRegCalendarAlt /> {new Date(listing.availableAt).toLocaleDateString('fr-TN')}
                 </span>
                 <span className="flex items-center gap-2 bg-purple-50 text-purple-950 font-medium px-2 py-1 rounded-full">
                   <FaPhoneAlt /> {listing.contact}

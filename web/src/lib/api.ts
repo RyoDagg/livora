@@ -3,9 +3,9 @@ export const api = async (url: string, options: RequestInit = {}) => {
   const res = await fetch(`${baseUrl}${url}`, {
     ...options,
     headers: options.headers || {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    credentials: "include",
+    credentials: 'include',
   });
 
   if (!res.ok) {

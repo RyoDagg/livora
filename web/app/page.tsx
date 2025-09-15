@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -9,8 +9,7 @@ export default function Home() {
             Welcome to <span className="text-[#53ba04]">Livora</span>
           </h1>
           <p className="text-3xl text-center sm:text-left w-1/2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem,
-            ipsum dolor.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem, ipsum dolor.
           </p>
           <div className="flex gap-4 flex-wrap justify-center sm:justify-start">
             <Link

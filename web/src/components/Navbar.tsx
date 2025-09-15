@@ -1,28 +1,22 @@
-"use client";
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useAuth } from "../hooks/useAuth";
-import { HiMenu, HiX, HiCog, HiLogout, HiBookmark } from "react-icons/hi";
-import Image from "next/image";
+'use client';
+import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useAuth } from '../hooks/useAuth';
+import { HiMenu, HiX, HiCog, HiLogout, HiBookmark } from 'react-icons/hi';
+import Image from 'next/image';
 
-function NavLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
   const isActive = pathname === href;
   return (
     <Link
       href={href}
-      aria-current={isActive ? "page" : undefined}
+      aria-current={isActive ? 'page' : undefined}
       className={`inline-flex items-center px-4 pt-1 border-b-3 font-medium ${
         isActive
-          ? "border-[#53ba04] text-gray-900"
-          : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          ? 'border-[#53ba04] text-gray-900'
+          : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
       }`}
     >
       {children}
@@ -39,15 +33,12 @@ export default function Navbar() {
   // Close dropdown if click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -78,7 +69,7 @@ export default function Navbar() {
                     <Image
                       width={40}
                       height={40}
-                      src={"/default-avatar.png"}
+                      src={'/default-avatar.png'}
                       alt="Profile"
                       className="h-10 w-10 rounded-full border border-gray-300 object-cover cursor-pointer hover:ring-2 hover:ring-[#53ba04] transition"
                     />
@@ -93,7 +84,7 @@ export default function Navbar() {
                         <Image
                           width={40}
                           height={40}
-                          src={"/default-avatar.png"}
+                          src={'/default-avatar.png'}
                           alt="Profile"
                           className="h-6 w-6 rounded-full"
                         />

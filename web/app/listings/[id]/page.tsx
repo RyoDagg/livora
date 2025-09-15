@@ -1,21 +1,16 @@
-import Image from "next/image";
-import { api } from "@/src/lib/api";
-import { Listing } from "@/src/types/Listing";
-import { BsPersonCircle } from "react-icons/bs";
-import {
-  FaHome,
-  FaMapMarkerAlt,
-  FaRegCalendarAlt,
-  FaPhoneAlt,
-} from "react-icons/fa";
-import { HiOutlineCash } from "react-icons/hi";
+import Image from 'next/image';
+import { api } from '@/src/lib/api';
+import { Listing } from '@/src/types/Listing';
+import { BsPersonCircle } from 'react-icons/bs';
+import { FaHome, FaMapMarkerAlt, FaRegCalendarAlt, FaPhoneAlt } from 'react-icons/fa';
+import { HiOutlineCash } from 'react-icons/hi';
 
 async function fetchListing(id: string): Promise<Listing> {
   const { ok, data } = await api(`/listings/${id}`, {
     next: { revalidate: 10 },
   });
 
-  if (!ok) throw new Error("Failed to fetch listing");
+  if (!ok) throw new Error('Failed to fetch listing');
   return data;
 }
 
@@ -37,11 +32,7 @@ function InfoTag({
   );
 }
 
-export default async function ListingPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function ListingPage({ params }: { params: { id: string } }) {
   const listing = await fetchListing(params.id);
 
   return (
@@ -50,7 +41,7 @@ export default async function ListingPage({
         {/* Image */}
         <div className="relative h-72 w-full">
           <Image
-            src={listing.imageURL || "/listing-placeholder.png"}
+            src={listing.imageURL || '/listing-placeholder.png'}
             alt={listing.title}
             fill
             className="object-cover"
@@ -64,13 +55,10 @@ export default async function ListingPage({
 
           {/* Info Tags */}
           <div className="flex flex-wrap gap-2">
-            <InfoTag
-              icon={<HiOutlineCash />}
-              className="bg-green-50 text-green-950"
-            >
-              {new Intl.NumberFormat("fr-TN", {
-                style: "currency",
-                currency: "TND",
+            <InfoTag icon={<HiOutlineCash />} className="bg-green-50 text-green-950">
+              {new Intl.NumberFormat('fr-TN', {
+                style: 'currency',
+                currency: 'TND',
               }).format(listing.price)}
             </InfoTag>
 
@@ -78,31 +66,19 @@ export default async function ListingPage({
               {listing.type}
             </InfoTag>
 
-            <InfoTag
-              icon={<FaMapMarkerAlt />}
-              className="bg-gray-50 text-gray-950"
-            >
+            <InfoTag icon={<FaMapMarkerAlt />} className="bg-gray-50 text-gray-950">
               {listing.state}
             </InfoTag>
 
-            <InfoTag
-              icon={<FaRegCalendarAlt />}
-              className="bg-yellow-50 text-yellow-950"
-            >
-              {new Date(listing.availableAt).toLocaleDateString("fr-TN")}
+            <InfoTag icon={<FaRegCalendarAlt />} className="bg-yellow-50 text-yellow-950">
+              {new Date(listing.availableAt).toLocaleDateString('fr-TN')}
             </InfoTag>
 
-            <InfoTag
-              icon={<FaPhoneAlt />}
-              className="bg-purple-50 text-purple-950"
-            >
+            <InfoTag icon={<FaPhoneAlt />} className="bg-purple-50 text-purple-950">
               {listing.contact}
             </InfoTag>
 
-            <InfoTag
-              icon={<BsPersonCircle />}
-              className="bg-pink-50 text-pink-950"
-            >
+            <InfoTag icon={<BsPersonCircle />} className="bg-pink-50 text-pink-950">
               {listing.owner.name ?? listing.owner.email}
             </InfoTag>
           </div>
