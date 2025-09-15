@@ -63,13 +63,10 @@ function CreateListingPage() {
     setError('');
     setLoading(true);
     try {
-      const { ok, data } = await api('/listings', {
-        method: 'POST',
-        body: JSON.stringify({
-          ...form,
-          price: Number(form.price),
-          availableAt: new Date(form.availableAt).toISOString(),
-        }),
+      const { ok, data } = await api.post('/listings', {
+        ...form,
+        price: Number(form.price),
+        availableAt: new Date(form.availableAt).toISOString(),
       });
 
       if (!ok) throw new Error('Failed to create listing');
@@ -126,11 +123,12 @@ function CreateListingPage() {
         {/* Price + State */}
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="description" className="block text-sm text-gray-700 font-medium mb-1">
+            <label htmlFor="price" className="block text-sm text-gray-700 font-medium mb-1">
               Price (TND)
             </label>
             <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
               <input
+                id="price"
                 name="price"
                 type="number"
                 placeholder="e.g 350(TND)"

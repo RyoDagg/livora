@@ -49,7 +49,7 @@ function EditListingPage() {
   useEffect(() => {
     async function fetchListing() {
       try {
-        const { ok, data } = await api(`/listings/${params.id}`);
+        const { ok, data } = await api.get(`/listings/${params.id}`);
 
         if (!ok) throw new Error('Failed to load listing');
         if (user?.id !== data.ownerId) forbidden();
@@ -89,13 +89,10 @@ function EditListingPage() {
     setLoading(true);
 
     try {
-      const { ok, data } = await api(`/listings/${params.id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          ...form,
-          price: Number(form.price),
-          availableAt: new Date(form.availableAt).toISOString(),
-        }),
+      const { ok, data } = await api.put(`/listings/${params.id}`, {
+        ...form,
+        price: Number(form.price),
+        availableAt: new Date(form.availableAt).toISOString(),
       });
 
       if (!ok) throw new Error('Failed to update listing');

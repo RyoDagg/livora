@@ -17,7 +17,7 @@ function DashboardPage() {
       if (!user) return;
       try {
         setLoading(true);
-        const { ok, data } = await api(`/listings?ownerId=${user.id}`);
+        const { ok, data } = await api.get(`/listings?ownerId=${user.id}`);
         if (!ok) throw new Error('Failed to fetch your listings');
         setListings(data);
       } catch (err: any) {

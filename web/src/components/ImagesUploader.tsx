@@ -17,11 +17,7 @@ function ImagesUploader({
     formData.append('file', files[0]);
 
     try {
-      const { url } = await api('/files/upload', {
-        method: 'POST',
-        body: formData,
-        headers: {},
-      });
+      const { url } = await api.upload('/files/upload', formData);
 
       setForm({ ...form, imageURL: url });
     } catch (error) {

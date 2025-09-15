@@ -6,7 +6,7 @@ import { FaHome, FaMapMarkerAlt, FaRegCalendarAlt, FaPhoneAlt } from 'react-icon
 import { HiOutlineCash } from 'react-icons/hi';
 
 async function fetchListing(id: string): Promise<Listing> {
-  const { ok, data } = await api(`/listings/${id}`, {
+  const { ok, data } = await api.get(`/listings/${id}`, {
     next: { revalidate: 10 },
   });
 

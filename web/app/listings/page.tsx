@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 async function fetchListings(): Promise<Listing[]> {
-  const { ok, data } = await api('/listings', {
+  const { ok, data } = await api.get('/listings', {
     next: { revalidate: 10 },
   });
   if (!ok) throw new Error('Failed to fetch listings');
