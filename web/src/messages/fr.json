@@ -1,0 +1,26 @@
+{
+  "listings": {
+    "title": "Annonces",
+    "description": "Découvrez les dernières opportunités immobilières",
+
+    "create": "Déposer une annonce",
+    "new": "+ Nouvelle annonce",
+    "mine": "Mes annonces",
+    "details": "Plus de détails",
+    "no_results": "Aucune annonce trouvée.",
+
+    "rent": "À louer",
+    "sale": "À vendre",
+
+    "filter": {
+      "search": "Rechercher des annonces...",
+      "state": "Filtrer par localisation..."
+    }
+  },
+
+  "auth": {
+    "login": "Connexion",
+    "register": "Inscription",
+    "logout": "Déconnexion"
+  }
+}

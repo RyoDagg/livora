@@ -1,6 +1,7 @@
 import { api } from '@/src/lib/api';
 import { Listing } from '@/src/types/Listing';
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BsHousesFill, BsPersonCircle } from 'react-icons/bs';
@@ -37,31 +38,32 @@ function InputWithIcon({ icon, placeholder }: { icon: React.ReactNode; placehold
 
 export default async function ListingsPage() {
   const listings = await fetchListings();
+  const t = await getTranslations('listings');
 
   return (
     <main className="p-6 max-w-6xl mx-auto">
       <header className="mb-6">
-        <h1 className="flex items-center gap-2 text-3xl text-gray-800 font-bold">
-          <BsHousesFill className="text-[#53ba04] text-4xl" /> Listings
+        <h1 className="flex items-center gap-2 text-3xl text-gray-800 font-bold mb-1">
+          <BsHousesFill className="text-[#53ba04] text-4xl" /> {t('title')}
         </h1>
 
-        <p className="text-gray-600">Browse the latest real estate offers</p>
+        <p className="text-gray-600">{t('description')}</p>
       </header>
 
       {/* Filters */}
       <section className="flex flex-wrap gap-3 mb-8">
         <InputWithIcon
           icon={<FaSearch className="text-gray-500" />}
-          placeholder="Search listings..."
+          placeholder={t('filter.search')}
         />
         <InputWithIcon
           icon={<GiTunisia className="text-gray-500 text-xl" />}
-          placeholder="Filter by state..."
+          placeholder={t('filter.state')}
         />
       </section>
 
       {/* No Results */}
-      {listings.length === 0 && <p className="text-gray-500 italic">No listings found.</p>}
+      {listings.length === 0 && <p className="text-gray-500 italic">{t('no_results')}</p>}
 
       {/* Listings */}
       <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -94,7 +96,7 @@ export default async function ListingsPage() {
                   }).format(listing.price)}
                 </span>
                 <span className="flex items-center gap-2 bg-blue-50 text-blue-950 font-medium px-2 py-1 rounded-full">
-                  <FaHome /> {listing.type}
+                  <FaHome /> {t(listing.type)}
                 </span>
                 <span className="flex items-center gap-2 bg-gray-50 text-gray-950 font-medium px-2 py-1 rounded-full">
                   <FaMapMarkerAlt /> {listing.state}
@@ -114,7 +116,7 @@ export default async function ListingsPage() {
               href={`/listings/${listing.id}`}
               className="inline-flex items-center gap-2 ml-auto text-blue-800 font-medium px-4 py-2 rounded-lg hover:underline transition"
             >
-              More details
+              {t('details')}
               <FaArrowRightLong aria-hidden="true" />
             </Link>
           </article>
