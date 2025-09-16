@@ -7,6 +7,7 @@ import { HiMenu, HiX, HiCog, HiLogout, HiBookmark } from 'react-icons/hi';
 import Image from 'next/image';
 import { api } from '../lib/api';
 import { useAuthStore } from '../lib/store';
+import LocaleSwitcher from './LocaleSwitcher';
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
@@ -130,6 +131,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
+                  <LocaleSwitcher />
                   <Link
                     href="/auth/login"
                     className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
