@@ -4,10 +4,13 @@
     "description": "Explore the latest real estate opportunities",
 
     "create": "Create Listing",
+    "create_description": "Fill in details to publish your property",
+
     "new": "+ Add Listing",
     "mine": "My Listings",
     "details": "View details",
     "no_results": "No listings found.",
+    "publish": "Publish Listing",
 
     "rent": "Rent",
     "sale": "Sale",
@@ -15,6 +18,23 @@
     "filter": {
       "search": "Search listings...",
       "state": "Filter by location..."
+    },
+
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "price": "Price (TND)",
+      "state": "Governorate",
+      "type": "Type",
+      "available_at": "Available From",
+      "contact": "Contact"
+    },
+
+    "placeholders": {
+      "description": "Describe the property...",
+      "price": "e.g. 350 (TND)",
+      "state": "Select a region",
+      "contact": "Phone / Email"
     }
   },
 

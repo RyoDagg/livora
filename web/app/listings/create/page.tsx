@@ -9,6 +9,7 @@ import { BsPencilSquare, BsTelephone } from 'react-icons/bs';
 import { HiOutlineCash } from 'react-icons/hi';
 import { api } from '@/src/lib/api';
 import Loader from '@/src/components/Loader';
+import { useTranslations } from 'next-intl';
 
 const TUNISIA_REGIONS = [
   'Ariana',
@@ -39,6 +40,9 @@ const TUNISIA_REGIONS = [
 
 function CreateListingPage() {
   const router = useRouter();
+
+  const t = useTranslations('listings');
+
   const [form, setForm] = useState<ListingInput>({
     title: '',
     description: '',
@@ -82,8 +86,8 @@ function CreateListingPage() {
   return (
     <main className="p-6 max-w-3xl mx-auto">
       <header className="mb-6 text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Create Listing</h1>
-        <p className="text-gray-500">Fill in details to publish your property</p>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">{t('create')}</h1>
+        <p className="text-gray-500">{t('create_description')}</p>
       </header>
 
       <form onSubmit={handleSubmit} className="grid gap-6 bg-white p-6 rounded-xl shadow">
@@ -92,7 +96,7 @@ function CreateListingPage() {
           <input
             id="title"
             name="title"
-            placeholder="Title"
+            placeholder={t('fields.title')}
             value={form.title}
             onChange={handleChange}
             required
@@ -106,7 +110,7 @@ function CreateListingPage() {
         {/* Description */}
         <div>
           <label htmlFor="description" className="block text-sm text-gray-700 font-medium mb-1">
-            Description
+            {t('fields.description')}
           </label>
           <textarea
             id="description"
@@ -115,7 +119,7 @@ function CreateListingPage() {
             onChange={handleChange}
             className="w-full text-gray-800 border border-gray-300 rounded-lg p-3 shadow-xs outline-0 focus:ring-2 focus:ring-green-400"
             rows={4}
-            placeholder="Describe the property..."
+            placeholder={t('placeholders.description')}
             required
           />
         </div>
@@ -124,14 +128,14 @@ function CreateListingPage() {
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label htmlFor="price" className="block text-sm text-gray-700 font-medium mb-1">
-              Price (TND)
+              {t('fields.price')}
             </label>
             <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
               <input
                 id="price"
                 name="price"
                 type="number"
-                placeholder="e.g 350(TND)"
+                placeholder={t('placeholders.price')}
                 value={form.price}
                 onChange={handleChange}
                 className="flex-1 outline-none text-gray-800 font-medium"
@@ -142,7 +146,9 @@ function CreateListingPage() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-medium mb-1">Governorate</label>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
+              {t('fields.state')}
+            </label>
             <select
               name="state"
               value={form.state}
@@ -150,7 +156,7 @@ function CreateListingPage() {
               className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:ring-2 focus:ring-green-400"
               required
             >
-              <option value="">Select a region</option>
+              <option value="">{t('placeholders.state')}</option>
               {TUNISIA_REGIONS.map((region) => (
                 <option key={region} value={region}>
                   {region}
@@ -163,21 +169,23 @@ function CreateListingPage() {
         {/* Type + Date */}
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-gray-700 text-sm font-medium mb-1">Type</label>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
+              {t('fields.type')}
+            </label>
             <select
               name="type"
               value={form.type}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:ring-2 focus:ring-green-400"
             >
-              <option value="rent">For Rent</option>
-              <option value="sale">For Sale</option>
+              <option value="rent">{t('rent')}</option>
+              <option value="sale">{t('sale')}</option>
             </select>
           </div>
 
           <div>
             <label htmlFor="availableAt" className="block text-gray-700 text-sm font-medium mb-1">
-              Available From
+              {t('fields.available_at')}
             </label>
 
             <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
@@ -199,7 +207,7 @@ function CreateListingPage() {
           {<BsTelephone className="text-gray-500" />}
           <input
             name="contact"
-            placeholder="Phone / Email"
+            placeholder={t('placeholders.contact')}
             value={form.contact}
             onChange={handleChange}
             required
@@ -222,7 +230,7 @@ function CreateListingPage() {
           disabled={loading}
           className="w-full bg-green-500 text-white py-3 rounded-lg font-medium hover:bg-green-600 transition disabled:opacity-50"
         >
-          {loading ? <Loader /> : 'Publish Listing'}
+          {loading ? <Loader /> : t('publish')}
         </button>
       </form>
     </main>

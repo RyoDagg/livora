@@ -4,10 +4,13 @@
     "description": "Découvrez les dernières opportunités immobilières",
 
     "create": "Créer une annonce",
+    "create_description": "Remplissez les détails pour publier votre bien",
+
     "new": "+ Nouvelle annonce",
     "mine": "Mes annonces",
     "details": "Plus de détails",
     "no_results": "Aucune annonce trouvée.",
+    "publish": "Publier l'annonce",
 
     "rent": "À louer",
     "sale": "À vendre",
@@ -15,6 +18,23 @@
     "filter": {
       "search": "Rechercher des annonces...",
       "state": "Filtrer par localisation..."
+    },
+
+    "fields": {
+      "title": "Titre",
+      "description": "Description",
+      "price": "Prix (TND)",
+      "state": "Gouvernorat",
+      "type": "Type",
+      "available_at": "Disponible à partir de",
+      "contact": "Contact"
+    },
+
+    "placeholders": {
+      "description": "Décrivez le bien...",
+      "price": "ex. 350 (TND)",
+      "state": "Sélectionnez une région",
+      "contact": "Téléphone / Email"
     }
   },
 
