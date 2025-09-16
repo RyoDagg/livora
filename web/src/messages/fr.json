@@ -3,7 +3,7 @@
     "title": "Annonces",
     "description": "Découvrez les dernières opportunités immobilières",
 
-    "create": "Déposer une annonce",
+    "create": "Créer une annonce",
     "new": "+ Nouvelle annonce",
     "mine": "Mes annonces",
     "details": "Plus de détails",
@@ -18,9 +18,14 @@
     }
   },
 
-  "auth": {
+  "dashboard": {
+    "title": "Tableau de bord"
+  },
+
+  "user": {
     "login": "Connexion",
     "register": "Inscription",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "profile": "Profil"
   }
 }

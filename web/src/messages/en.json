@@ -3,7 +3,7 @@
     "title": "Listings",
     "description": "Explore the latest real estate opportunities",
 
-    "create": "Post a Listing",
+    "create": "Create Listing",
     "new": "+ Add Listing",
     "mine": "My Listings",
     "details": "View details",
@@ -18,9 +18,14 @@
     }
   },
 
-  "auth": {
+  "dashboard": {
+    "title": "Dashboard"
+  },
+
+  "user": {
     "login": "Login",
     "register": "Register",
-    "logout": "logout"
+    "logout": "Logout",
+    "profile": "Profile"
   }
 }

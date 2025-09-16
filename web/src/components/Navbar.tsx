@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { api } from '../lib/api';
 import { useAuthStore } from '../lib/store';
 import LocaleSwitcher from './LocaleSwitcher';
+import { useTranslations } from 'next-intl';
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
@@ -31,6 +32,8 @@ export default function Navbar() {
   const router = useRouter();
   const { setUser } = useAuthStore();
   const { user, loading } = useAuth();
+
+  const t = useTranslations();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -68,13 +71,15 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden w-2xl mx-auto sm:flex sm:space-x-8">
-            <NavLink href="/listings">Listings</NavLink>
-            {user && <NavLink href="/listings/create">Create Listing</NavLink>}
-            {user && <NavLink href="/dashboard">Dashboard</NavLink>}
+            <NavLink href="/listings">{t('listings.title')}</NavLink>
+            {user && <NavLink href="/listings/create">{t('listings.create')}</NavLink>}
+            {user && <NavLink href="/dashboard">{t('dashboard.title')}</NavLink>}
           </div>
 
           {/* Desktop auth / profile */}
-          <div className="hidden sm:flex sm:items-center justify-end relative w-48">
+          <div className="hidden sm:flex sm:items-center justify-end gap-4 relative w-48">
+            <LocaleSwitcher />
+
             {!loading &&
               (user ? (
                 <div className="relative" ref={dropdownRef}>
@@ -106,7 +111,7 @@ export default function Navbar() {
                           alt="Profile"
                           className="h-6 w-6 rounded-full"
                         />
-                        Profile
+                        {t('user.profile')}
                       </Link>
                       <Link
                         href="/favorites"
@@ -124,25 +129,25 @@ export default function Navbar() {
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-red-50 flex items-center gap-2"
                       >
-                        <HiLogout className="text-red-500" aria-hidden="true" /> Logout
+                        <HiLogout className="text-red-500" aria-hidden="true" />
+                        {t('user.logout')}
                       </button>
                     </div>
                   )}
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
-                  <LocaleSwitcher />
                   <Link
                     href="/auth/login"
                     className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
                   >
-                    Login
+                    {t('user.login')}
                   </Link>
                   <Link
                     href="/auth/register"
                     className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
                   >
-                    Register
+                    {t('user.register')}
                   </Link>
                 </div>
               ))}
@@ -167,8 +172,9 @@ export default function Navbar() {
           className="sm:hidden border-t border-gray-200 px-4 pb-4 transition-all duration-150 ease-out"
         >
           <div className="flex flex-col space-y-2 mt-2">
-            <NavLink href="/listings">Listings</NavLink>
-            {user && <NavLink href="/listings/create">Create Listing</NavLink>}
+            <NavLink href="/listings">{t('listings.title')}</NavLink>
+            {user && <NavLink href="/listings/create">{t('listings.create')}</NavLink>}
+            {user && <NavLink href="/dashboard">{t('dashboard.title')}</NavLink>}
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
@@ -179,7 +185,7 @@ export default function Navbar() {
                     href="/profile"
                     className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-gray-700 bg-gray-50 hover:bg-gray-100"
                   >
-                    Profile
+                    {t('user.profile')}
                   </Link>
                   <Link
                     href="/favorites"
@@ -197,7 +203,7 @@ export default function Navbar() {
                     onClick={handleLogout}
                     className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-red-600 bg-red-50 hover:bg-red-100"
                   >
-                    Logout
+                    {t('user.logout')}
                   </button>
                 </>
               ) : (
@@ -206,13 +212,13 @@ export default function Navbar() {
                     href="/auth/login"
                     className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
                   >
-                    Login
+                    {t('user.login')}
                   </Link>
                   <Link
                     href="/auth/register"
                     className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
                   >
-                    Register
+                    {t('user.register')}
                   </Link>
                 </>
               ))}
