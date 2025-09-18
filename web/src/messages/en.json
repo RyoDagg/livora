@@ -46,6 +46,12 @@
     "title": "Dashboard"
   },
 
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View"
+  },
+
   "user": {
     "login": "Login",
     "register": "Register",

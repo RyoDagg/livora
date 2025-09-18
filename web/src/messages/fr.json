@@ -46,6 +46,12 @@
     "title": "Tableau de bord"
   },
 
+  "actions": {
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "view": "Voir"
+  },
+
   "user": {
     "login": "Connexion",
     "register": "Inscription",
