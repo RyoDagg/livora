@@ -6,6 +6,10 @@
     "create": "Créer une annonce",
     "create_description": "Remplissez les détails pour publier votre bien",
 
+    "edit": "Modifier l'annonce",
+    "edit_description": "Mettre à jour les détails de votre bien",
+    "save_changes": "Enregistrer les modifications",
+
     "new": "+ Nouvelle annonce",
     "mine": "Mes annonces",
     "details": "Plus de détails",

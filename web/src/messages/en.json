@@ -6,6 +6,10 @@
     "create": "Create Listing",
     "create_description": "Fill in details to publish your property",
 
+    "edit": "Edit Listing",
+    "edit_description": "Update the details of your property",
+    "save_changes": "Save Changes",
+
     "new": "+ Add Listing",
     "mine": "My Listings",
     "details": "View details",
