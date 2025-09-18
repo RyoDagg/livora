@@ -16,8 +16,6 @@ This project also **addresses a real-world problem** in Tunisia’s real estate 
 
 Once the **Minimum Lovable Product (MLP)** is ready, it will be **hosted and advertised for free use** to help people and agencies in Tunisia.
 
-📅 **Target MLP release: 01/10/2025**
-
 ---
 
 ## 🚀 Project Status
