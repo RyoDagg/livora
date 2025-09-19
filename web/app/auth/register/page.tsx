@@ -24,8 +24,9 @@ export default function RegisterPage() {
 
       setUser(user);
       router.push('/listings');
-    } catch (err: any) {
-      setError(err.message || 'Registration failed');
+    } catch (err) {
+      console.error('Error during registration', err);
+      setError('Registration failed');
     }
   }
 

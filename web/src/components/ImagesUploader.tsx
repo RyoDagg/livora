@@ -20,8 +20,8 @@ function ImagesUploader({
       const { url } = await api.upload('/files/upload', formData);
 
       setForm({ ...form, imageURL: url });
-    } catch (error) {
-      console.error('Upload failed:', error);
+    } catch (err) {
+      console.error('Upload failed:', err);
     }
   }
 

@@ -24,7 +24,7 @@ function DashboardPage() {
         const { ok, data } = await api.get(`/listings?ownerId=${user.id}`);
         if (!ok) throw new Error('Failed to fetch your listings');
         setListings(data);
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching listings', err);
         setError('Something went wrong while loading your listings.');
       } finally {

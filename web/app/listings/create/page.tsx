@@ -76,8 +76,9 @@ function CreateListingPage() {
       if (!ok) throw new Error('Failed to create listing');
 
       router.push(`/listings/${data.id}`);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong');
+    } catch (err) {
+      console.error('Error creating listing', err);
+      setError('Something went wrong');
     } finally {
       setLoading(false);
     }

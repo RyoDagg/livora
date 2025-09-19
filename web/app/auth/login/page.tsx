@@ -26,8 +26,9 @@ export default function LoginPage() {
 
       setUser(user);
       router.push(redirect);
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
+    } catch (err) {
+      console.error('Error during login', err);
+      setError('Login failed');
     }
   }
 

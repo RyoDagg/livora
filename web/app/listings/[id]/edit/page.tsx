@@ -66,8 +66,9 @@ function EditListingPage() {
           contact: data.contact,
           imageURL: data.imageURL,
         });
-      } catch (err: any) {
-        setError(err.message || 'Could not load listing');
+      } catch (err) {
+        console.error('Error fetching listing', err);
+        setError('Could not load listing');
       } finally {
         setLoading(false);
       }
@@ -109,8 +110,9 @@ function EditListingPage() {
         contact: data.contact,
         imageURL: data.imageURL,
       });
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong');
+    } catch (err) {
+      console.error('Error updating listing', err);
+      setError('Could not update listing');
     } finally {
       setLoading(false);
     }
