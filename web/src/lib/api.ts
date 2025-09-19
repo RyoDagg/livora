@@ -22,7 +22,7 @@ class ApiService {
     return this.request(path, options);
   }
 
-  post(path: string, body?: any, options?: RequestInit) {
+  post(path: string, body?: Record<string, unknown>, options?: RequestInit) {
     options = {
       ...options,
       body: JSON.stringify(body),
@@ -31,7 +31,7 @@ class ApiService {
     return this.request(path, options);
   }
 
-  put(path: string, body?: any, options?: RequestInit) {
+  put(path: string, body?: Record<string, unknown>, options?: RequestInit) {
     options = {
       ...options,
       body: JSON.stringify(body),
