@@ -16,6 +16,7 @@ export class ListingsService {
     priceMin?: number;
     priceMax?: number;
     ownerId?: string;
+    query?: string;
   }) {
     const where: Prisma.ListingWhereInput = {};
 
@@ -28,6 +29,15 @@ export class ListingsService {
         where.price = {};
         if (filters.priceMin) where.price.gte = filters.priceMin;
         if (filters.priceMax) where.price.lte = filters.priceMax;
+      }
+
+      if (filters.query) {
+        where.OR = [
+          { title: { contains: filters.query, mode: 'insensitive' } },
+          { description: { contains: filters.query, mode: 'insensitive' } },
+          { state: { contains: filters.query, mode: 'insensitive' } },
+          { contact: { contains: filters.query, mode: 'insensitive' } },
+        ];
       }
     }
 

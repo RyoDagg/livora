@@ -1,3 +1,4 @@
+import ListingsFilters from '@/src/components/ListingsFilters';
 import { api } from '@/src/lib/api';
 import { Listing } from '@/src/types/Listing';
 import { Metadata } from 'next';
@@ -5,9 +6,8 @@ import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BsHousesFill, BsPersonCircle } from 'react-icons/bs';
-import { FaHome, FaMapMarkerAlt, FaPhoneAlt, FaRegCalendarAlt, FaSearch } from 'react-icons/fa';
+import { FaHome, FaMapMarkerAlt, FaPhoneAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { FaArrowRightLong } from 'react-icons/fa6';
-import { GiTunisia } from 'react-icons/gi';
 import { HiOutlineCash } from 'react-icons/hi';
 
 export const metadata: Metadata = {
@@ -15,29 +15,35 @@ export const metadata: Metadata = {
   description: 'Browse the latest real estate listings in Tunisia.',
 };
 
-async function fetchListings(): Promise<Listing[]> {
-  const { ok, data } = await api.get('/listings', {
+type ListingsFilters = {
+  query?: string;
+  state?: string;
+};
+
+async function fetchListings(filters: ListingsFilters): Promise<Listing[]> {
+  const queryParams = new URLSearchParams();
+
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) {
+      queryParams.append(key, value.toString());
+    }
+  });
+
+  const { ok, data } = await api.get(`/listings?${queryParams.toString()}`, {
     next: { revalidate: 10 },
   });
+
   if (!ok) throw new Error('Failed to fetch listings');
   return data;
 }
 
-function InputWithIcon({ icon, placeholder }: { icon: React.ReactNode; placeholder: string }) {
-  return (
-    <div className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 shadow-sm focus-within:border-gray-500 transition">
-      {icon}
-      <input
-        type="text"
-        placeholder={placeholder}
-        className="flex-1 outline-none text-sm placeholder-gray-400"
-      />
-    </div>
-  );
-}
-
-export default async function ListingsPage() {
-  const listings = await fetchListings();
+export default async function ListingsPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
+  const { query, state } = await searchParams;
+  const listings = await fetchListings({ query, state });
   const t = await getTranslations('listings');
 
   return (
@@ -50,17 +56,7 @@ export default async function ListingsPage() {
         <p className="text-gray-600">{t('description')}</p>
       </header>
 
-      {/* Filters */}
-      <section className="flex flex-wrap gap-3 mb-8">
-        <InputWithIcon
-          icon={<FaSearch className="text-gray-500" />}
-          placeholder={t('filter.search')}
-        />
-        <InputWithIcon
-          icon={<GiTunisia className="text-gray-500 text-xl" />}
-          placeholder={t('filter.state')}
-        />
-      </section>
+      <ListingsFilters />
 
       {/* No Results */}
       {listings.length === 0 && <p className="text-gray-500 italic">{t('no_results')}</p>}
