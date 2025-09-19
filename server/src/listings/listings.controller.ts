@@ -70,7 +70,15 @@ export class ListingsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.listingsService.remove(id);
+  @UseGuards(JwtAuthGuard)
+  async remove(@Param('id') id: string, @Req() req: any) {
+    const listing = await this.listingsService.findOne(id);
+
+    if (!listing || listing.ownerId !== req.user.userId) {
+      throw new ForbiddenException('Not allowed to update this listing');
+    }
+
+    await this.listingsService.remove(id);
+    return { ok: true };
   }
 }

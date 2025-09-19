@@ -40,7 +40,7 @@ class ApiService {
     return this.request(path, options);
   }
 
-  deleta(path: string, options?: RequestInit) {
+  delete(path: string, options?: RequestInit) {
     options = {
       ...options,
       method: 'DELETE',

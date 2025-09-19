@@ -16,23 +16,37 @@ function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    async function fetchData() {
-      if (!user) return;
-      try {
-        setLoading(true);
-        const { ok, data } = await api.get(`/listings?ownerId=${user.id}`);
-        if (!ok) throw new Error('Failed to fetch your listings');
-        setListings(data);
-      } catch (err) {
-        console.error('Error fetching listings', err);
-        setError('Something went wrong while loading your listings.');
-      } finally {
-        setLoading(false);
-      }
+  async function fetchData() {
+    if (!user) return;
+    try {
+      setLoading(true);
+      const { ok, data } = await api.get(`/listings?ownerId=${user.id}`);
+      if (!ok) throw new Error('Failed to fetch your listings');
+      setListings(data);
+    } catch (err) {
+      console.error('Error fetching listings', err);
+      setError('Something went wrong while loading your listings.');
+    } finally {
+      setLoading(false);
     }
+  }
+
+  useEffect(() => {
     fetchData();
   }, [user]);
+
+  async function handleDelete(listingId: string) {
+    try {
+      if (!confirm('Are you sure you want to delete this listing?')) return;
+      const { ok } = await api.delete(`/listings/${listingId}`);
+      if (!ok) throw new Error('Failed to delete the listing');
+
+      fetchData();
+    } catch (err) {
+      console.error('Error deleting listing', err);
+      setError('Failed to delete the listing.');
+    }
+  }
 
   function formatPrice(value: number) {
     return new Intl.NumberFormat('fr-TN', {
@@ -85,7 +99,10 @@ function DashboardPage() {
                       >
                         {t('actions.edit')}
                       </Link>
-                      <button className="text-red-600 hover:underline">
+                      <button
+                        onClick={() => handleDelete(listing.id)}
+                        className="text-red-600 hover:underline"
+                      >
                         {t('actions.delete')}
                       </button>
                     </td>
