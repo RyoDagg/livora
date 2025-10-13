@@ -32,7 +32,8 @@ function InfoTag({
 }
 
 export default async function ListingPage({ params }: { params: { id: string } }) {
-  const listing = await fetchListing(params.id);
+  const { id } = await params;
+  const listing = await fetchListing(id);
 
   return (
     <main className="max-w-6xl mx-auto p-6">
