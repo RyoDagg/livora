@@ -19,7 +19,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
       aria-current={isActive ? 'page' : undefined}
       className={`inline-flex items-center px-4 py-1 border-b-4 font-medium transition ${
         isActive
-          ? 'border-[#53ba04] text-gray-900'
+          ? 'border-primary-500 text-gray-900'
           : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
       }`}
     >
@@ -66,7 +66,7 @@ export default function Navbar() {
         <div className="flex h-16 items-center">
           {/* Logo */}
           <Link href="/" className="text-3xl font-bold text-gray-800 ml-12">
-            Livora
+            <Image width={85} height={85} src={'/logo.png'} alt="Profile" className="" />
           </Link>
 
           {/* Desktop nav */}
@@ -87,14 +87,14 @@ export default function Navbar() {
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                     aria-haspopup="menu"
                     aria-expanded={dropdownOpen}
-                    className="flex items-center focus:outline-none focus:ring-2 focus:ring-[#53ba04] rounded-full"
+                    className="flex items-center focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-full"
                   >
                     <Image
                       width={40}
                       height={40}
                       src={'/default-avatar.png'}
                       alt="Profile"
-                      className="h-10 w-10 rounded-full border border-gray-300 object-cover cursor-pointer hover:ring-2 hover:ring-[#53ba04] transition"
+                      className="h-10 w-10 rounded-full border border-gray-300 object-cover cursor-pointer hover:ring-2 hover:ring-primary-500 transition"
                     />
                   </button>
 
@@ -139,13 +139,13 @@ export default function Navbar() {
                 <div className="flex items-center gap-4">
                   <Link
                     href="/auth/login"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.login')}
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.register')}
                   </Link>
@@ -155,7 +155,7 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="sm:hidden p-2 ml-auto rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#53ba04]"
+            className="sm:hidden p-2 ml-auto rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
@@ -210,13 +210,13 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/auth/login"
-                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
+                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.login')}
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-white bg-[#53ba04] hover:bg-[#53ba04]/70"
+                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.register')}
                   </Link>
