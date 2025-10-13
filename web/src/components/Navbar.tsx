@@ -65,8 +65,8 @@ export default function Navbar() {
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center">
           {/* Logo */}
-          <Link href="/" className="text-3xl font-bold text-gray-800 ml-12">
-            <Image width={85} height={85} src={'/logo.png'} alt="Profile" className="" />
+          <Link href="/" className="text-3xl font-bold text-gray-800 ml-8">
+            <Image width={120} height={120} src={'/logo.png'} alt="Profile" className="w-24" />
           </Link>
 
           {/* Desktop nav */}
