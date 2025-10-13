@@ -1,14 +1,16 @@
-import ListingsFilters from '@/src/components/ListingsFilters';
-import { api } from '@/src/lib/api';
-import { Listing } from '@/src/types/Listing';
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BsHousesFill, BsPersonCircle } from 'react-icons/bs';
+import { getTranslations } from 'next-intl/server';
+
+import ListingsFilters from '@/src/components/ListingsFilters';
+
+import { BsPersonCircle } from 'react-icons/bs';
 import { FaHome, FaMapMarkerAlt, FaPhoneAlt, FaRegCalendarAlt } from 'react-icons/fa';
-import { FaArrowRightLong } from 'react-icons/fa6';
 import { HiOutlineCash } from 'react-icons/hi';
+
+import { api } from '@/src/lib/api';
+import { Listing } from '@/src/types/Listing';
 
 export const metadata: Metadata = {
   title: 'Listings - Livora',
@@ -48,12 +50,9 @@ export default async function ListingsPage({
 
   return (
     <main className="p-6 max-w-6xl mx-auto">
-      <header className="mb-6">
-        <h1 className="flex items-center gap-2 text-3xl text-gray-800 font-bold mb-1">
-          <BsHousesFill className="text-[#53ba04] text-4xl" /> {t('title')}
-        </h1>
-
-        <p className="text-gray-600">{t('description')}</p>
+      <header className="mb-4">
+        <h1 className="text-3xl text-gray-800 font-bold">{t('title')}</h1>
+        {/* <p className="text-gray-600">{t('description')}</p> */}
       </header>
 
       <ListingsFilters />
@@ -66,7 +65,7 @@ export default async function ListingsPage({
         {listings.map((listing) => (
           <article
             key={listing.id}
-            className="rounded-xl shadow-xs hover:shadow transition overflow-hidden bg-white flex flex-col border border-gray-200 hover:border-gray-400"
+            className="shadow-sm hover:shadow transition overflow-hidden bg-white flex flex-col border border-transparent hover:border-gray-200"
           >
             <Link href={`/listings/${listing.id}`}>
               <Image
@@ -79,42 +78,40 @@ export default async function ListingsPage({
             </Link>
 
             <div className="p-4 flex flex-col flex-1">
-              <h2 className="text-lg font-semibold mb-1">{listing.title}</h2>
-              <p className="text-sm text-gray-600 line-clamp-2 mb-3">{listing.description}</p>
+              <h2 className="text-base font-medium text-gray-800 mb-1">{listing.title}</h2>
+              <p className="flex items-center gap-1 text-lg font-bold text-green-800 mr-auto mb-1">
+                <HiOutlineCash />
+                {new Intl.NumberFormat('fr-TN', {
+                  style: 'currency',
+                  currency: 'TND',
+                }).format(listing.price)}
+              </p>
 
               {/* Info tags */}
-              <div className="flex flex-wrap gap-2">
-                <span className="flex items-center gap-2 bg-green-50 text-green-950 font-medium px-2 py-1 rounded-full">
-                  <HiOutlineCash />{' '}
-                  {new Intl.NumberFormat('fr-TN', {
-                    style: 'currency',
-                    currency: 'TND',
-                  }).format(listing.price)}
-                </span>
-                <span className="flex items-center gap-2 bg-blue-50 text-blue-950 font-medium px-2 py-1 rounded-full">
+              <div className="flex flex-wrap gap-2 mb-1">
+                <span className="flex items-center gap-2 text-blue-950 font-medium px-2 py-1">
                   <FaHome /> {t(listing.type)}
                 </span>
-                <span className="flex items-center gap-2 bg-gray-50 text-gray-950 font-medium px-2 py-1 rounded-full">
+                <span className="flex items-center gap-2 text-gray-950 font-medium px-2 py-1">
                   <FaMapMarkerAlt /> {listing.state}
                 </span>
-                <span className="flex items-center gap-2 bg-yellow-50 text-yellow-950 font-medium px-2 py-1 rounded-full">
+                <span className="flex items-center gap-2 text-yellow-950 font-medium px-2 py-1">
                   <FaRegCalendarAlt /> {new Date(listing.availableAt).toLocaleDateString('fr-TN')}
                 </span>
-                <span className="flex items-center gap-2 bg-purple-50 text-purple-950 font-medium px-2 py-1 rounded-full">
+                <span className="flex items-center gap-2 text-purple-950 font-medium px-2 py-1">
                   <FaPhoneAlt /> {listing.contact}
                 </span>
-                <span className="flex items-center gap-2 bg-pink-50 text-pink-950 font-medium px-2 py-1 rounded-full">
+                <span className="flex items-center gap-2 text-pink-950 font-medium px-2 py-1">
                   <BsPersonCircle /> {listing.owner.name ?? listing.owner.email}
                 </span>
               </div>
+              <Link
+                href={`/listings/${listing.id}`}
+                className="ml-auto mt-auto text-white bg-primary-500 font-medium text-sm px-4 py-2 hover:bg-primary-400 transition"
+              >
+                {t('details')}
+              </Link>
             </div>
-            <Link
-              href={`/listings/${listing.id}`}
-              className="inline-flex items-center gap-2 ml-auto text-blue-800 font-medium px-4 py-2 rounded-lg hover:underline transition"
-            >
-              {t('details')}
-              <FaArrowRightLong aria-hidden="true" />
-            </Link>
           </article>
         ))}
       </section>
