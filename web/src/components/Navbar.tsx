@@ -139,13 +139,13 @@ export default function Navbar() {
                 <div className="flex items-center gap-4">
                   <Link
                     href="/auth/login"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.login')}
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.register')}
                   </Link>
@@ -183,25 +183,25 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/profile"
-                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-gray-700 bg-gray-50 hover:bg-gray-100"
+                    className="block w-full text-center px-4 py-2 text-gray-700 bg-gray-50 hover:bg-gray-100"
                   >
                     {t('user.profile')}
                   </Link>
                   <Link
                     href="/favorites"
-                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-gray-700 bg-gray-50 hover:bg-gray-100"
+                    className="block w-full text-center px-4 py-2 text-gray-700 bg-gray-50 hover:bg-gray-100"
                   >
                     Saved Listings
                   </Link>
                   <Link
                     href="/settings"
-                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-gray-700 bg-gray-50 hover:bg-gray-100"
+                    className="block w-full text-center px-4 py-2 text-gray-700 bg-gray-50 hover:bg-gray-100"
                   >
                     Settings
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-red-600 bg-red-50 hover:bg-red-100"
+                    className="block w-full text-center px-4 py-2 text-red-600 bg-red-50 hover:bg-red-100"
                   >
                     {t('user.logout')}
                   </button>
@@ -210,13 +210,13 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/auth/login"
-                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
+                    className="block w-full text-center px-4 py-2 shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.login')}
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="block w-full text-center px-4 py-2 rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
+                    className="block w-full text-center px-4 py-2 shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.register')}
                   </Link>

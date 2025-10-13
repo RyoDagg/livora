@@ -93,7 +93,7 @@ export default function Home() {
       </section>
 
       {/* Footer (placeholder for now) */}
-      <footer className="py-6 flex flex-wrap items-center justify-center text-gray-500 text-sm bg-gray-50">
+      <footer className="py-6 flex flex-wrap items-center justify-center text-gray-200 font-medium text-sm bg-primary-900">
         © {new Date().getFullYear()} Livora — Tous droits réservés
       </footer>
     </main>
