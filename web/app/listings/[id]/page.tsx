@@ -1,8 +1,16 @@
 import Image from 'next/image';
 import { api } from '@/src/lib/api';
 import { Listing } from '@/src/types/Listing';
+import {
+  FaBookmark,
+  FaHome,
+  FaMapMarkerAlt,
+  FaPaperPlane,
+  FaPhoneAlt,
+  FaRegCalendarAlt,
+} from 'react-icons/fa';
 import { BsPersonCircle } from 'react-icons/bs';
-import { FaHome, FaMapMarkerAlt, FaRegCalendarAlt, FaPhoneAlt } from 'react-icons/fa';
+import { HiOutlineCash } from 'react-icons/hi';
 
 async function fetchListing(id: string): Promise<Listing> {
   const { ok, data } = await api.get(`/listings/${id}`, {
@@ -23,9 +31,7 @@ function InfoTag({
   className: string;
 }) {
   return (
-    <span
-      className={`flex items-center gap-2 text-sm font-medium px-3 py-1 rounded-full ${className}`}
-    >
+    <span className={`flex items-center gap-2 font-medium px-3 py-1 ${className}`}>
       {icon} {children}
     </span>
   );
@@ -36,12 +42,11 @@ export default async function ListingPage({ params }: { params: { id: string } }
   const listing = await fetchListing(id);
 
   return (
-    <main className="max-w-6xl mx-auto p-6">
-      <article className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white shadow rounded-xl overflow-hidden">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-24">
+      <article className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Left: Images */}
-        <div className="space-y-4">
-          {/* Main image */}
-          <div className="relative h-96 w-full rounded-lg overflow-hidden">
+        <section className="space-y-2">
+          <div className="relative h-96 w-full cursor-pointer overflow-hidden shadow-md hover:shadow-lg transition">
             <Image
               src={listing.imageURL || '/listing-placeholder.png'}
               alt={listing.title}
@@ -50,11 +55,14 @@ export default async function ListingPage({ params }: { params: { id: string } }
             />
           </div>
 
-          {/* Thumbnails (for now just repeat main) */}
-          <div className="grid grid-cols-4 gap-2">
-            {[listing.imageURL, listing.imageURL, listing.imageURL, listing.imageURL].map(
-              (img, i) => (
-                <div key={i} className="relative h-20 w-full rounded-md overflow-hidden">
+          <div className="grid grid-cols-2 gap-2">
+            {Array(4)
+              .fill(listing.imageURL)
+              .map((img, i) => (
+                <div
+                  key={i}
+                  className="relative h-32 w-full cursor-pointer overflow-hidden shadow-md hover:shadow-lg transition"
+                >
                   <Image
                     src={img || '/listing-placeholder.png'}
                     alt={`${listing.title} ${i}`}
@@ -62,57 +70,67 @@ export default async function ListingPage({ params }: { params: { id: string } }
                     className="object-cover"
                   />
                 </div>
-              ),
-            )}
+              ))}
           </div>
-        </div>
+        </section>
 
         {/* Right: Content */}
-        <div className="flex flex-col justify-between p-4">
-          {/* Title + description */}
-          <div className="space-y-4">
-            <h1 className="text-3xl font-bold">{listing.title}</h1>
-            <p className="text-gray-600">{listing.description}</p>
-
-            {/* Price */}
-            <p className="text-2xl font-semibold text-green-600">
+        <section className="space-y-6 p-2 sm:p-4">
+          <header>
+            <h1 className="text-3xl text-gray-800 font-bold">{listing.title}</h1>
+            <p className="flex items-center gap-1 text-3xl font-bold text-green-800 mt-2">
+              <HiOutlineCash />
               {new Intl.NumberFormat('fr-TN', {
                 style: 'currency',
                 currency: 'TND',
               }).format(listing.price)}
             </p>
+          </header>
 
-            {/* Highlights */}
-            <div className="flex flex-wrap gap-2 mt-4">
-              <InfoTag icon={<FaHome />} className="bg-blue-50 text-blue-950">
-                {listing.type}
-              </InfoTag>
+          {/* Highlights */}
+          <div className="flex flex-wrap gap-x-2 my-4">
+            <span className="font-medium px-2 py-1 text-blue-950 text-lg">
+              <FaHome className="inline mr-2" />
+              {listing.type}
+            </span>
 
-              <InfoTag icon={<FaMapMarkerAlt />} className="bg-gray-50 text-gray-950">
-                {listing.state}
-              </InfoTag>
+            <span className="font-medium px-2 py-1 text-gray-950 text-lg">
+              <FaMapMarkerAlt className="inline mr-2" />
+              {listing.state}
+            </span>
 
-              <InfoTag icon={<FaRegCalendarAlt />} className="bg-yellow-50 text-yellow-950">
-                {new Date(listing.availableAt).toLocaleDateString('fr-TN')}
-              </InfoTag>
+            <span className="font-medium px-2 py-1 text-yellow-950 text-lg">
+              <FaRegCalendarAlt className="inline mr-2" />
+              {new Date(listing.availableAt).toLocaleDateString('fr-TN')}
+            </span>
 
-              <InfoTag icon={<FaPhoneAlt />} className="bg-purple-50 text-purple-950">
-                {listing.contact}
-              </InfoTag>
+            <span className="font-medium px-2 py-1 text-purple-950 text-lg">
+              <FaPhoneAlt className="inline mr-2" />
+              {listing.contact}
+            </span>
 
-              <InfoTag icon={<BsPersonCircle />} className="bg-pink-50 text-pink-950">
-                {listing.owner.name ?? listing.owner.email}
-              </InfoTag>
-            </div>
+            <span className="font-medium px-2 py-1 text-pink-950 text-lg">
+              <BsPersonCircle className="inline mr-2" />
+              {listing.owner.name ?? listing.owner.email}
+            </span>
           </div>
 
           {/* CTA */}
-          <div className="mt-8">
-            <button className="w-full md:w-auto px-6 py-3 rounded-full bg-black text-white font-semibold hover:bg-gray-800 transition">
-              Contacter le propriétaire
+          <div className="flex flex-col sm:flex-row gap-3 my-8">
+            <button className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold cursor-pointer hover:bg-secondary-600 transition">
+              <FaPaperPlane className="inline mr-2" />
+              Contacter
+            </button>
+
+            <button className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold cursor-pointer hover:bg-primary-600 transition">
+              <FaBookmark className="inline mr-2" />
+              Enregistrer
             </button>
           </div>
-        </div>
+
+          {/* Description */}
+          <p className="text-gray-600 leading-relaxed">{listing.description}</p>
+        </section>
       </article>
     </main>
   );
