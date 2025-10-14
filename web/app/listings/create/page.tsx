@@ -2,14 +2,18 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ListingInput } from '@/src/types/Listing';
-import { withAuth } from '@/src/lib/withAuth';
+import { useTranslations } from 'next-intl';
+
+import Loader from '@/src/components/Loader';
 import ImagesUploader from '@/src/components/ImagesUploader';
+
 import { BsPencilSquare, BsTelephone } from 'react-icons/bs';
 import { HiOutlineCash } from 'react-icons/hi';
+
 import { api } from '@/src/lib/api';
-import Loader from '@/src/components/Loader';
-import { useTranslations } from 'next-intl';
+import { withAuth } from '@/src/lib/withAuth';
+import { ListingInput } from '@/src/types/Listing';
+import { TbSquareRoundedArrowUpFilled } from 'react-icons/tb';
 
 const TUNISIA_REGIONS = [
   'Ariana',
@@ -85,15 +89,25 @@ function CreateListingPage() {
   }
 
   return (
-    <main className="p-6 max-w-3xl mx-auto">
-      <header className="mb-6 text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">{t('create')}</h1>
-        <p className="text-gray-500">{t('create_description')}</p>
-      </header>
+    <main className="p-6 max-w-5xl mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <header className="flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-700 sm:mb-2">{t('create')}</h1>
+            <p className="hidden sm:block text-gray-500">{t('create_description')}</p>
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="ml-auto bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+          >
+            <TbSquareRoundedArrowUpFilled className="inline mr-2 text-2xl" />
+            {loading ? <Loader /> : t('publish')}
+          </button>
+        </header>
 
-      <form onSubmit={handleSubmit} className="grid gap-6 bg-white p-6 rounded-xl shadow">
         {/* Title */}
-        <div className="flex items-center gap-2 border-b border-gray-300 shadow-xs p-3 focus-within:ring-2 focus-within:ring-green-400">
+        <div className="flex items-center gap-2 border-b border-gray-300 p-3 focus-within:ring-2 focus-within:ring-primary-400">
           <input
             id="title"
             name="title"
@@ -118,7 +132,7 @@ function CreateListingPage() {
             name="description"
             value={form.description}
             onChange={handleChange}
-            className="w-full text-gray-800 border border-gray-300 rounded-lg p-3 shadow-xs outline-0 focus:ring-2 focus:ring-green-400"
+            className="w-full text-gray-800 border border-gray-300 rounded-sm p-3 shadow-xs outline-0 focus:ring-2 focus:ring-primary-400"
             rows={4}
             placeholder={t('placeholders.description')}
             required
@@ -131,7 +145,7 @@ function CreateListingPage() {
             <label htmlFor="price" className="block text-sm text-gray-700 font-medium mb-1">
               {t('fields.price')}
             </label>
-            <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
+            <div className="flex items-center gap-2 border border-gray-300 rounded-sm p-3 shadow-sm focus-within:ring-2 focus-within:ring-primary-400">
               <input
                 id="price"
                 name="price"
@@ -147,14 +161,15 @@ function CreateListingPage() {
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-medium mb-1">
+            <label htmlFor="state" className="block text-gray-700 text-sm font-medium mb-1">
               {t('fields.state')}
             </label>
             <select
+              id="state"
               name="state"
               value={form.state}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:ring-2 focus:ring-green-400"
+              className="w-full border border-gray-300 rounded-sm p-3 shadow-sm focus:ring-2 focus:ring-primary-400"
               required
             >
               <option value="">{t('placeholders.state')}</option>
@@ -170,14 +185,15 @@ function CreateListingPage() {
         {/* Type + Date */}
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-gray-700 text-sm font-medium mb-1">
+            <label htmlFor="type" className="block text-gray-700 text-sm font-medium mb-1">
               {t('fields.type')}
             </label>
             <select
+              id="type"
               name="type"
               value={form.type}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:ring-2 focus:ring-green-400"
+              className="w-full border border-gray-300 rounded-sm p-3 shadow-sm focus:ring-2 focus:ring-primary-400"
             >
               <option value="rent">{t('rent')}</option>
               <option value="sale">{t('sale')}</option>
@@ -189,7 +205,7 @@ function CreateListingPage() {
               {t('fields.available_at')}
             </label>
 
-            <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
+            <div className="flex items-center gap-2 border border-gray-300 rounded-sm p-3 shadow-sm focus-within:ring-2 focus-within:ring-primary-400">
               <input
                 id="availableAt"
                 name="availableAt"
@@ -204,7 +220,7 @@ function CreateListingPage() {
         </div>
 
         {/* Contact */}
-        <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
+        <div className="flex items-center gap-2 border border-gray-300 rounded-sm p-3 shadow-sm focus-within:ring-2 focus-within:ring-primary-400">
           {<BsTelephone className="text-gray-500" />}
           <input
             name="contact"
@@ -226,13 +242,16 @@ function CreateListingPage() {
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-green-500 text-white py-3 rounded-lg font-medium hover:bg-green-600 transition disabled:opacity-50"
-        >
-          {loading ? <Loader /> : t('publish')}
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+          >
+            <TbSquareRoundedArrowUpFilled className="inline mr-2 text-2xl" />
+            {loading ? <Loader /> : t('publish')}
+          </button>
+        </div>
       </form>
     </main>
   );

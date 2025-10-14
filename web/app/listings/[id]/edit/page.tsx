@@ -2,15 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import { forbidden, useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+
 import { ListingInput } from '@/src/types/Listing';
+import { api } from '@/src/lib/api';
 import { withAuth } from '@/src/lib/withAuth';
+import { useAuthStore } from '@/src/lib/store';
+
 import ImagesUploader from '@/src/components/ImagesUploader';
+import Loader from '@/src/components/Loader';
+
 import { BsPencilSquare, BsTelephone } from 'react-icons/bs';
 import { HiOutlineCash } from 'react-icons/hi';
-import { api } from '@/src/lib/api';
-import Loader from '@/src/components/Loader';
-import { useAuthStore } from '@/src/lib/store';
-import { useTranslations } from 'next-intl';
+import { FaSave } from 'react-icons/fa';
 
 const TUNISIA_REGIONS = [
   'Ariana',
@@ -131,15 +135,25 @@ function EditListingPage() {
   }
 
   return (
-    <main className="p-6 max-w-3xl mx-auto">
-      <header className="mb-6 text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">{t('edit')}</h1>
-        <p className="text-gray-500">{t('edit_description')}</p>
-      </header>
+    <main className="p-6 max-w-5xl mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <header className="flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">{t('edit')}</h1>
+            <p className="text-gray-500">{t('edit_description')}</p>
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+          >
+            <FaSave className="inline mr-2 text-2xl" />
+            {loading ? <Loader /> : t('save_changes')}
+          </button>
+        </header>
 
-      <form onSubmit={handleSubmit} className="grid gap-6 bg-white p-6 rounded-xl shadow">
         {/* Title */}
-        <div className="flex items-center gap-2 border-b border-gray-300 shadow-xs p-3 focus-within:ring-2 focus-within:ring-green-400">
+        <div className="flex items-center gap-2 border-b border-gray-300 shadow-xs p-3 focus-within:ring-2 focus-within:ring-primary-400">
           <input
             id="title"
             name="title"
@@ -164,7 +178,7 @@ function EditListingPage() {
             name="description"
             value={form.description}
             onChange={handleChange}
-            className="w-full text-gray-800 border border-gray-300 rounded-lg p-3 shadow-xs outline-0 focus:ring-2 focus:ring-green-400"
+            className="w-full text-gray-800 border border-gray-300 rounded-sm p-3 shadow-xs outline-0 focus:ring-2 focus:ring-primary-400"
             rows={4}
             placeholder={t('placeholders.description')}
             required
@@ -177,7 +191,7 @@ function EditListingPage() {
             <label htmlFor="price" className="block text-sm text-gray-700 font-medium mb-1">
               {t('fields.price')}
             </label>
-            <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
+            <div className="flex items-center gap-2 border border-gray-300 rounded-sm p-3 shadow-sm focus-within:ring-2 focus-within:ring-primary-400">
               <input
                 id="price"
                 name="price"
@@ -200,7 +214,7 @@ function EditListingPage() {
               name="state"
               value={form.state}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:ring-2 focus:ring-green-400"
+              className="w-full border border-gray-300 rounded-sm p-3 shadow-sm focus:ring-2 focus:ring-primary-400"
               required
             >
               <option value="">{t('placeholders.state')}</option>
@@ -223,7 +237,7 @@ function EditListingPage() {
               name="type"
               value={form.type}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:ring-2 focus:ring-green-400"
+              className="w-full border border-gray-300 rounded-sm p-3 shadow-sm focus:ring-2 focus:ring-primary-400"
             >
               <option value="rent">{t('rent')}</option>
               <option value="sale">{t('sale')}</option>
@@ -235,7 +249,7 @@ function EditListingPage() {
               {t('fields.available_at')}
             </label>
 
-            <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
+            <div className="flex items-center gap-2 border border-gray-300 rounded-sm p-3 shadow-sm focus-within:ring-2 focus-within:ring-primary-400">
               <input
                 id="availableAt"
                 name="availableAt"
@@ -250,7 +264,7 @@ function EditListingPage() {
         </div>
 
         {/* Contact */}
-        <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-3 shadow-sm focus-within:ring-2 focus-within:ring-green-400">
+        <div className="flex items-center gap-2 border border-gray-300 rounded-sm p-3 shadow-sm focus-within:ring-2 focus-within:ring-primary-400">
           <BsTelephone className="text-gray-500" />
           <input
             name="contact"
@@ -272,13 +286,16 @@ function EditListingPage() {
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-green-500 text-white py-3 rounded-lg font-medium hover:bg-green-600 transition disabled:opacity-50 flex justify-center"
-        >
-          {loading ? <Loader /> : t('save_changes')}
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+          >
+            <FaSave className="inline mr-2 text-2xl" />
+            {loading ? <Loader /> : t('save_changes')}
+          </button>
+        </div>
       </form>
     </main>
   );
