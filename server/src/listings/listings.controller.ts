@@ -14,7 +14,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ListingsService } from './listings.service';
-import { Prisma } from 'generated/prisma';
+import { Prisma } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('listings')
