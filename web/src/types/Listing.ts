@@ -9,6 +9,7 @@ export type Listing = {
   contact: string;
   owner: { id: string; name?: string; email: string };
   imageURL: string;
+  imagesURL: string[];
 };
 
 export type ListingInput = {
@@ -20,4 +21,5 @@ export type ListingInput = {
   availableAt: string;
   contact: string;
   imageURL?: string;
+  imagesURL: string[];
 };

@@ -55,7 +55,7 @@ function CreateListingPage() {
     type: 'rent',
     availableAt: '',
     contact: '',
-    imageURL: '',
+    imagesURL: [],
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);

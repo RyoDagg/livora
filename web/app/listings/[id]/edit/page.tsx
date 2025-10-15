@@ -69,6 +69,7 @@ function EditListingPage() {
           availableAt: data.availableAt.split('T')[0],
           contact: data.contact,
           imageURL: data.imageURL,
+          imagesURL: data.imagesURL,
         });
       } catch (err) {
         console.error('Error fetching listing', err);
@@ -113,6 +114,7 @@ function EditListingPage() {
         availableAt: data.availableAt.split('T')[0],
         contact: data.contact,
         imageURL: data.imageURL,
+        imagesURL: data.imagesURL,
       });
     } catch (err) {
       console.error('Error updating listing', err);
