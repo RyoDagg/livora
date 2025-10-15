@@ -69,7 +69,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -81,7 +80,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -93,7 +91,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -105,7 +102,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -117,7 +113,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -129,7 +124,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -140,7 +134,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -151,7 +144,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -162,7 +154,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -173,7 +164,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -184,7 +174,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
     {
@@ -195,7 +184,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 22 111 222',
-      imageURL: '',
       ownerId: u1!.id,
     },
 
@@ -210,7 +198,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 23 111 233',
-      imageURL: '',
       ownerId: u2!.id,
     },
     {
@@ -221,7 +208,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 23 111 233',
-      imageURL: '',
       ownerId: u2!.id,
     },
     {
@@ -232,7 +218,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 23 111 233',
-      imageURL: '',
       ownerId: u2!.id,
     },
     {
@@ -243,7 +228,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 23 111 233',
-      imageURL: '',
       ownerId: u2!.id,
     },
     {
@@ -255,7 +239,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 23 111 233',
-      imageURL: '',
       ownerId: u2!.id,
     },
 
@@ -274,7 +257,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 25 111 255',
-      imageURL: '',
       ownerId: u4!.id,
     },
     {
@@ -285,7 +267,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 25 111 255',
-      imageURL: '',
       ownerId: u4!.id,
     },
     {
@@ -296,7 +277,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 25 111 255',
-      imageURL: '',
       ownerId: u4!.id,
     },
     {
@@ -308,7 +288,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 25 111 255',
-      imageURL: '',
       ownerId: u4!.id,
     },
     {
@@ -319,7 +298,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 25 111 255',
-      imageURL: '',
       ownerId: u4!.id,
     },
     {
@@ -330,7 +308,6 @@ async function main() {
       type: 'sale',
       availableAt: new Date(),
       contact: '+216 25 111 255',
-      imageURL: '',
       ownerId: u4!.id,
     },
     {
@@ -341,7 +318,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 25 111 255',
-      imageURL: '',
       ownerId: u4!.id,
     },
 
@@ -356,7 +332,6 @@ async function main() {
       type: 'rent',
       availableAt: new Date(),
       contact: '+216 26 111 266',
-      imageURL: '',
       ownerId: u5!.id,
     },
   ];

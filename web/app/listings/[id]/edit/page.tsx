@@ -68,7 +68,6 @@ function EditListingPage() {
           type: data.type,
           availableAt: data.availableAt.split('T')[0],
           contact: data.contact,
-          imageURL: data.imageURL,
           imagesURL: data.imagesURL,
         });
       } catch (err) {
@@ -113,7 +112,6 @@ function EditListingPage() {
         type: data.type,
         availableAt: data.availableAt.split('T')[0],
         contact: data.contact,
-        imageURL: data.imageURL,
         imagesURL: data.imagesURL,
       });
     } catch (err) {

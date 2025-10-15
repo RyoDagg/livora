@@ -33,7 +33,6 @@ model Listing {
   type        String // "rent" | "sale"
   availableAt DateTime
   contact     String
-  imageURL    String?
   imagesURL   String[] @default([])
 
   ownerId String
