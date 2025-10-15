@@ -124,7 +124,7 @@ function EditListingPage() {
 
   if (loading) {
     return (
-      <main className="p-6 flex justify-center">
+      <main className="p-6 flex justify-center mt-12">
         <Loader />
       </main>
     );
@@ -144,11 +144,10 @@ function EditListingPage() {
           </div>
           <button
             type="submit"
-            disabled={loading}
-            className="bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-2 bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
           >
-            <FaSave className="inline mr-2 text-2xl" />
-            {loading ? <Loader /> : t('save_changes')}
+            <FaSave className="text-2xl" />
+            {t('save_changes')}
           </button>
         </header>
 
@@ -289,11 +288,10 @@ function EditListingPage() {
         <div className="flex justify-end">
           <button
             type="submit"
-            disabled={loading}
-            className="bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-2 bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
           >
-            <FaSave className="inline mr-2 text-2xl" />
-            {loading ? <Loader /> : t('save_changes')}
+            <FaSave className="text-2xl" />
+            {t('save_changes')}
           </button>
         </div>
       </form>
