@@ -46,32 +46,37 @@ export default async function ListingPage({ params }: { params: { id: string } }
       <article className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Left: Images */}
         <section className="space-y-2">
-          <div className="relative h-96 w-full cursor-pointer overflow-hidden shadow-md hover:shadow-lg transition">
-            <Image
-              src={listing.imageURL || '/listing-placeholder.png'}
-              alt={listing.title}
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            {Array(4)
-              .fill(listing.imageURL)
-              .map((img, i) => (
-                <div
-                  key={i}
-                  className="relative h-32 w-full cursor-pointer overflow-hidden shadow-md hover:shadow-lg transition"
-                >
-                  <Image
-                    src={img || '/listing-placeholder.png'}
-                    alt={`${listing.title} ${i}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-          </div>
+          {listing.imagesURL.length > 0 ? (
+            <>
+              <div className="relative h-96 w-full cursor-pointer overflow-hidden shadow-md hover:shadow-lg transition">
+                <Image
+                  src={listing.imagesURL[0]}
+                  alt={listing.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {listing.imagesURL.slice(1).map((img, i) => (
+                  <div
+                    key={i}
+                    className="relative h-32 w-full cursor-pointer overflow-hidden shadow-md hover:shadow-lg transition"
+                  >
+                    <Image src={img} alt={`${listing.title} ${i}`} fill className="object-cover" />
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="relative h-96 w-full overflow-hidden border-2 border-gray-200">
+              <Image
+                src="/listing-placeholder.png"
+                alt={listing.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
         </section>
 
         {/* Right: Content */}

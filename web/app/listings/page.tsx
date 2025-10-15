@@ -69,7 +69,7 @@ export default async function ListingsPage({
           >
             <Link href={`/listings/${listing.id}`}>
               <Image
-                src={listing.imageURL || '/listing-placeholder.png'}
+                src={listing.imagesURL[0] || '/listing-placeholder.png'}
                 alt={listing.title}
                 width={400}
                 height={250}

@@ -55,7 +55,7 @@ function CreateListingPage() {
     type: 'rent',
     availableAt: '',
     contact: '',
-    imageURL: '',
+    imagesURL: [],
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -99,10 +99,10 @@ function CreateListingPage() {
           <button
             type="submit"
             disabled={loading}
-            className="ml-auto bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-2 ml-auto bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
           >
-            <TbSquareRoundedArrowUpFilled className="inline mr-2 text-2xl" />
-            {loading ? <Loader /> : t('publish')}
+            {loading ? <Loader /> : <TbSquareRoundedArrowUpFilled className="text-2xl" />}
+            {t('publish')}
           </button>
         </header>
 
@@ -246,10 +246,10 @@ function CreateListingPage() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-2 bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
           >
-            <TbSquareRoundedArrowUpFilled className="inline mr-2 text-2xl" />
-            {loading ? <Loader /> : t('publish')}
+            {loading ? <Loader /> : <TbSquareRoundedArrowUpFilled className="text-2xl" />}
+            {t('publish')}
           </button>
         </div>
       </form>

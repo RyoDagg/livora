@@ -8,7 +8,7 @@ export type Listing = {
   availableAt: string;
   contact: string;
   owner: { id: string; name?: string; email: string };
-  imageURL: string;
+  imagesURL: string[];
 };
 
 export type ListingInput = {
@@ -19,5 +19,5 @@ export type ListingInput = {
   type: 'rent' | 'sale';
   availableAt: string;
   contact: string;
-  imageURL?: string;
+  imagesURL: string[];
 };
