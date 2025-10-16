@@ -11,12 +11,14 @@ export class AuthController {
     @Body('email') email: string,
     @Body('password') password: string,
     @Body('name') name: string,
+    @Body('isCompany') isCompany: boolean,
     @Res({ passthrough: true }) res: Response,
   ) {
     const { access_token, user } = await this.authService.register(
       email,
       password,
       name,
+      isCompany,
     );
 
     res.cookie('jwt_token', access_token, {

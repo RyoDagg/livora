@@ -18,26 +18,40 @@ model User {
   id            String    @id @default(cuid())
   email         String    @unique
   password_hash String
-  name          String?
-  phone         String?
-  createdAt     DateTime  @default(now())
-  Listing       Listing[]
+  lastLogin     DateTime?
+
+  name      String?
+  avatarUrl String?
+  bio       String?
+  gender    String?
+  isCompany Boolean @default(false)
+
+  phone   String?
+  address String?
+  state   String? // e.g., Tunis, Sfax, etc.
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  Listing Listing[]
 }
 
 model Listing {
-  id          String   @id @default(uuid())
+  id      String @id @default(uuid())
+  ownerId String
+
   title       String
   description String
   price       Float
-  state       String // e.g., Tunis, Sfax, etc.
   type        String // "rent" | "sale"
+  state       String // e.g., Tunis, Sfax, etc.
+
+  imagesURL String[] @default([])
+  contact   String
+
   availableAt DateTime
-  contact     String
-  imagesURL   String[] @default([])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  ownerId String
-  owner   User   @relation(fields: [ownerId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  owner User @relation(fields: [ownerId], references: [id])
 }
