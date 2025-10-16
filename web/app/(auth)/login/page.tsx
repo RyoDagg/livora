@@ -67,7 +67,7 @@ export default function LoginPage() {
       {error && <p className="text-red-500 mt-2 animate-pulse">{error}</p>}
 
       <p className="text-gray-500 text-sm mt-2">
-        Don't have an account?{' '}
+        Don&apos;t have an account?{' '}
         <a href="/register" className="text-secondary-500 font-medium hover:underline">
           Register
         </a>
