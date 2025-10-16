@@ -14,7 +14,7 @@ export function withAuth<P extends object>(Component: React.ComponentType<P>) {
 
     useEffect(() => {
       if (!loading && !user) {
-        router.replace(`/auth/login?redirectTo=${encodeURIComponent(pathname)}`);
+        router.replace(`/login?redirectTo=${encodeURIComponent(pathname)}`);
       }
     }, [loading, user, router]);
 

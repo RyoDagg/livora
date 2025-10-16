@@ -54,7 +54,7 @@ export default function Navbar() {
     try {
       await api.post('/auth/logout');
       setUser(null);
-      router.push('/auth/login');
+      router.push('/login');
     } catch (err) {
       console.error('Logout failed', err);
     }
@@ -140,13 +140,13 @@ export default function Navbar() {
               ) : (
                 <div className="flex items-center gap-4">
                   <Link
-                    href="/auth/login"
+                    href="/login"
                     className="inline-flex items-center px-4 py-2 text-sm font-medium shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.login')}
                   </Link>
                   <Link
-                    href="/auth/register"
+                    href="/register"
                     className="inline-flex items-center px-4 py-2 text-sm font-medium shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.register')}
@@ -211,13 +211,13 @@ export default function Navbar() {
               ) : (
                 <>
                   <Link
-                    href="/auth/login"
+                    href="/login"
                     className="block w-full text-center px-4 py-2 shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.login')}
                   </Link>
                   <Link
-                    href="/auth/register"
+                    href="/register"
                     className="block w-full text-center px-4 py-2 shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
                   >
                     {t('user.register')}

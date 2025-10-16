@@ -14,7 +14,7 @@ function ProfilePage() {
 
   async function handleLogout() {
     await api.post('/auth/logout');
-    router.push('/auth/login');
+    router.push('/login');
   }
 
   return (
