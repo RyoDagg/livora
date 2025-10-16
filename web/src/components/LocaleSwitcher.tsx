@@ -22,7 +22,7 @@ export default function LocaleSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center cursor-pointer gap-1 px-2 py-1 text-sm font-medium text-blue-500 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#53ba04] rounded-md"
+        className="flex items-center gap-1 px-2 py-1 text-sm font-medium text-blue-500 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-300 rounded-md"
       >
         <BsGlobe2 className="w-5 h-5" />
       </button>
@@ -34,7 +34,7 @@ export default function LocaleSwitcher() {
               setLocale('en');
               setOpen(false);
             }}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
           >
             <Image src="/flags/en.png" alt="en" width={16} height={16} />
             English
@@ -44,7 +44,7 @@ export default function LocaleSwitcher() {
               setLocale('fr');
               setOpen(false);
             }}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
           >
             <Image src="/flags/fr.png" alt="fr" width={16} height={16} />
             Français

@@ -139,7 +139,7 @@ function SortableImage({ url, onDelete }: { url: string; onDelete: () => void })
       <button
         type="button"
         onClick={onDelete}
-        className="absolute top-1 right-1 bg-white/80 hover:bg-red-50 rounded-full cursor-pointer text-red-500 text-xl font-bold px-2 transition-opacity opacity-0 group-hover:opacity-100"
+        className="absolute top-1 right-1 bg-white/80 hover:bg-red-50 rounded-full text-red-500 text-xl font-bold px-2 transition-opacity opacity-0 group-hover:opacity-100"
         title="Supprimer"
       >
         ×

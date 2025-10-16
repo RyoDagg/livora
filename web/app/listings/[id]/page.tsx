@@ -91,12 +91,12 @@ export default async function ListingPage({ params }: { params: { id: string } }
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-3 my-8">
-            <button className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold cursor-pointer hover:bg-secondary-600 transition">
+            <button className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold hover:bg-secondary-600 transition">
               <FaPaperPlane className="inline mr-2" />
               Contacter
             </button>
 
-            <button className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold cursor-pointer hover:bg-primary-600 transition">
+            <button className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold hover:bg-primary-600 transition">
               <FaBookmark className="inline mr-2" />
               Enregistrer
             </button>

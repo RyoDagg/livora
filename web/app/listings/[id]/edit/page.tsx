@@ -144,7 +144,7 @@ function EditListingPage() {
           </div>
           <button
             type="submit"
-            className="flex items-center gap-2 bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-2 bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 disabled:opacity-50"
           >
             <FaSave className="text-2xl" />
             {t('save_changes')}
@@ -288,7 +288,7 @@ function EditListingPage() {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="flex items-center gap-2 bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-2 bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 disabled:opacity-50"
           >
             <FaSave className="text-2xl" />
             {t('save_changes')}
