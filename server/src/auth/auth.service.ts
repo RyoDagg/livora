@@ -14,8 +14,14 @@ export class AuthService {
     email: string,
     password: string,
     name: string,
+    isCompany: boolean,
   ): Promise<{ access_token: string; user: any }> {
-    const user = await this.usersService.create(email, password, name);
+    const user = await this.usersService.create(
+      email,
+      password,
+      name,
+      isCompany,
+    );
     const { access_token } = await this.signUser(user.id, user.email);
     return { access_token, user };
   }
