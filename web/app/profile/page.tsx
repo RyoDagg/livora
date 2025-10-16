@@ -78,7 +78,8 @@ function ProfilePage() {
   }
 
   if (loading) return <p className="text-center py-12 text-gray-500">Chargement...</p>;
-  if (!user) return <p className="text-center py-12 text-gray-500">Vous n'êtes pas connecté.</p>;
+  if (!user)
+    return <p className="text-center py-12 text-gray-500">Vous n&apos;êtes pas connecté.</p>;
 
   return (
     <main className="max-w-6xl mx-auto py-8 px-4 sm:px-8">
