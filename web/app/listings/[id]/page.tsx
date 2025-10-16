@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa';
 import { BsPersonCircle } from 'react-icons/bs';
 import { HiOutlineCash } from 'react-icons/hi';
+import ImagesSection from '@/src/components/ImagesSection';
 
 async function fetchListing(id: string): Promise<Listing> {
   const { ok, data } = await api.get(`/listings/${id}`, {
@@ -45,39 +46,7 @@ export default async function ListingPage({ params }: { params: { id: string } }
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-24">
       <article className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Left: Images */}
-        <section className="space-y-2">
-          {listing.imagesURL.length > 0 ? (
-            <>
-              <div className="relative h-96 w-full cursor-pointer overflow-hidden shadow-md hover:shadow-lg transition">
-                <Image
-                  src={listing.imagesURL[0]}
-                  alt={listing.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {listing.imagesURL.slice(1).map((img, i) => (
-                  <div
-                    key={i}
-                    className="relative h-32 w-full cursor-pointer overflow-hidden shadow-md hover:shadow-lg transition"
-                  >
-                    <Image src={img} alt={`${listing.title} ${i}`} fill className="object-cover" />
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="relative h-96 w-full overflow-hidden border-2 border-gray-200">
-              <Image
-                src="/listing-placeholder.png"
-                alt={listing.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-          )}
-        </section>
+        <ImagesSection images={listing.imagesURL} title={listing.title} />
 
         {/* Right: Content */}
         <section className="space-y-6 p-2 sm:p-4">
@@ -122,12 +91,12 @@ export default async function ListingPage({ params }: { params: { id: string } }
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-3 my-8">
-            <button className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold cursor-pointer hover:bg-secondary-600 transition">
+            <button className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold hover:bg-secondary-600 transition">
               <FaPaperPlane className="inline mr-2" />
               Contacter
             </button>
 
-            <button className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold cursor-pointer hover:bg-primary-600 transition">
+            <button className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold hover:bg-primary-600 transition">
               <FaBookmark className="inline mr-2" />
               Enregistrer
             </button>
