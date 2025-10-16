@@ -63,11 +63,13 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-sm relative z-50">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center">
+        <div className="flex h-16 items-center gap-x-4">
           {/* Logo */}
-          <Link href="/" className="text-3xl font-bold text-gray-800 ml-8">
-            <Image width={120} height={120} src={'/logo.png'} alt="Profile" className="w-24" />
-          </Link>
+          <div className="text-3xl font-bold text-gray-800 w-20 min-w-20">
+            <Link href="/">
+              <Image width={120} height={120} src={'/logo.png'} alt="Profile" className="w-full" />
+            </Link>
+          </div>
 
           {/* Desktop nav */}
           <div className="hidden w-2xl mx-auto sm:flex sm:space-x-8">

@@ -31,15 +31,19 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="p-6 max-w-sm mx-auto">
-      <h1 className="text-2xl mb-4">Register</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-medium text-gray-800">Register</h1>
+        <p className="text-gray-500 mt-1">Créez votre compte</p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
           placeholder="Full Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border p-2 rounded"
+          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition"
           required
         />
         <input
@@ -47,7 +51,7 @@ export default function RegisterPage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 rounded"
+          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition"
           required
         />
         <input
@@ -55,14 +59,25 @@ export default function RegisterPage() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded"
+          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition"
           required
         />
-        <button type="submit" className="bg-green-500 text-white py-2 rounded">
+        <button
+          type="submit"
+          className="bg-secondary-500 text-white py-3 rounded-md font-semibold hover:bg-secondary-600 transition-colors"
+        >
           Register
         </button>
       </form>
-      {error && <p className="text-red-500 mt-3">{error}</p>}
-    </main>
+
+      {error && <p className="text-red-500 mt-2 animate-pulse">{error}</p>}
+
+      <p className="text-gray-500 text-sm mt-2">
+        Already have an account?{' '}
+        <a href="/auth/login" className="text-secondary-500 font-medium hover:underline">
+          Login
+        </a>
+      </p>
+    </div>
   );
 }
