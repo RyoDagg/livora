@@ -1,6 +1,4 @@
-import Image from 'next/image';
-import { api } from '@/src/lib/api';
-import { Listing } from '@/src/types/Listing';
+import { BsPersonCircle } from 'react-icons/bs';
 import {
   FaBookmark,
   FaHome,
@@ -9,8 +7,11 @@ import {
   FaPhoneAlt,
   FaRegCalendarAlt,
 } from 'react-icons/fa';
-import { BsPersonCircle } from 'react-icons/bs';
 import { HiOutlineCash } from 'react-icons/hi';
+
+import { api } from '@/src/lib/api';
+import { Listing } from '@/src/types/Listing';
+
 import ImagesSection from '@/src/components/ImagesSection';
 
 async function fetchListing(id: string): Promise<Listing> {
@@ -20,22 +21,6 @@ async function fetchListing(id: string): Promise<Listing> {
 
   if (!ok) throw new Error('Failed to fetch listing');
   return data;
-}
-
-function InfoTag({
-  icon,
-  children,
-  className,
-}: {
-  icon: React.ReactNode;
-  children: React.ReactNode;
-  className: string;
-}) {
-  return (
-    <span className={`flex items-center gap-2 font-medium px-3 py-1 ${className}`}>
-      {icon} {children}
-    </span>
-  );
 }
 
 export default async function ListingPage({ params }: { params: { id: string } }) {

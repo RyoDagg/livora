@@ -1,20 +1,25 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/src/hooks/useAuth';
-import { api } from '@/src/lib/api';
-import { withAuth } from '@/src/lib/withAuth';
 import Image from 'next/image';
-import { useAuthStore } from '@/src/lib/store';
-import { toast } from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
+
 import Loader from '@/src/components/Loader';
+
+import { useAuth } from '@/src/hooks/useAuth';
+import { useAuthStore } from '@/src/lib/store';
+import { withAuth } from '@/src/lib/withAuth';
+
+import { api } from '@/src/lib/api';
+import { toast } from 'react-hot-toast';
 
 function ProfilePage() {
   const { user, loading } = useAuth();
   const { setUser } = useAuthStore();
+  const t = useTranslations('user');
+
   const [updating, setUpdating] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
-
   const [form, setForm] = useState({
     name: '',
     bio: '',
@@ -52,10 +57,10 @@ function ProfilePage() {
       setUploadingImage(true);
       const { url } = await api.upload('/files/upload', formData);
       setForm({ ...form, avatarUrl: url });
-      toast.success('Image téléchargée avec succès !');
+      toast.success(t('toasts.image_upload_success'));
     } catch (err) {
       console.error(err);
-      toast.error("Erreur lors du téléchargement de l'image.");
+      toast.error(t('toasts.image_upload_error'));
     } finally {
       setUploadingImage(false);
     }
@@ -68,10 +73,10 @@ function ProfilePage() {
       const { ok, data } = await api.put('/users/me', form);
       if (!ok) throw new Error('Échec de la mise à jour');
       setUser(data);
-      toast.success('Profil mis à jour avec succès !');
+      toast.success(t('toasts.profile_update_success'));
     } catch (err) {
       console.error(err);
-      toast.error('Une erreur est survenue.');
+      toast.error(t('toasts.generic_error'));
     } finally {
       setUpdating(false);
     }
@@ -85,7 +90,7 @@ function ProfilePage() {
     <main className="max-w-6xl mx-auto py-8 px-4 sm:px-8">
       {/* Header */}
       <div className="items-center space-y-4">
-        <h1 className="text-2xl font-semibold text-gray-800">Mon Profil</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">{t('profile')}</h1>
         {user.lastLogin && (
           <p className="text-gray-500 text-sm">
             Dernière connexion :{' '}
@@ -149,7 +154,7 @@ function ProfilePage() {
             </div>
 
             <div>
-              <label className="block text-sm text-gray-600 mb-1">Nom complet</label>
+              <label className="block text-sm text-gray-600 mb-1">{t('fields.name')}</label>
               <input
                 type="text"
                 value={form.name}
@@ -163,7 +168,7 @@ function ProfilePage() {
               onClick={() => setForm({ ...form, isCompany: !form.isCompany })}
               className="flex items-center justify-between bg-white border border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-50 transition"
             >
-              <span className="text-gray-700 font-medium">Je suis une entreprise</span>
+              <span className="text-gray-700 font-medium">{t('fields.isCompany')}</span>
               <div
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   form.isCompany ? 'bg-secondary-500' : 'bg-gray-300'
@@ -190,7 +195,7 @@ function ProfilePage() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm text-gray-600 mb-1">Adresse</label>
+              <label className="block text-sm text-gray-600 mb-1">{t('fields.address')}</label>
               <input
                 type="text"
                 value={form.address}
@@ -201,7 +206,7 @@ function ProfilePage() {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-gray-600 mb-1">Téléphone</label>
+                <label className="block text-sm text-gray-600 mb-1">{t('fields.phone')}</label>
                 <input
                   type="text"
                   value={form.phone}
@@ -210,7 +215,7 @@ function ProfilePage() {
                 />
               </div>
               <div>
-                <label className="block text-sm text-gray-600 mb-1">Région</label>
+                <label className="block text-sm text-gray-600 mb-1">{t('fields.state')}</label>
                 <input
                   type="text"
                   value={form.state}
@@ -219,16 +224,16 @@ function ProfilePage() {
                 />
               </div>
               <div>
-                <label className="block text-sm text-gray-600 mb-1">Genre</label>
+                <label className="block text-sm text-gray-600 mb-1">{t('fields.gender')}</label>
                 <select
                   value={form.gender}
                   onChange={(e) => setForm({ ...form, gender: e.target.value })}
                   className="w-full border border-gray-300 rounded-md p-3 bg-white focus:outline-none focus:ring-2 focus:ring-secondary-500"
                 >
-                  <option value="">-- Sélectionner --</option>
-                  <option value="male">Homme</option>
-                  <option value="female">Femme</option>
-                  <option value="other">Autre</option>
+                  <option value="">-- {t('genders.select')} --</option>
+                  <option value="male">{t('genders.male')}</option>
+                  <option value="female">{t('genders.female')}</option>
+                  <option value="other">{t('genders.other')}</option>
                 </select>
               </div>
             </div>
@@ -241,7 +246,7 @@ function ProfilePage() {
             disabled={updating}
             className="mt-2 ml-auto bg-secondary-500 text-white px-4 py-3 rounded-md font-semibold hover:bg-secondary-600 transition disabled:opacity-60"
           >
-            {updating ? 'Mise à jour...' : 'Enregistrer les modifications'}
+            {updating ? t('updating_profile') : t('save_changes')}
           </button>
         </div>
       </form>

@@ -1,11 +1,14 @@
 'use client';
-
 import { useState } from 'react';
+
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/src/lib/store';
+import { useTranslations } from 'next-intl';
+
 import { api } from '@/src/lib/api';
+import { useAuthStore } from '@/src/lib/store';
 
 export default function RegisterPage() {
+  const t = useTranslations('user');
   const router = useRouter();
   const { setUser } = useAuthStore();
 
@@ -38,14 +41,14 @@ export default function RegisterPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-medium text-gray-800">Register</h1>
-        <p className="text-gray-500 mt-1">Créez votre compte</p>
+        <h1 className="text-3xl font-medium text-gray-800">{t('register')}</h1>
+        <p className="text-gray-500 mt-1">{t('register_title')}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
-          placeholder="Full Name"
+          placeholder={t('fields.name')}
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition"
@@ -61,7 +64,7 @@ export default function RegisterPage() {
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder={t('fields.password')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition"
@@ -73,7 +76,7 @@ export default function RegisterPage() {
           onClick={() => setIsCompany(!isCompany)}
           className="flex items-center justify-between bg-gray-50 border border-gray-300 rounded-md px-4 py-3 cursor-pointer hover:bg-gray-100 transition"
         >
-          <span className="text-gray-700 font-medium">Je suis une entreprise</span>
+          <span className="text-gray-700 font-medium">{t('fields.isCompany')}</span>
           <div
             className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
               isCompany ? 'bg-secondary-500' : 'bg-gray-300'
@@ -91,16 +94,16 @@ export default function RegisterPage() {
           type="submit"
           className="bg-secondary-500 text-white py-3 rounded-md font-semibold hover:bg-secondary-600 transition-colors"
         >
-          Register
+          {t('register')}
         </button>
       </form>
 
       {error && <p className="text-red-500 mt-2 animate-pulse">{error}</p>}
 
       <p className="text-gray-500 text-sm mt-2">
-        Already have an account?{' '}
+        {t('register_has_account')}{' '}
         <a href="/login" className="text-secondary-500 font-medium hover:underline">
-          Login
+          {t('login')}
         </a>
       </p>
     </div>

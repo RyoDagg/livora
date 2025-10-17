@@ -56,6 +56,69 @@
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
-    "profile": "Profile"
+    "profile": "Profile",
+
+    "login_title": "Log in to access your account",
+    "no_account": "Don't have an account?",
+    "forgot_password": "Forgot Password?",
+    "register_title": "Create your account",
+    "register_has_account": "Already have an account?",
+
+    "fields": {
+      "lastLogin": "Last login",
+      "name": "Full name",
+      "isCompany": "I am a company",
+      "address": "Address",
+      "phone": "Phone",
+      "state": "Governorate",
+      "gender": "Gender",
+      "avatarUrl": "Profile picture",
+      "password": "Password"
+    },
+
+    "genders": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "select": "Select"
+    },
+
+    "toasts": {
+      "image_upload_success": "Image uploaded successfully!",
+      "image_upload_error": "Error uploading image.",
+      "profile_update_success": "Profile updated successfully!",
+      "generic_error": "An error occurred."
+    },
+
+    "save_changes": "Save Changes",
+    "updating_profile": "Updating..."
+  },
+
+  "home": {
+    "hero": {
+      "title": {
+        "part1": "Discover",
+        "highlight": "for free",
+        "part2": "the best real estate deals."
+      },
+      "subtitle": "Browse and post real estate listings easily.",
+      "cta": "Browse Listings",
+      "image_alt": "Homepage illustration"
+    },
+    "agencies": {
+      "title": "For Agencies",
+      "description": {
+        "part1": "Take advantage of our",
+        "highlight1": "Free Service!",
+        "part2": "Post and manage your listings",
+        "highlight2": "at no cost",
+        "part3": "while increasing their visibility effortlessly."
+      },
+      "cta": "Get Started",
+      "image_alt": "Real estate agency illustration"
+    },
+    "footer": {
+      "rights": "All rights reserved"
+    }
   }
 }

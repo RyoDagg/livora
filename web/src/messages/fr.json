@@ -56,6 +56,69 @@
     "login": "Connexion",
     "register": "Inscription",
     "logout": "Déconnexion",
-    "profile": "Profil"
+    "profile": "Profil",
+
+    "login_title": "Connectez-vous pour accéder à votre compte",
+    "no_account": "Vous n'avez pas de compte?",
+    "forgot_password": "Mot de passe oublié?",
+    "register_title": "Créez votre compte",
+    "register_has_account": "Vous avez déjà un compte?",
+
+    "fields": {
+      "lastLogin": "Dernière connexion",
+      "name": "Nom complet",
+      "isCompany": "Je suis une entreprise",
+      "address": "Adresse",
+      "phone": "Téléphone",
+      "state": "Gouvernorat",
+      "gender": "Genre",
+      "avatarUrl": "Photo de profil",
+      "password": "Mot de passe"
+    },
+
+    "genders": {
+      "male": "Homme",
+      "female": "Femme",
+      "other": "Autre",
+      "select": "Sélectionner"
+    },
+
+    "toasts": {
+      "image_upload_success": "Image téléchargée avec succès !",
+      "image_upload_error": "Erreur lors du téléchargement de l'image.",
+      "profile_update_success": "Profil mis à jour avec succès !",
+      "generic_error": "Une erreur est survenue."
+    },
+
+    "save_changes": "Enregistrer les modifications",
+    "updating_profile": "Mise à jour..."
+  },
+
+  "home": {
+    "hero": {
+      "title": {
+        "part1": "Découvrez",
+        "highlight": "gratuitement",
+        "part2": "les meilleures offres immobilières."
+      },
+      "subtitle": "Parcourez et publiez des annonces immobilières en toute simplicité.",
+      "cta": "Parcourir les annonces",
+      "image_alt": "Illustration de la page d'accueil"
+    },
+    "agencies": {
+      "title": "Pour les agences",
+      "description": {
+        "part1": "Bénéficiez de notre service",
+        "highlight1": "Gratuit!",
+        "part2": "Publiez et gérez vos annonces",
+        "highlight2": "sans frais",
+        "part3": "tout en augmentant leur visibilité facilement."
+      },
+      "cta": "Commencer",
+      "image_alt": "Illustration d'une agence immobilière"
+    },
+    "footer": {
+      "rights": "Tous droits réservés"
+    }
   }
 }
