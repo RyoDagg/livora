@@ -1,37 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FaSearch } from 'react-icons/fa';
-import { GiTunisia } from 'react-icons/gi';
 import { useTranslations } from 'next-intl';
 
-const TUNISIA_REGIONS = [
-  'Ariana',
-  'Béja',
-  'Ben Arous',
-  'Bizerte',
-  'Gabès',
-  'Gafsa',
-  'Jendouba',
-  'Kairouan',
-  'Kasserine',
-  'Kebili',
-  'Kef',
-  'Mahdia',
-  'Manouba',
-  'Medenine',
-  'Monastir',
-  'Nabeul',
-  'Sfax',
-  'Sidi Bouzid',
-  'Siliana',
-  'Sousse',
-  'Tataouine',
-  'Tozeur',
-  'Tunis',
-  'Zaghouan',
-];
+import { FaSearch } from 'react-icons/fa';
+import { GiTunisia } from 'react-icons/gi';
+
+import { TUNISIA_REGIONS } from '../constants/regions';
 
 export default function ListingsFilters() {
   const router = useRouter();

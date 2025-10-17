@@ -15,33 +15,7 @@ import Loader from '@/src/components/Loader';
 import { BsPencilSquare, BsTelephone } from 'react-icons/bs';
 import { HiOutlineCash } from 'react-icons/hi';
 import { FaSave } from 'react-icons/fa';
-
-const TUNISIA_REGIONS = [
-  'Ariana',
-  'Béja',
-  'Ben Arous',
-  'Bizerte',
-  'Gabès',
-  'Gafsa',
-  'Jendouba',
-  'Kairouan',
-  'Kasserine',
-  'Kebili',
-  'Kef',
-  'Mahdia',
-  'Manouba',
-  'Medenine',
-  'Monastir',
-  'Nabeul',
-  'Sfax',
-  'Sidi Bouzid',
-  'Siliana',
-  'Sousse',
-  'Tataouine',
-  'Tozeur',
-  'Tunis',
-  'Zaghouan',
-];
+import { TUNISIA_REGIONS } from '@/src/constants/regions';
 
 function EditListingPage() {
   const params = useParams();

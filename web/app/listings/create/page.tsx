@@ -14,33 +14,7 @@ import { api } from '@/src/lib/api';
 import { withAuth } from '@/src/lib/withAuth';
 import { ListingInput } from '@/src/types/Listing';
 import { TbSquareRoundedArrowUpFilled } from 'react-icons/tb';
-
-const TUNISIA_REGIONS = [
-  'Ariana',
-  'Béja',
-  'Ben Arous',
-  'Bizerte',
-  'Gabès',
-  'Gafsa',
-  'Jendouba',
-  'Kairouan',
-  'Kasserine',
-  'Kebili',
-  'Kef',
-  'Mahdia',
-  'Manouba',
-  'Medenine',
-  'Monastir',
-  'Nabeul',
-  'Sfax',
-  'Sidi Bouzid',
-  'Siliana',
-  'Sousse',
-  'Tataouine',
-  'Tozeur',
-  'Tunis',
-  'Zaghouan',
-];
+import { TUNISIA_REGIONS } from '@/src/constants/regions';
 
 function CreateListingPage() {
   const router = useRouter();
