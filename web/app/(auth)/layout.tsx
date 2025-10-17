@@ -1,11 +1,13 @@
 'use client';
 import Loader from '@/src/components/Loader';
 import { useAuth } from '@/src/hooks/useAuth';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
+  const t = useTranslations('home.hero');
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -39,13 +41,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <p className="text-3xl font-bold text-secondary-500">Livora</p>
 
           <h1 className="text-3xl md:text-5xl leading-tight text-gray-100 capitalize">
-            Découvrez <span className="font-bold italic">gratuitement</span> les meilleures offres
-            immobilières.
+            {t('title.part1')} <span className="font-bold italic">{t('title.highlight')}</span>{' '}
+            {t('title.part2')}
           </h1>
 
-          <p className="text-xl text-gray-200">
-            Parcourez et publiez annonces immobilières en toute simplicité.
-          </p>
+          <p className="text-xl text-gray-200">{t('subtitle')}</p>
         </div>
       </section>
     </main>

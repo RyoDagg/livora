@@ -6,10 +6,10 @@ export default function Home() {
   const t = useTranslations('home');
 
   return (
-    <main className="min-h-screen flex flex-col space-y-16">
+    <main className="flex flex-col space-y-16">
       {/* Hero Section */}
       <section
-        className="relative bg-primary-900 text-white py-28"
+        className="relative bg-primary-900 shadow-lg text-white py-28 h-[calc(100vh-4rem)]"
         style={{
           backgroundImage: `url('/hero-bg.png')`,
           backgroundSize: 'cover',
