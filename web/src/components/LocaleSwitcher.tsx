@@ -22,7 +22,7 @@ export default function LocaleSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-2 py-1 text-sm font-medium text-blue-500 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-300 rounded-md"
+        className="flex items-center gap-1 px-2 py-1 text-sm font-medium text-blue-500 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-400 rounded-md"
       >
         <BsGlobe2 className="w-5 h-5" />
       </button>

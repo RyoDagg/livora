@@ -74,10 +74,10 @@
     "profile": "Profil",
 
     "login_title": "Connectez-vous pour accéder à votre compte",
-    "no_account": "Vous n'avez pas de compte?",
-    "forgot_password": "Mot de passe oublié?",
+    "no_account": "Vous n'avez pas de compte ?",
+    "forgot_password": "Mot de passe oublié ?",
     "register_title": "Créez votre compte",
-    "register_has_account": "Vous avez déjà un compte?",
+    "register_has_account": "Vous avez déjà un compte ?",
 
     "fields": {
       "lastLogin": "Dernière connexion",

@@ -73,7 +73,7 @@ function CreateListingPage() {
           <button
             type="submit"
             disabled={loading}
-            className="flex items-center gap-2 ml-auto bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 disabled:opacity-50"
+            className="flex items-center gap-2 ml-auto bg-primary-500 text-white px-4 py-3 font-bold hover:bg-primary-400 disabled:opacity-50"
           >
             {loading ? <Loader /> : <TbSquareRoundedArrowUpFilled className="text-2xl" />}
             {t('publish')}
@@ -220,7 +220,7 @@ function CreateListingPage() {
           <button
             type="submit"
             disabled={loading}
-            className="flex items-center gap-2 bg-secondary-500 text-white px-4 py-3 font-bold hover:bg-secondary-400 disabled:opacity-50"
+            className="flex items-center gap-2 bg-primary-500 text-white px-4 py-3 font-bold hover:bg-primary-400 disabled:opacity-50"
           >
             {loading ? <Loader /> : <TbSquareRoundedArrowUpFilled className="text-2xl" />}
             {t('publish')}

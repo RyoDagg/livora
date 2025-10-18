@@ -159,7 +159,7 @@ function ProfilePage() {
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-secondary-500"
+                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary-400"
               />
             </div>
 
@@ -171,7 +171,7 @@ function ProfilePage() {
               <span className="text-gray-700 font-medium">{t('fields.isCompany')}</span>
               <div
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  form.isCompany ? 'bg-secondary-500' : 'bg-gray-300'
+                  form.isCompany ? 'bg-primary-600' : 'bg-gray-300'
                 }`}
               >
                 <span
@@ -188,7 +188,7 @@ function ProfilePage() {
                 value={form.bio}
                 onChange={(e) => setForm({ ...form, bio: e.target.value })}
                 rows={4}
-                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-secondary-500 resize-none"
+                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
               />
             </div>
           </div>
@@ -200,7 +200,7 @@ function ProfilePage() {
                 type="text"
                 value={form.address}
                 onChange={(e) => setForm({ ...form, address: e.target.value })}
-                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-secondary-500"
+                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary-400"
               />
             </div>
 
@@ -211,7 +211,7 @@ function ProfilePage() {
                   type="text"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-secondary-500"
+                  className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary-400"
                 />
               </div>
               <div>
@@ -220,7 +220,7 @@ function ProfilePage() {
                   type="text"
                   value={form.state}
                   onChange={(e) => setForm({ ...form, state: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-secondary-500"
+                  className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary-400"
                 />
               </div>
               <div>
@@ -228,7 +228,7 @@ function ProfilePage() {
                 <select
                   value={form.gender}
                   onChange={(e) => setForm({ ...form, gender: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-3 bg-white focus:outline-none focus:ring-2 focus:ring-secondary-500"
+                  className="w-full border border-gray-300 rounded-md p-3 bg-white focus:outline-none focus:ring-2 focus:ring-primary-400"
                 >
                   <option value="">-- {t('genders.select')} --</option>
                   <option value="male">{t('genders.male')}</option>
@@ -244,7 +244,7 @@ function ProfilePage() {
           <button
             type="submit"
             disabled={updating}
-            className="mt-2 ml-auto bg-secondary-500 text-white px-4 py-3 rounded-md font-semibold hover:bg-secondary-600 transition disabled:opacity-60"
+            className="mt-2 ml-auto bg-primary-500 text-white px-4 py-3 rounded-md font-semibold hover:bg-primary-600 transition disabled:opacity-60"
           >
             {updating ? t('updating_profile') : t('save_changes')}
           </button>

@@ -51,7 +51,7 @@ export default function RegisterPage() {
           placeholder={t('fields.name')}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition"
+          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition"
           required
         />
         <input
@@ -59,7 +59,7 @@ export default function RegisterPage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition"
+          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition"
           required
         />
         <input
@@ -67,7 +67,7 @@ export default function RegisterPage() {
           placeholder={t('fields.password')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition"
+          className="border border-gray-300 rounded-md p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition"
           required
         />
 
@@ -79,7 +79,7 @@ export default function RegisterPage() {
           <span className="text-gray-700 font-medium">{t('fields.isCompany')}</span>
           <div
             className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-              isCompany ? 'bg-secondary-500' : 'bg-gray-300'
+              isCompany ? 'bg-primary-500' : 'bg-gray-300'
             }`}
           >
             <span
@@ -102,7 +102,7 @@ export default function RegisterPage() {
 
       <p className="text-gray-500 text-sm mt-2">
         {t('register_has_account')}{' '}
-        <a href="/login" className="text-secondary-500 font-medium hover:underline">
+        <a href="/login" className="text-secondary-500 font-bold hover:underline">
           {t('login')}
         </a>
       </p>
