@@ -98,11 +98,24 @@
       "select": "Select"
     },
 
+    "change_password": {
+      "title": "Change Password",
+      "current": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "submit": "Update Password",
+      "updating_password": "Updating..."
+    },
+
     "toasts": {
       "image_upload_success": "Image uploaded successfully!",
       "image_upload_error": "Error uploading image.",
       "profile_update_success": "Profile updated successfully!",
-      "generic_error": "An error occurred."
+      "generic_error": "An error occurred.",
+
+      "password_update_success": "Password updated successfully!",
+      "password_update_error": "Error updating password.",
+      "passwords_not_matching": "Passwords do not match."
     },
 
     "save_changes": "Save Changes",

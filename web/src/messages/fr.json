@@ -98,11 +98,24 @@
       "select": "Sélectionner"
     },
 
+    "change_password": {
+      "title": "Changer le mot de passe",
+      "current": "Mot de passe actuel",
+      "new": "Nouveau mot de passe",
+      "confirm": "Confirmer le nouveau mot de passe",
+      "submit": "Mettre à jour",
+      "updating_password": "Mise à jour..."
+    },
+
     "toasts": {
       "image_upload_success": "Image téléchargée avec succès !",
       "image_upload_error": "Erreur lors du téléchargement de l'image.",
       "profile_update_success": "Profil mis à jour avec succès !",
-      "generic_error": "Une erreur est survenue."
+      "generic_error": "Une erreur est survenue.",
+
+      "password_update_success": "Mot de passe mis à jour avec succès !",
+      "password_update_error": "Erreur lors de la mise à jour du mot de passe.",
+      "passwords_not_matching": "Les mots de passe ne correspondent pas."
     },
 
     "save_changes": "Enregistrer les modifications",

@@ -87,7 +87,7 @@ function ProfilePage() {
     return <p className="text-center py-12 text-gray-500">Vous n&apos;êtes pas connecté.</p>;
 
   return (
-    <main className="max-w-6xl mx-auto py-8 px-4 sm:px-8">
+    <main className="max-w-6xl mx-auto py-8 px-4 sm:px-8 mb-32">
       {/* Header */}
       <div className="items-center space-y-4">
         <h1 className="text-2xl font-semibold text-gray-800">{t('profile')}</h1>
@@ -250,7 +250,92 @@ function ProfilePage() {
           </button>
         </div>
       </form>
+      <UpdatePassword />
     </main>
+  );
+}
+
+function UpdatePassword() {
+  const t = useTranslations('user');
+
+  const [passwords, setPasswords] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [updatingPassword, setUpdatingPassword] = useState(false);
+
+  async function handlePasswordChange(e: React.FormEvent) {
+    e.preventDefault();
+    if (passwords.newPassword !== passwords.confirmPassword) {
+      toast.error(t('toasts.passwords_not_matching'));
+      return;
+    }
+
+    try {
+      setUpdatingPassword(true);
+      const { ok } = await api.put('/users/me/password', {
+        currentPassword: passwords.currentPassword,
+        newPassword: passwords.newPassword,
+      });
+
+      if (!ok) throw new Error('Failed to update password');
+      toast.success(t('toasts.password_update_success'));
+      setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (err) {
+      console.error(err);
+      toast.error(t('toasts.password_update_error'));
+    } finally {
+      setUpdatingPassword(false);
+    }
+  }
+
+  return (
+    <section className="mt-16 border-t border-gray-300 pt-10">
+      <h2 className="text-xl font-semibold text-gray-800 mb-6">{t('change_password.title')}</h2>
+
+      <form onSubmit={handlePasswordChange} className="space-y-5 max-w-md">
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">{t('change_password.current')}</label>
+          <input
+            type="password"
+            value={passwords.currentPassword}
+            onChange={(e) => setPasswords({ ...passwords, currentPassword: e.target.value })}
+            className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary-400"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">{t('change_password.new')}</label>
+          <input
+            type="password"
+            value={passwords.newPassword}
+            onChange={(e) => setPasswords({ ...passwords, newPassword: e.target.value })}
+            className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary-400"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">{t('change_password.confirm')}</label>
+          <input
+            type="password"
+            value={passwords.confirmPassword}
+            onChange={(e) => setPasswords({ ...passwords, confirmPassword: e.target.value })}
+            className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary-400"
+          />
+        </div>
+
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={updatingPassword}
+            className="bg-primary-500 text-white px-4 py-3 rounded-md font-semibold hover:bg-primary-600 transition disabled:opacity-60"
+          >
+            {updatingPassword ? t('updating_password') : t('change_password.submit')}
+          </button>
+        </div>
+      </form>
+    </section>
   );
 }
 

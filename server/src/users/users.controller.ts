@@ -1,4 +1,13 @@
-import { Controller, Get, Put, Body, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Put,
+  Body,
+  Request,
+  UseGuards,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
@@ -27,5 +36,25 @@ export class UsersController {
       return { ok: true, data: result };
     }
     return { ok: false, message: 'User not found' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('me/password')
+  async updatePassword(
+    @Request() req,
+    @Body() body: { currentPassword: string; newPassword: string },
+  ) {
+    const userId = req.user.userId;
+    const { currentPassword, newPassword } = body;
+
+    if (!currentPassword || !newPassword) {
+      throw new HttpException('Missing fields', HttpStatus.BAD_REQUEST);
+    }
+
+    return this.usersService.updatePassword(
+      userId,
+      currentPassword,
+      newPassword,
+    );
   }
 }
