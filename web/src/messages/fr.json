@@ -43,7 +43,20 @@
   },
 
   "dashboard": {
-    "title": "Tableau de bord"
+    "title": "Tableau de bord",
+    "subtitle": "Gérez vos annonces en toute simplicité.",
+
+    "empty": "Vous n'avez pas encore publié d'annonce.",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette annonce ?",
+
+    "errors": {
+      "load": "Une erreur est survenue lors du chargement de vos annonces."
+    },
+
+    "toast": {
+      "deleted": "Annonce supprimée avec succès !",
+      "deleteError": "Impossible de supprimer l'annonce."
+    }
   },
 
   "actions": {
@@ -51,6 +64,8 @@
     "delete": "Supprimer",
     "view": "Voir"
   },
+
+  "loading": "Chargement...",
 
   "user": {
     "login": "Connexion",
