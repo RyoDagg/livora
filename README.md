@@ -2,6 +2,10 @@
 
 _Real Estate Marketplace – Tunisia 🏡_
 
+[![Figma Design](https://img.shields.io/badge/Figma-Design-black?style=for-the-badge&logo=figma)](https://www.figma.com/design/FSXqH03PAi7ISwVrFxqTK6/Livora---Tuto?node-id=26-400&t=cV8qJHJChiXWkkzT-1)
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=vercel)](https://livora-ivory.vercel.app/)
+
 ## 📌 About the Project
 
 This project's purpose is to **showcase my coding skills, coding practices, and design standards** so that potential collaborators or employers can have a clear idea of:
