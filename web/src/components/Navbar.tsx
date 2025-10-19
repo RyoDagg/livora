@@ -67,7 +67,13 @@ export default function Navbar() {
           {/* Logo */}
           <div className="text-3xl font-bold text-gray-800 w-20 min-w-20">
             <Link href="/">
-              <Image width={120} height={120} src={'/logo.png'} alt="Profile" className="w-full" />
+              <Image
+                width={120}
+                height={120}
+                src={'/logo.png'}
+                alt="Profile"
+                className="w-auto max-h-12"
+              />
             </Link>
           </div>
 

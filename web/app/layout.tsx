@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: '/icon.svg',
+  },
   title: 'Livora',
   description: 'Your go-to platform for real estate listings in Tunisia.',
 };
