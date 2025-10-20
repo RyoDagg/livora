@@ -100,7 +100,7 @@ export default function Navbar() {
                     <Image
                       width={40}
                       height={40}
-                      src={'/default-avatar.png'}
+                      src={user.avatarUrl || '/default-avatar.png'}
                       alt="Profile"
                       className="h-10 w-10 rounded-full border border-gray-300 object-cover cursor-pointer hover:ring-2 hover:ring-primary-500 transition"
                     />
@@ -115,7 +115,7 @@ export default function Navbar() {
                         <Image
                           width={40}
                           height={40}
-                          src={'/default-avatar.png'}
+                          src={user.avatarUrl || '/default-avatar.png'}
                           alt="Profile"
                           className="h-6 w-6 rounded-full"
                         />
@@ -173,65 +173,91 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile sliding menu */}
       {mobileOpen && (
-        <div
-          id="mobile-menu"
-          className="sm:hidden border-t border-gray-200 px-4 pb-4 transition-all duration-150 ease-out"
-        >
-          <div className="flex flex-col space-y-2 mt-2">
-            <NavLink href="/listings">{t('listings.title')}</NavLink>
-            {user && <NavLink href="/listings/create">{t('listings.create')}</NavLink>}
-            {user && <NavLink href="/dashboard">{t('dashboard.title')}</NavLink>}
-          </div>
+        <>
+          {/* Overlay */}
+          <div className="fixed inset-0 bg-black/40 z-40" onClick={() => setMobileOpen(false)} />
 
-          <div className="mt-4 flex flex-col gap-2">
-            {!loading &&
-              (user ? (
-                <>
-                  <Link
-                    href="/profile"
-                    className="block w-full text-center px-4 py-2 text-gray-700 bg-gray-50 hover:bg-gray-100"
-                  >
-                    {t('user.profile')}
-                  </Link>
-                  <Link
-                    href="/favorites"
-                    className="block w-full text-center px-4 py-2 text-gray-700 bg-gray-50 hover:bg-gray-100"
-                  >
-                    Saved Listings
-                  </Link>
-                  <Link
-                    href="/settings"
-                    className="block w-full text-center px-4 py-2 text-gray-700 bg-gray-50 hover:bg-gray-100"
-                  >
-                    Settings
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-center px-4 py-2 text-red-600 bg-red-50 hover:bg-red-100"
-                  >
-                    {t('user.logout')}
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className="block w-full text-center px-4 py-2 shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
-                  >
-                    {t('user.login')}
-                  </Link>
-                  <Link
-                    href="/register"
-                    className="block w-full text-center px-4 py-2 shadow-sm text-white bg-primary-500 hover:bg-primary-500/70"
-                  >
-                    {t('user.register')}
-                  </Link>
-                </>
-              ))}
+          {/* Sliding drawer */}
+          <div
+            className={`fixed top-0 right-0 h-full w-4/5 max-w-sm bg-white shadow-lg z-50 transform transition-transform duration-300 ease-out ${
+              mobileOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          >
+            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+              <h2 className="text-lg font-semibold">Menu</h2>
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="p-2 rounded-md hover:bg-gray-100"
+              >
+                <HiX size={24} />
+              </button>
+            </div>
+
+            <div className="flex flex-col p-4">
+              <div className="flex flex-col space-y-2 mb-4">
+                <NavLink href="/listings">{t('listings.title')}</NavLink>
+                {user && <NavLink href="/listings/create">{t('listings.create')}</NavLink>}
+                {user && <NavLink href="/dashboard">{t('dashboard.title')}</NavLink>}
+              </div>
+              <hr className="my-2 border-gray-300" />
+
+              {!loading &&
+                (user ? (
+                  <>
+                    <Link
+                      href="/profile"
+                      onClick={() => setMobileOpen(false)}
+                      className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md"
+                    >
+                      {t('user.profile')}
+                    </Link>
+                    <Link
+                      href="/favorites"
+                      onClick={() => setMobileOpen(false)}
+                      className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md"
+                    >
+                      Saved Listings
+                    </Link>
+                    <Link
+                      href="/settings"
+                      onClick={() => setMobileOpen(false)}
+                      className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md"
+                    >
+                      Settings
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setMobileOpen(false);
+                      }}
+                      className="text-red-600 font-medium hover:bg-red-50 px-4 py-2 rounded-md text-left"
+                    >
+                      {t('user.logout')}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      onClick={() => setMobileOpen(false)}
+                      className="block text-center px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-500/80"
+                    >
+                      {t('user.login')}
+                    </Link>
+                    <Link
+                      href="/register"
+                      onClick={() => setMobileOpen(false)}
+                      className="block text-center px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-500/80"
+                    >
+                      {t('user.register')}
+                    </Link>
+                  </>
+                ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );
