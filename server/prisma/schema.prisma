@@ -33,7 +33,8 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
-  Listing Listing[]
+  Listing      Listing[]
+  SavedListing SavedListing[]
 }
 
 model Listing {
@@ -53,5 +54,19 @@ model Listing {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  owner User @relation(fields: [ownerId], references: [id])
+  owner   User           @relation(fields: [ownerId], references: [id])
+  savedBy SavedListing[]
+}
+
+model SavedListing {
+  id        String @id @default(cuid())
+  userId    String
+  listingId String
+
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  listing Listing @relation(fields: [listingId], references: [id])
+
+  @@unique([userId, listingId])
 }

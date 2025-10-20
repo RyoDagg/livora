@@ -1,18 +1,12 @@
 import { BsPersonCircle } from 'react-icons/bs';
-import {
-  FaBookmark,
-  FaHome,
-  FaMapMarkerAlt,
-  FaPaperPlane,
-  FaPhoneAlt,
-  FaRegCalendarAlt,
-} from 'react-icons/fa';
+import { FaHome, FaMapMarkerAlt, FaPhoneAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { HiOutlineCash } from 'react-icons/hi';
 
 import { api } from '@/src/lib/api';
 import { Listing } from '@/src/types/Listing';
 
 import ImagesSection from '@/src/components/ImagesSection';
+import ListingCTA from '@/src/components/ListingCTA';
 
 async function fetchListing(id: string): Promise<Listing> {
   const { ok, data } = await api.get(`/listings/${id}`, {
@@ -74,20 +68,7 @@ export default async function ListingPage({ params }: { params: { id: string } }
             </span>
           </div>
 
-          {/* CTA */}
-          {false && (
-            <div className="flex flex-col sm:flex-row gap-3 my-8">
-              <button className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold hover:bg-secondary-600 transition">
-                <FaPaperPlane className="inline mr-2" />
-                Contacter
-              </button>
-
-              <button className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold hover:bg-primary-600 transition">
-                <FaBookmark className="inline mr-2" />
-                Enregistrer
-              </button>
-            </div>
-          )}
+          <ListingCTA listing={listing} />
 
           {/* Description */}
           <p className="text-gray-600 leading-relaxed">{listing.description}</p>
