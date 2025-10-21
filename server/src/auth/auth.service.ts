@@ -2,12 +2,17 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { randomUUID } from 'node:crypto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private prismaService: PrismaService,
+    private mailService: MailService,
   ) {}
 
   async register(
@@ -15,15 +20,31 @@ export class AuthService {
     password: string,
     name: string,
     isCompany: boolean,
-  ): Promise<{ access_token: string; user: any }> {
+  ) {
     const user = await this.usersService.create(
       email,
       password,
       name,
       isCompany,
     );
-    const { access_token } = await this.signUser(user.id, user.email);
-    return { access_token, user };
+
+    const token = randomUUID();
+    const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
+    await this.prismaService.verificationToken.create({
+      data: {
+        token,
+        userId: user.id,
+        expiresAt,
+      },
+    });
+
+    const verifyUrl = `${process.env.APP_URL || 'https://www.livora.tn'}/verify-email?token=${token}`;
+
+    await this.mailService.sendMail({
+      to: email,
+      subject: 'Verify your email',
+      body: `Hello ${name},\n\nPlease verify your email by clicking the link below:\n\n${verifyUrl}\n\nThis link will expire in 24 hours.\n\nThank you!\n\n- The Livora Team`,
+    });
   }
 
   async login(

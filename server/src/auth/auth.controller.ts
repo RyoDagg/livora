@@ -12,21 +12,13 @@ export class AuthController {
     @Body('password') password: string,
     @Body('name') name: string,
     @Body('isCompany') isCompany: boolean,
-    @Res({ passthrough: true }) res: Response,
   ) {
-    const { access_token, user } = await this.authService.register(
-      email,
-      password,
-      name,
-      isCompany,
-    );
-
-    res.cookie('jwt_token', access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    });
-    return { ok: true, user };
+    try {
+      await this.authService.register(email, password, name, isCompany);
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, message: error.message };
+    }
   }
 
   @Post('login')
