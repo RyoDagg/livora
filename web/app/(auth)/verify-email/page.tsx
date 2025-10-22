@@ -1,6 +1,6 @@
-import { api } from '@/src/lib/api';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
+import { api } from '@/src/lib/api';
 
 export default async function VerifyEmailPage({
   searchParams,
