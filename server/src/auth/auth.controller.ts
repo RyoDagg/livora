@@ -59,4 +59,14 @@ export class AuthController {
       return { ok: false, message: error.message };
     }
   }
+
+  @Post('resend-verification')
+  async resendVerification(@Body('email') email: string) {
+    try {
+      await this.authService.resendVerificationEmail(email);
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error: error.message || 'SERVER_ERROR' };
+    }
+  }
 }

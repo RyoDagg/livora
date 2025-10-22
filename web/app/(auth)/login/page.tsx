@@ -3,6 +3,8 @@
 import { useState } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+
 import { useTranslations } from 'next-intl';
 
 import { useAuthStore } from '@/src/lib/store';
@@ -20,19 +22,24 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
     try {
+      setLoading(true);
       const { ok, user, error } = await api.post('/auth/login', { email, password });
       if (!ok) throw new Error(error);
 
       setUser(user);
       router.push(redirect);
-    } catch (error) {
-      setError(error instanceof Error ? error.message : 'SERVER_ERROR');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'GENERAL_ERROR');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -62,7 +69,8 @@ export default function LoginPage() {
         />
         <button
           type="submit"
-          className="bg-secondary-500 text-white py-3 rounded-md font-semibold hover:bg-secondary-600 transition-colors"
+          disabled={loading}
+          className="bg-secondary-500 text-white py-3 rounded-md font-semibold hover:bg-secondary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {t('login')}
         </button>
@@ -90,15 +98,15 @@ export default function LoginPage() {
 
       <p className="text-gray-500 text-sm mt-2">
         {t('no_account')}{' '}
-        <a href="/register" className="text-secondary-500 font-medium hover:underline">
+        <Link href="/register" className="text-secondary-500 font-medium hover:underline">
           {t('register')}
-        </a>
+        </Link>
       </p>
 
       <p className="text-gray-500 text-sm mt-1">
-        <a href="/forgot-password" className="text-secondary-500 hover:underline">
+        <Link href="/forgot-password" className="text-secondary-500 hover:underline">
           {t('forgot_password')}
-        </a>
+        </Link>
       </p>
     </div>
   );

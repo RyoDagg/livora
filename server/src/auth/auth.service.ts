@@ -89,4 +89,32 @@ export class AuthService {
 
     await this.prismaService.verificationToken.delete({ where: { token } });
   }
+
+  async resendVerificationEmail(email: string) {
+    const user = await this.usersService.findByEmail(email);
+    if (!user) throw new Error('NOT_FOUND');
+    if (user.isVerified) throw new Error('ALREADY_VERIFIED');
+
+    await this.prismaService.verificationToken.deleteMany({
+      where: { userId: user.id },
+    });
+
+    const token = randomUUID();
+    const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
+    await this.prismaService.verificationToken.create({
+      data: {
+        token,
+        userId: user.id,
+        expiresAt,
+      },
+    });
+
+    const verifyUrl = `${process.env.APP_URL || 'https://www.livora.tn'}/verify-email?token=${token}`;
+
+    await this.mailService.sendMail({
+      to: email,
+      subject: 'Verify your email',
+      body: `Hello ${user.name},\n\nPlease verify your email by clicking the link below:\n\n${verifyUrl}\n\nThis link will expire in 24 hours.\n\nThank you!\n\n- The Livora Team`,
+    });
+  }
 }

@@ -130,6 +130,7 @@
 
     "verify": {
       "verifying": "Verifying your email...",
+
       "success": {
         "title": "Email verified successfully!",
         "message": "Your account is now active. You can log in.",
@@ -140,13 +141,34 @@
         "message": "The link is invalid or has expired.",
         "register": "Create an account",
         "resend_verification": "Resend verification email"
+      },
+
+      "resend_verification": {
+        "title": "Resend Verification Email",
+        "subtitle": "Enter your email below to receive a new verification link.",
+        "email_placeholder": "Your email address",
+        "submit": "Send verification email",
+        "sending": "Sending...",
+
+        "success_message": "A new verification link has been sent to your inbox.",
+
+        "errors": {
+          "email_required": "Please enter your email address.",
+          "request_failed": "Unable to resend verification link. Please try again."
+        }
       }
     },
 
     "errors": {
+      "GENERAL_ERROR": "An error occurred. Please try again later.",
+
       "SERVER_ERROR": "Server error. Please try again later.",
+
       "INVALID_CREDENTIALS": "Invalid credentials. Please check your email and password.",
-      "EMAIL_NOT_VERIFIED": "Email not verified. Please check your inbox."
+      "EMAIL_NOT_VERIFIED": "Email not verified. Please check your inbox.",
+
+      "NOT_FOUND": "User not found.",
+      "ALREADY_VERIFIED": "Email is already verified."
     }
   },
 
