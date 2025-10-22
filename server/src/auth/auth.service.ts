@@ -53,11 +53,13 @@ export class AuthService {
   ): Promise<{ access_token: string; user: any }> {
     const user = await this.usersService.findByEmail(email);
 
-    if (!user) throw new UnauthorizedException('Invalid credentials');
+    if (!user) throw new UnauthorizedException('INVALID_CREDENTIALS');
 
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
     if (!isPasswordValid)
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('INVALID_CREDENTIALS');
+
+    if (!user.isVerified) throw new UnauthorizedException('EMAIL_NOT_VERIFIED');
 
     const { access_token } = await this.signUser(user.id, user.email);
     return { access_token, user };

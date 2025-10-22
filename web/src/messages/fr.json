@@ -141,6 +141,12 @@
         "register": "Créer un compte",
         "resend_verification": "Renvoyer l'e-mail de vérification"
       }
+    },
+
+    "errors": {
+      "SERVER_ERROR": "Erreur serveur. Veuillez réessayer plus tard.",
+      "INVALID_CREDENTIALS": "Identifiants invalides. Veuillez vérifier votre e-mail et votre mot de passe.",
+      "EMAIL_NOT_VERIFIED": "E-mail non vérifié. Veuillez vérifier votre boîte de réception."
     }
   },
 

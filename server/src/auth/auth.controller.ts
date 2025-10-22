@@ -27,17 +27,21 @@ export class AuthController {
     @Body('password') password: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { access_token, user } = await this.authService.login(
-      email,
-      password,
-    );
+    try {
+      const { access_token, user } = await this.authService.login(
+        email,
+        password,
+      );
 
-    res.cookie('jwt_token', access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    });
-    return { ok: true, user };
+      res.cookie('jwt_token', access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      });
+      return { ok: true, user };
+    } catch (error) {
+      return { ok: false, error: error.message || 'SERVER_ERROR' };
+    }
   }
 
   @Post('logout')

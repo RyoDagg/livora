@@ -141,6 +141,12 @@
         "register": "Create an account",
         "resend_verification": "Resend verification email"
       }
+    },
+
+    "errors": {
+      "SERVER_ERROR": "Server error. Please try again later.",
+      "INVALID_CREDENTIALS": "Invalid credentials. Please check your email and password.",
+      "EMAIL_NOT_VERIFIED": "Email not verified. Please check your inbox."
     }
   },
 
