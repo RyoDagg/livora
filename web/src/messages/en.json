@@ -79,6 +79,13 @@
     "register_title": "Create your account",
     "register_has_account": "Already have an account?",
 
+    "email_verification_sent_title": "Verify your email",
+    "email_verification_sent_message": "A verification link has been sent to {email}. Please check your inbox (and spam folder) before logging in.",
+    "go_to_login": "Go to Login",
+
+    "toast_registration_success": "Registration successful!",
+    "toast_registration_error": "Registration failed. Please try again later.",
+
     "fields": {
       "lastLogin": "Last login",
       "name": "Full name",
@@ -119,7 +126,22 @@
     },
 
     "save_changes": "Save Changes",
-    "updating_profile": "Updating..."
+    "updating_profile": "Updating...",
+
+    "verify": {
+      "verifying": "Verifying your email...",
+      "success": {
+        "title": "Email verified successfully!",
+        "message": "Your account is now active. You can log in.",
+        "login": "Log in"
+      },
+      "error": {
+        "title": "Verification failed",
+        "message": "The link is invalid or has expired.",
+        "register": "Create an account",
+        "resend_verification": "Resend verification email"
+      }
+    }
   },
 
   "home": {

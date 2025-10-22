@@ -1,28 +1,24 @@
 'use client';
 import { useState } from 'react';
-
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-
 import { api } from '@/src/lib/api';
-import { useAuthStore } from '@/src/lib/store';
+import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
   const t = useTranslations('user');
-  const router = useRouter();
-  const { setUser } = useAuthStore();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [isCompany, setIsCompany] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
     try {
-      const { ok, user } = await api.post('/auth/register', {
+      const { ok } = await api.post('/auth/register', {
         email,
         password,
         name,
@@ -30,12 +26,30 @@ export default function RegisterPage() {
       });
       if (!ok) throw new Error('Registration failed');
 
-      setUser(user);
-      router.push('/listings');
+      toast.success(t('toast_registration_success'));
+      setSuccess(true);
     } catch (err) {
+      toast.error(t('toast_registration_error'));
       console.error('Error during registration', err);
       setError('Registration failed');
     }
+  }
+
+  if (success) {
+    return (
+      <div className="text-center space-y-6">
+        <h1 className="text-3xl font-semibold text-gray-800">
+          {t('email_verification_sent_title')}
+        </h1>
+        <p className="text-gray-600">{t('email_verification_sent_message', { email })}</p>
+        <a
+          href="/login"
+          className="inline-block bg-secondary-500 text-white px-6 py-3 rounded-sm font-semibold hover:bg-secondary-600 transition-colors"
+        >
+          {t('login')}
+        </a>
+      </div>
+    );
   }
 
   return (

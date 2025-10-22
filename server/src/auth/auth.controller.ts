@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Response } from 'express';
 
@@ -44,5 +44,15 @@ export class AuthController {
   async logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('jwt_token');
     return { message: 'Logout successful' };
+  }
+
+  @Get('verify')
+  async verifyEmail(@Query('token') token: string) {
+    try {
+      await this.authService.verifyEmail(token);
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, message: error.message };
+    }
   }
 }

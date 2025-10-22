@@ -69,4 +69,22 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async verifyEmail(token: string) {
+    const record = await this.prismaService.verificationToken.findUnique({
+      where: { token },
+    });
+    if (!record) throw new Error('Invalid or expired token');
+
+    if (record.expiresAt < new Date()) {
+      throw new Error('Verification token expired');
+    }
+
+    await this.prismaService.user.update({
+      where: { id: record.userId },
+      data: { isVerified: true },
+    });
+
+    await this.prismaService.verificationToken.delete({ where: { token } });
+  }
 }
