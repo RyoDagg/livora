@@ -53,4 +53,21 @@ export class SavedListingsController {
       return { ok: false, message: error.message };
     }
   }
+
+  @Get(':listingId')
+  async isListingSaved(
+    @Param('listingId') listingId: string,
+    @Request() req: any,
+  ) {
+    try {
+      const isSaved = await this.savedService.isListingSaved(
+        req.user.userId,
+        listingId,
+      );
+      return { ok: true, data: isSaved };
+    } catch (error) {
+      console.log(error);
+      return { ok: false, message: error.message };
+    }
+  }
 }

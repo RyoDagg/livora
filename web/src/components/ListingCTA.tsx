@@ -1,11 +1,31 @@
 'use client';
 
 import { FaBookmark, FaPaperPlane } from 'react-icons/fa';
-import { Listing } from '../types/Listing';
 import { useAuthStore } from '../lib/store';
+import { useEffect, useState } from 'react';
+import { api } from '../lib/api';
 
-function ListingCTA({ listing }: { listing?: Listing }) {
+function ListingCTA({ listingId }: { listingId: string }) {
   const { user } = useAuthStore();
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchSavedStatus = async () => {
+      try {
+        const { ok, data } = await api.get(`/saved-listings/${listingId}`);
+        if (!ok) throw new Error('Failed to fetch saved status');
+
+        setSaved(data);
+      } catch (error) {
+        console.error('Error fetching saved listings:', error);
+      }
+    };
+
+    fetchSavedStatus();
+  }, [user, listingId]);
+
   if (!user) return null;
 
   return (

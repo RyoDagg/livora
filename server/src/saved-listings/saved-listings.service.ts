@@ -24,4 +24,11 @@ export class SavedListingsService {
       orderBy: { createdAt: 'desc' },
     });
   }
+
+  async isListingSaved(userId: string, listingId: string) {
+    const count = await this.prisma.savedListing.count({
+      where: { userId, listingId },
+    });
+    return count > 0;
+  }
 }

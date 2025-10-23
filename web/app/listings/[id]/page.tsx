@@ -68,7 +68,7 @@ export default async function ListingPage({ params }: { params: { id: string } }
             </span>
           </div>
 
-          <ListingCTA listing={listing} />
+          <ListingCTA listingId={listing.id} />
 
           {/* Description */}
           <p className="text-gray-600 leading-relaxed">{listing.description}</p>
