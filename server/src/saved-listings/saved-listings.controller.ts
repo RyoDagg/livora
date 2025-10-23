@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { SavedListingsService } from './saved-listings.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { ok } from 'assert';
 
 @Controller('saved-listings')
 @UseGuards(JwtAuthGuard)
