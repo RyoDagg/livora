@@ -18,17 +18,20 @@ export class SavedListingsService {
   }
 
   async getSavedListings(userId: string) {
-    return await this.prisma.savedListing.findMany({
+    const savedListings = await this.prisma.savedListing.findMany({
       where: { userId },
-      include: { listing: true },
+      include: { listing: { include: { owner: true, savedBy: true } } },
       orderBy: { createdAt: 'desc' },
     });
+
+    return savedListings.map((record) => record.listing);
   }
 
   async isListingSaved(userId: string, listingId: string) {
     const count = await this.prisma.savedListing.count({
       where: { userId, listingId },
     });
+
     return count > 0;
   }
 }

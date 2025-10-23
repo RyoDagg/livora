@@ -39,6 +39,20 @@
       "price": "e.g. 350 (TND)",
       "state": "Select a region",
       "contact": "Phone / Email"
+    },
+
+    "contact_owner": "Contact",
+
+    "save_listing": "Save",
+    "saving_listing": "Saving...",
+    "saved_listing": "Saved",
+
+    "saved_listings": "Saved Listings",
+    "no_saved_listings": "You haven't saved any listings yet.",
+    "loading": "Loading...",
+
+    "errors": {
+      "fetch_saved": "Failed to load saved listings."
     }
   },
 

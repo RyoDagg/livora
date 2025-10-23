@@ -122,7 +122,7 @@ export default function Navbar() {
                         {t('user.profile')}
                       </Link>
                       <Link
-                        href="/favorites"
+                        href="/listings/saved"
                         className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                       >
                         <HiBookmark className="text-gray-500" aria-hidden="true" /> Saved Listings
@@ -214,7 +214,7 @@ export default function Navbar() {
                       {t('user.profile')}
                     </Link>
                     <Link
-                      href="/favorites"
+                      href="/listings/saved"
                       onClick={() => setMobileOpen(false)}
                       className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md"
                     >

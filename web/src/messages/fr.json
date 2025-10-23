@@ -39,6 +39,20 @@
       "price": "ex. 350 (TND)",
       "state": "Sélectionnez une région",
       "contact": "Téléphone / Email"
+    },
+
+    "contact_owner": "Contacter",
+
+    "save_listing": "Enregistrer",
+    "saving_listing": "Sauvegarde...",
+    "saved_listing": "Enregistré",
+
+    "saved_listings": "Annonces enregistrées",
+    "no_saved_listings": "Vous n'avez encore enregistré aucune annonce.",
+    "loading": "Chargement...",
+
+    "errors": {
+      "fetch_saved": "Échec du chargement des annonces enregistrées."
     }
   },
 

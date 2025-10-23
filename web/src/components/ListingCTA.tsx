@@ -1,12 +1,15 @@
 'use client';
+import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 import { FaPaperPlane, FaRegBookmark } from 'react-icons/fa';
-import { useAuthStore } from '../lib/store';
-import { useEffect, useState } from 'react';
-import { api } from '../lib/api';
 import { BsBookmarkCheckFill } from 'react-icons/bs';
 
+import { useAuthStore } from '../lib/store';
+import { api } from '../lib/api';
+
 function ListingCTA({ listingId }: { listingId: string }) {
+  const t = useTranslations('listings');
   const { user } = useAuthStore();
   const [saved, setSaved] = useState(false);
 
@@ -62,7 +65,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
     <div className="flex flex-col sm:flex-row gap-3 my-8">
       <button className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold hover:bg-secondary-600 transition">
         <FaPaperPlane className="inline mr-2" />
-        Contacter
+        {t('contact_owner')}
       </button>
 
       {saved && (
@@ -72,7 +75,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
           className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold hover:bg-primary-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <BsBookmarkCheckFill className="inline mr-2 text-xl" />
-          {saving ? 'Sauvegarde...' : 'Enregistré'}
+          {saving ? t('saving_listing') : t('saved_listing')}
         </button>
       )}
 
@@ -83,7 +86,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
           className="flex-1 sm:flex-none px-5 py-2 bg-gray-300 text-gray-800 font-semibold hover:bg-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <FaRegBookmark className="inline mr-2 text-xl" />
-          {saving ? 'Sauvegarde...' : 'Enregistrer'}
+          {saving ? t('saving_listing') : t('save_listing')}
         </button>
       )}
     </div>
