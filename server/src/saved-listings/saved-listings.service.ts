@@ -20,7 +20,7 @@ export class SavedListingsService {
   async getSavedListings(userId: string) {
     const savedListings = await this.prisma.savedListing.findMany({
       where: { userId },
-      include: { listing: { include: { owner: true, savedBy: true } } },
+      include: { listing: { include: { owner: true } } },
       orderBy: { createdAt: 'desc' },
     });
 

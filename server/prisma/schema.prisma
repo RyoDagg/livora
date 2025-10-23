@@ -36,8 +36,8 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
-  Listing      Listing[]
-  SavedListing SavedListing[]
+  Listing       Listing[]
+  SavedListings SavedListing[]
 }
 
 model VerificationToken {

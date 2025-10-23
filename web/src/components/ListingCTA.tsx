@@ -13,23 +13,22 @@ function ListingCTA({ listingId }: { listingId: string }) {
   const { user } = useAuthStore();
   const [saved, setSaved] = useState(false);
 
-  const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!user) return;
 
     const fetchSavedStatus = async () => {
       try {
-        setSaving(true);
+        setLoading(true);
         const { ok, data } = await api.get(`/saved-listings/${listingId}`);
         if (!ok) throw new Error('Failed to fetch saved status');
 
-        console.log('Saved status data:', data);
         setSaved(data);
       } catch (error) {
         console.error('Error fetching saved listings:', error);
       } finally {
-        setSaving(false);
+        setLoading(false);
       }
     };
 
@@ -38,24 +37,30 @@ function ListingCTA({ listingId }: { listingId: string }) {
 
   const handleSave = async () => {
     try {
-      setSaving(true);
+      setLoading(true);
       const { ok } = await api.post(`/saved-listings/${listingId}`);
       if (!ok) throw new Error('Failed to save listing');
+
       setSaved(true);
     } catch (error) {
       console.error('Error saving listing:', error);
     } finally {
-      setSaving(false);
+      setLoading(false);
     }
   };
 
   const handleUnsave = async () => {
     try {
+      setLoading(true);
+
       const { ok } = await api.delete(`/saved-listings/${listingId}`);
       if (!ok) throw new Error('Failed to unsave listing');
+
       setSaved(false);
     } catch (error) {
       console.error('Error unsaving listing:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,22 +76,22 @@ function ListingCTA({ listingId }: { listingId: string }) {
       {saved && (
         <button
           onClick={handleUnsave}
-          disabled={saving}
+          disabled={loading}
           className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold hover:bg-primary-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <BsBookmarkCheckFill className="inline mr-2 text-xl" />
-          {saving ? t('saving_listing') : t('saved_listing')}
+          {loading ? t('loading') : t('saved_listing')}
         </button>
       )}
 
       {!saved && (
         <button
           onClick={handleSave}
-          disabled={saving}
+          disabled={loading}
           className="flex-1 sm:flex-none px-5 py-2 bg-gray-300 text-gray-800 font-semibold hover:bg-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <FaRegBookmark className="inline mr-2 text-xl" />
-          {saving ? t('saving_listing') : t('save_listing')}
+          {loading ? t('loading') : t('save_listing')}
         </button>
       )}
     </div>

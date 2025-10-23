@@ -65,7 +65,6 @@ export class SavedListingsController {
       );
       return { ok: true, data: isSaved };
     } catch (error) {
-      console.log(error);
       return { ok: false, message: error.message };
     }
   }
