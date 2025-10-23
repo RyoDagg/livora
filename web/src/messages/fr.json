@@ -79,6 +79,13 @@
     "register_title": "Créez votre compte",
     "register_has_account": "Vous avez déjà un compte ?",
 
+    "email_verification_sent_title": "Vérifiez votre adresse e-mail",
+    "email_verification_sent_message": "Un lien de vérification a été envoyé à {email}. Veuillez vérifier votre boîte de réception (et vos spams) avant de vous connecter.",
+    "go_to_login": "Aller à la connexion",
+
+    "toast_registration_success": "Inscription réussie !",
+    "toast_registration_error": "Échec de l'inscription. Veuillez réessayer plus tard.",
+
     "fields": {
       "lastLogin": "Dernière connexion",
       "name": "Nom complet",
@@ -119,7 +126,50 @@
     },
 
     "save_changes": "Enregistrer les modifications",
-    "updating_profile": "Mise à jour..."
+    "updating_profile": "Mise à jour...",
+
+    "verify": {
+      "verifying": "Vérification en cours...",
+
+      "success": {
+        "title": "Email vérifié avec succès !",
+        "message": "Votre compte est maintenant actif. Vous pouvez vous connecter.",
+        "login": "Se connecter"
+      },
+      "error": {
+        "title": "Échec de la vérification",
+        "message": "Le lien est invalide ou a expiré.",
+        "register": "Créer un compte",
+        "resend_verification": "Renvoyer l'e-mail de vérification"
+      },
+
+      "resend_verification": {
+        "title": "Renvoyer l'e-mail de vérification",
+        "subtitle": "Saisissez votre adresse e-mail pour recevoir un nouveau lien de vérification.",
+        "email_placeholder": "Votre adresse e-mail",
+        "submit": "Envoyer l'e-mail de vérification",
+        "sending": "Envoi en cours...",
+
+        "success_message": "Un nouveau lien de vérification a été envoyé à votre boîte mail.",
+
+        "errors": {
+          "email_required": "Veuillez saisir votre adresse e-mail.",
+          "request_failed": "Impossible de renvoyer le lien de vérification. Veuillez réessayer."
+        }
+      }
+    },
+
+    "errors": {
+      "GENERAL_ERROR": "Une erreur est survenue. Veuillez réessayer plus tard.",
+
+      "SERVER_ERROR": "Erreur serveur. Veuillez réessayer plus tard.",
+
+      "INVALID_CREDENTIALS": "Identifiants invalides. Veuillez vérifier votre e-mail et votre mot de passe.",
+      "EMAIL_NOT_VERIFIED": "E-mail non vérifié. Veuillez vérifier votre boîte de réception.",
+
+      "NOT_FOUND": "Utilisateur non trouvé.",
+      "ALREADY_VERIFIED": "L'e-mail est déjà vérifié."
+    }
   },
 
   "home": {
