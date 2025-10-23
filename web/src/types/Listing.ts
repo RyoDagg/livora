@@ -1,23 +1,31 @@
+import { User } from './User';
+
 export type Listing = {
   id: string;
+
   title: string;
   description: string;
   price: number;
-  state: string;
   type: 'rent' | 'sale';
-  availableAt: string;
-  contact: string;
-  owner: { id: string; name?: string; email: string };
+  state: string;
+
   imagesURL: string[];
+  contact: string;
+
+  availableAt: string;
+
+  owner: User;
 };
 
 export type ListingInput = {
   title: string;
   description: string;
   price: number;
-  state: string;
   type: 'rent' | 'sale';
-  availableAt: string;
-  contact: string;
+  state: string;
+
   imagesURL: string[];
+  contact: string;
+
+  availableAt: string;
 };

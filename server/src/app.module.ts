@@ -5,9 +5,10 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ListingsModule } from './listings/listings.module';
 import { FilesModule } from './files/files.module';
+import { SavedListingsModule } from './saved-listings/saved-listings.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, ListingsModule, FilesModule],
+  imports: [AuthModule, UsersModule, ListingsModule, FilesModule, SavedListingsModule],
   controllers: [AppController],
   providers: [AppService],
 })
