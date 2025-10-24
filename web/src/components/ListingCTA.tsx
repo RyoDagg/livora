@@ -77,7 +77,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
         <button
           onClick={handleUnsave}
           disabled={loading}
-          className="flex-1 sm:flex-none px-5 py-2 bg-primary-500 text-white font-semibold hover:bg-primary-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-1 sm:flex-none px-5 py-2 border-2 border-transparent bg-primary-500 text-white font-semibold hover:bg-primary-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <BsBookmarkCheckFill className="inline mr-2 text-xl" />
           {loading ? t('loading') : t('saved_listing')}
@@ -88,7 +88,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
         <button
           onClick={handleSave}
           disabled={loading}
-          className="flex-1 sm:flex-none px-5 py-2 bg-gray-300 text-gray-800 font-semibold hover:bg-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-1 sm:flex-none px-5 py-2 border-2 border-primary-500 text-primary-500 font-semibold hover:bg-primary-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <FaRegBookmark className="inline mr-2 text-xl" />
           {loading ? t('loading') : t('save_listing')}
