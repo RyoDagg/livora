@@ -59,7 +59,7 @@ export class AuthService {
     if (!isPasswordValid)
       throw new UnauthorizedException('INVALID_CREDENTIALS');
 
-    if (!user.isVerified) throw new UnauthorizedException('EMAIL_NOT_VERIFIED');
+    // if (!user.isVerified) throw new UnauthorizedException('EMAIL_NOT_VERIFIED');
 
     const { access_token } = await this.signUser(user.id, user.email);
     return { access_token, user };
