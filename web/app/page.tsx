@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { GiTunisia } from 'react-icons/gi';
 
 export default function Home() {
   const t = useTranslations('home');
@@ -21,7 +22,10 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto flex items-center px-6 md:px-12 py-24 gap-16">
           {/* Left Content */}
           <div className="text-center w-full md:text-left max-w-md md:max-w-2xl space-y-6">
-            <p className="text-3xl font-bold text-secondary-500">Livora</p>
+            <p className="text-3xl font-bold text-secondary-500">
+              <GiTunisia className="inline-block text-4xl align-bottom" />
+              Livora
+            </p>
 
             <h1 className="text-3xl md:text-5xl leading-tight text-gray-100 capitalize">
               {t('hero.title.part1')}{' '}
