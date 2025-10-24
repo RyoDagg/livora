@@ -7,14 +7,51 @@ import { Listing } from '@/src/types/Listing';
 
 import ImagesSection from '@/src/components/ImagesSection';
 import ListingCTA from '@/src/components/ListingCTA';
+import { Metadata } from 'next';
 
 async function fetchListing(id: string): Promise<Listing> {
-  const { ok, data } = await api.get(`/listings/${id}`, {
-    next: { revalidate: 10 },
-  });
+  const { ok, data } = await api.get(`/listings/${id}`, { next: { revalidate: 10 } });
 
   if (!ok) throw new Error('Failed to fetch listing');
   return data;
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const listing = await fetchListing(params.id);
+
+  const title = `${listing.title} - ${listing.state} | Livora`;
+  const description =
+    listing.description?.slice(0, 160) ||
+    `Découvrez cette propriété à ${listing.state} sur Livora.`;
+
+  const image = listing.imagesURL?.[0] ? listing.imagesURL[0] : '/og-image.png';
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://livora.tn/listings/${listing.id}`,
+      siteName: 'Livora',
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: listing.title,
+        },
+      ],
+      locale: 'fr_FR',
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [image],
+    },
+  };
 }
 
 export default async function ListingPage({ params }: { params: { id: string } }) {
