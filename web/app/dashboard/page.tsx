@@ -110,7 +110,7 @@ function DashboardPage() {
 
       {/* Table */}
       {!loading && !error && listings.length > 0 && (
-        <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-sm border border-gray-300 bg-white shadow-sm">
           <table className="w-full text-left">
             <thead className="bg-gray-100 text-gray-700">
               <tr>
