@@ -68,7 +68,10 @@ function ListingCTA({ listingId }: { listingId: string }) {
 
   return (
     <div className="flex flex-col sm:flex-row gap-3 my-8">
-      <button className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold hover:bg-secondary-600 transition">
+      <button
+        disabled
+        className="flex-1 sm:flex-none px-5 py-2 bg-secondary-500 text-white font-semibold hover:bg-secondary-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+      >
         <FaPaperPlane className="inline mr-2" />
         {t('contact_owner')}
       </button>
