@@ -45,6 +45,12 @@ export class AuthService {
       subject: 'Verify your email',
       body: `Hello ${name},\n\nPlease verify your email by clicking the link below:\n\n${verifyUrl}\n\nThis link will expire in 24 hours.\n\nThank you!\n\n- The Livora Team`,
     });
+
+    await this.mailService.sendMail({
+      to: 'livora.tn@gmail.com',
+      subject: 'New User Registration',
+      body: `A new user has registered.\n\nName: ${name}\nEmail: ${email}\nIs Company: ${isCompany}\n\n- Livora System`,
+    });
   }
 
   async login(
