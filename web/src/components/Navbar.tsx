@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../hooks/useAuth';
-import { HiMenu, HiX, HiCog, HiLogout, HiBookmark } from 'react-icons/hi';
+import { HiMenu, HiX, HiLogout, HiBookmark } from 'react-icons/hi';
 import Image from 'next/image';
 import { api } from '../lib/api';
 import { useAuthStore } from '../lib/store';
@@ -107,7 +107,7 @@ export default function Navbar() {
                   </button>
 
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-xl py-2 border border-gray-100 ring-1 ring-black/5 transition animate-fadeIn">
+                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-sm py-2 border border-primary-100 ring-1 ring-black/5 transition animate-fadeIn">
                       <Link
                         href="/profile"
                         className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
@@ -125,13 +125,8 @@ export default function Navbar() {
                         href="/listings/saved"
                         className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                       >
-                        <HiBookmark className="text-gray-500" aria-hidden="true" /> Saved Listings
-                      </Link>
-                      <Link
-                        href="/settings"
-                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
-                      >
-                        <HiCog className="text-gray-500" aria-hidden="true" /> Settings
+                        <HiBookmark className="text-gray-500" aria-hidden="true" />
+                        {t('listings.saved')}
                       </Link>
                       <button
                         onClick={handleLogout}
@@ -209,36 +204,38 @@ export default function Navbar() {
                     <Link
                       href="/profile"
                       onClick={() => setMobileOpen(false)}
-                      className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md"
+                      className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md flex items-center gap-2"
                     >
+                      <Image
+                        width={40}
+                        height={40}
+                        src={user.avatarUrl || '/default-avatar.png'}
+                        alt="Profile"
+                        className="h-6 w-6 rounded-full"
+                      />
                       {t('user.profile')}
                     </Link>
                     <Link
                       href="/listings/saved"
                       onClick={() => setMobileOpen(false)}
-                      className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md"
+                      className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md flex items-center gap-2"
                     >
-                      Saved Listings
-                    </Link>
-                    <Link
-                      href="/settings"
-                      onClick={() => setMobileOpen(false)}
-                      className="text-gray-700 font-medium hover:bg-gray-50 px-4 py-2 rounded-md"
-                    >
-                      Settings
+                      <HiBookmark className="text-gray-500" aria-hidden="true" />{' '}
+                      {t('listings.saved')}
                     </Link>
                     <button
                       onClick={() => {
                         handleLogout();
                         setMobileOpen(false);
                       }}
-                      className="text-red-600 font-medium hover:bg-red-50 px-4 py-2 rounded-md text-left"
+                      className="text-red-600 font-medium hover:bg-red-50 px-4 py-2 rounded-md text-left flex items-center gap-2"
                     >
+                      <HiLogout className="text-red-500" aria-hidden="true" />
                       {t('user.logout')}
                     </button>
                   </>
                 ) : (
-                  <>
+                  <div className="flex flex-col gap-2">
                     <Link
                       href="/login"
                       onClick={() => setMobileOpen(false)}
@@ -253,8 +250,12 @@ export default function Navbar() {
                     >
                       {t('user.register')}
                     </Link>
-                  </>
+                  </div>
                 ))}
+              <hr className="my-2 border-gray-300" />
+              <div className="flex justify-end">
+                <LocaleSwitcher />
+              </div>
             </div>
           </div>
         </>

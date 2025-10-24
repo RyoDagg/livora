@@ -28,7 +28,7 @@ export default function LocaleSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-md border border-gray-100 py-1 z-50">
+        <div className="absolute right-0 mt-2 w-32 bg-white rounded-sm shadow-md border border-primary-100 py-1 z-50">
           <button
             onClick={() => {
               setLocale('en');
