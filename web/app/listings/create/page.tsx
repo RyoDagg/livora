@@ -27,7 +27,7 @@ function CreateListingPage() {
     price: 0,
     state: '',
     type: 'rent',
-    availableAt: '',
+    availableAt: new Date().toISOString().split('T')[0],
     contact: '',
     imagesURL: [],
   });
