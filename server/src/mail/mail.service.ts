@@ -10,7 +10,7 @@ export class MailService {
     fromEmail = 'no-reply@livora.tn',
     fromName = 'Livora Team',
   }: {
-    to: string;
+    to: string[];
     subject: string;
     body: string;
     fromEmail?: string;
@@ -29,7 +29,7 @@ export class MailService {
           email: fromEmail,
           name: fromName,
         },
-        to: [{ email: to }],
+        to: to.map((email) => ({ email })),
         subject,
         text: body,
       });
