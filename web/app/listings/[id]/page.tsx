@@ -108,7 +108,7 @@ export default async function ListingPage({ params }: { params: { id: string } }
           <ListingCTA listingId={listing.id} />
 
           {/* Description */}
-          <p className="text-gray-600 leading-relaxed">{listing.description}</p>
+          <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">{listing.description}</p>
         </section>
       </article>
     </main>
