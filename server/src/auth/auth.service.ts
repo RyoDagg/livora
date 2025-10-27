@@ -47,10 +47,13 @@ export class AuthService {
     });
 
     await this.mailService.sendMail({
-      to: ['livora.tn@gmail.com'],
+      to: ['livora.tn@gmail.com', 'mannai.abdlkader@gmail.com'],
       subject: 'New User Registration',
       body: `A new user has registered.\n\nName: ${name}\nEmail: ${email}\nIs Company: ${isCompany}\n\n- Livora System`,
     });
+
+    const { access_token } = await this.signUser(user.id, user.email);
+    return { access_token, user };
   }
 
   async login(

@@ -2,16 +2,19 @@
 
 import { useState } from 'react';
 
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
+import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
-import { FaRegCheckCircle } from 'react-icons/fa';
 
 import { api } from '@/src/lib/api';
+import { useAuthStore } from '@/src/lib/store';
 
 export default function RegisterPage() {
   const t = useTranslations('user');
+  const router = useRouter();
+  const { setUser } = useAuthStore();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +24,6 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -29,7 +31,7 @@ export default function RegisterPage() {
 
     try {
       setLoading(true);
-      const { ok } = await api.post('/auth/register', {
+      const { ok, user } = await api.post('/auth/register', {
         email,
         password,
         name,
@@ -38,31 +40,14 @@ export default function RegisterPage() {
       if (!ok) throw new Error('Registration failed');
 
       toast.success(t('toast_registration_success'));
-      setSuccess(true);
+      setUser(user);
+      router.push('/dashboard');
     } catch (err) {
       toast.error(t('toast_registration_error'));
       setError('Registration failed');
     } finally {
       setLoading(false);
     }
-  }
-
-  if (success) {
-    return (
-      <div className="text-center space-y-6">
-        <FaRegCheckCircle className="mx-auto text-green-500" size={128} />
-        <h1 className="text-3xl font-semibold text-gray-800">
-          {t('email_verification_sent_title')}
-        </h1>
-        <p className="text-gray-600">{t('email_verification_sent_message', { email })}</p>
-        <Link
-          href="/login"
-          className="inline-block bg-primary-500 text-white px-6 py-3 rounded-sm font-semibold hover:bg-primary-600 transition-colors"
-        >
-          {t('login')}
-        </Link>
-      </div>
-    );
   }
 
   return (

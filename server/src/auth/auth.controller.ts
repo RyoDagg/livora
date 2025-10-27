@@ -12,10 +12,22 @@ export class AuthController {
     @Body('password') password: string,
     @Body('name') name: string,
     @Body('isCompany') isCompany: boolean,
+    @Res({ passthrough: true }) res: Response,
   ) {
     try {
-      await this.authService.register(email, password, name, isCompany);
-      return { ok: true };
+      const { access_token, user } = await this.authService.register(
+        email,
+        password,
+        name,
+        isCompany,
+      );
+
+      res.cookie('jwt_token', access_token, {
+        httpOnly: true,
+        sameSite: 'lax',
+      });
+
+      return { ok: true, user };
     } catch (error) {
       return { ok: false, message: error.message };
     }
@@ -38,6 +50,7 @@ export class AuthController {
         secure: process.env.NODE_ENV === 'production',
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       });
+
       return { ok: true, user };
     } catch (error) {
       return { ok: false, error: error.message || 'SERVER_ERROR' };

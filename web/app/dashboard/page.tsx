@@ -91,17 +91,10 @@ function DashboardPage() {
       {/* Empty State */}
       {!loading && !error && listings.length === 0 && (
         <div className="flex flex-col items-center justify-center py-24 text-center space-y-6">
-          <Image
-            src="/empty-listings.png"
-            alt="No listings illustration"
-            width={200}
-            height={200}
-            className="opacity-90"
-          />
           <p className="text-gray-600 text-lg">{t('dashboard.empty')}</p>
           <Link
             href="/listings/create"
-            className="px-5 py-2.5 bg-primary-500 text-white font-medium hover:bg-primary-600 transition"
+            className="px-5 py-2.5 bg-secondary-500 text-white font-medium hover:bg-secondary-600 transition"
           >
             {t('listings.new')}
           </Link>

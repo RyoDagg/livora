@@ -4,6 +4,7 @@ export type User = {
   id: string;
   email: string;
   lastLogin?: Date;
+  isVerified: boolean;
 
   name?: string;
   avatarUrl?: string;

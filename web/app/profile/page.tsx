@@ -151,6 +151,11 @@ function ProfilePage() {
                 disabled
                 className="w-full bg-gray-100 border border-gray-300 rounded-md p-3 text-gray-500 cursor-not-allowed"
               />
+              {user.isVerified ? (
+                <p className="text-sm text-green-600 mt-1">Email vérifié</p>
+              ) : (
+                <p className="text-sm text-red-600 mt-1">Email non vérifié</p>
+              )}
             </div>
 
             <div>
