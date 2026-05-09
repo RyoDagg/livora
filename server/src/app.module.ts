@@ -8,7 +8,13 @@ import { FilesModule } from './files/files.module';
 import { SavedListingsModule } from './saved-listings/saved-listings.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, ListingsModule, FilesModule, SavedListingsModule],
+  imports: [
+    AuthModule,
+    UsersModule,
+    ListingsModule,
+    FilesModule,
+    SavedListingsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
