@@ -5,11 +5,12 @@ import {
   Body,
   Request,
   UseGuards,
-  HttpException,
-  HttpStatus,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Controller('users')
 export class UsersController {
@@ -28,7 +29,10 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Put('/me')
-  async updateProfile(@Request() req: any, @Body() body: any) {
+  async updateProfile(
+    @Request() req: any,
+    @Body(ValidationPipe) body: UpdateUserDto,
+  ) {
     const userId = req.user.userId;
     const updatedUser = await this.usersService.updateUser(userId, body);
     if (updatedUser) {
@@ -42,14 +46,10 @@ export class UsersController {
   @Put('me/password')
   async updatePassword(
     @Request() req,
-    @Body() body: { currentPassword: string; newPassword: string },
+    @Body(ValidationPipe) body: UpdatePasswordDto,
   ) {
     const userId = req.user.userId;
     const { currentPassword, newPassword } = body;
-
-    if (!currentPassword || !newPassword) {
-      throw new HttpException('Missing fields', HttpStatus.BAD_REQUEST);
-    }
 
     return this.usersService.updatePassword(
       userId,
