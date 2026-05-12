@@ -5,7 +5,6 @@ import {
   Post,
   Query,
   Res,
-  ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Response } from 'express';
@@ -20,7 +19,7 @@ export class AuthController {
 
   @Post('register')
   async register(
-    @Body(ValidationPipe) body: RegisterDto,
+    @Body() body: RegisterDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     try {
@@ -45,7 +44,7 @@ export class AuthController {
 
   @Post('login')
   async login(
-    @Body(ValidationPipe) body: LoginDto,
+    @Body() body: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     try {
@@ -73,7 +72,7 @@ export class AuthController {
   }
 
   @Get('verify')
-  async verifyEmail(@Query(ValidationPipe) query: VerifyEmailDto) {
+  async verifyEmail(@Query() query: VerifyEmailDto) {
     try {
       await this.authService.verifyEmail(query.token);
       return { ok: true };
@@ -83,7 +82,7 @@ export class AuthController {
   }
 
   @Post('resend-verification')
-  async resendVerification(@Body(ValidationPipe) body: ResendVerificationDto) {
+  async resendVerification(@Body() body: ResendVerificationDto) {
     try {
       await this.authService.resendVerificationEmail(body.email);
       return { ok: true };

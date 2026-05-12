@@ -5,7 +5,6 @@ import {
   Body,
   Request,
   UseGuards,
-  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -31,7 +30,7 @@ export class UsersController {
   @Put('/me')
   async updateProfile(
     @Request() req: any,
-    @Body(ValidationPipe) body: UpdateUserDto,
+    @Body() body: UpdateUserDto,
   ) {
     const userId = req.user.userId;
     const updatedUser = await this.usersService.updateUser(userId, body);
@@ -46,7 +45,7 @@ export class UsersController {
   @Put('me/password')
   async updatePassword(
     @Request() req,
-    @Body(ValidationPipe) body: UpdatePasswordDto,
+    @Body() body: UpdatePasswordDto,
   ) {
     const userId = req.user.userId;
     const { currentPassword, newPassword } = body;

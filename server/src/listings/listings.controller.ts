@@ -12,7 +12,6 @@ import {
   Query,
   ForbiddenException,
   Put,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ListingsService } from './listings.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -26,7 +25,7 @@ export class ListingsController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async create(@Body(ValidationPipe) body: CreateListingDto, @Req() req: any) {
+  async create(@Body() body: CreateListingDto, @Req() req: any) {
     try {
       const listing = await this.listingsService.create({
         ...body,
@@ -40,7 +39,7 @@ export class ListingsController {
   }
 
   @Get()
-  async findAll(@Query(ValidationPipe) query: GetListingsQueryDto) {
+  async findAll(@Query() query: GetListingsQueryDto) {
     const listings = await this.listingsService.findAll(query);
     return { ok: true, data: listings };
   }
@@ -58,7 +57,7 @@ export class ListingsController {
   @UseGuards(JwtAuthGuard)
   async update(
     @Param('id') id: string,
-    @Body(ValidationPipe) body: UpdateListingDto,
+    @Body() body: UpdateListingDto,
     @Req() req: any,
   ) {
     const listing = await this.listingsService.findOne(id);
