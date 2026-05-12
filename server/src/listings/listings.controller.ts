@@ -14,8 +14,10 @@ import {
   Put,
 } from '@nestjs/common';
 import { ListingsService } from './listings.service';
-import { Prisma } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { CreateListingDto } from './dto/create-listing.dto';
+import { UpdateListingDto } from './dto/update-listing.dto';
+import { GetListingsQueryDto } from './dto/get-listings-query.dto';
 
 @Controller('listings')
 export class ListingsController {
@@ -23,7 +25,7 @@ export class ListingsController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async create(@Body() body: Prisma.ListingCreateInput, @Req() req: any) {
+  async create(@Body() body: CreateListingDto, @Req() req: any) {
     try {
       const listing = await this.listingsService.create({
         ...body,
@@ -37,7 +39,7 @@ export class ListingsController {
   }
 
   @Get()
-  async findAll(@Query() query: any) {
+  async findAll(@Query() query: GetListingsQueryDto) {
     const listings = await this.listingsService.findAll(query);
     return { ok: true, data: listings };
   }
@@ -55,7 +57,7 @@ export class ListingsController {
   @UseGuards(JwtAuthGuard)
   async update(
     @Param('id') id: string,
-    @Body() body: Prisma.ListingUpdateInput,
+    @Body() body: UpdateListingDto,
     @Req() req: any,
   ) {
     const listing = await this.listingsService.findOne(id);

@@ -1,6 +1,17 @@
-import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Res,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Response } from 'express';
+import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { ResendVerificationDto } from './dto/resend-verification.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -8,18 +19,15 @@ export class AuthController {
 
   @Post('register')
   async register(
-    @Body('email') email: string,
-    @Body('password') password: string,
-    @Body('name') name: string,
-    @Body('isCompany') isCompany: boolean,
+    @Body() body: RegisterDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     try {
       const { access_token, user } = await this.authService.register(
-        email,
-        password,
-        name,
-        isCompany,
+        body.email,
+        body.password,
+        body.name,
+        body.isCompany,
       );
 
       res.cookie('jwt_token', access_token, {
@@ -36,14 +44,13 @@ export class AuthController {
 
   @Post('login')
   async login(
-    @Body('email') email: string,
-    @Body('password') password: string,
+    @Body() body: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     try {
       const { access_token, user } = await this.authService.login(
-        email,
-        password,
+        body.email,
+        body.password,
       );
 
       res.cookie('jwt_token', access_token, {
@@ -65,9 +72,9 @@ export class AuthController {
   }
 
   @Get('verify')
-  async verifyEmail(@Query('token') token: string) {
+  async verifyEmail(@Query() query: VerifyEmailDto) {
     try {
-      await this.authService.verifyEmail(token);
+      await this.authService.verifyEmail(query.token);
       return { ok: true };
     } catch (error) {
       return { ok: false, message: error.message };
@@ -75,9 +82,9 @@ export class AuthController {
   }
 
   @Post('resend-verification')
-  async resendVerification(@Body('email') email: string) {
+  async resendVerification(@Body() body: ResendVerificationDto) {
     try {
-      await this.authService.resendVerificationEmail(email);
+      await this.authService.resendVerificationEmail(body.email);
       return { ok: true };
     } catch (error) {
       return { ok: false, error: error.message || 'SERVER_ERROR' };
