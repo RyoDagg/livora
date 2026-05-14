@@ -26,9 +26,7 @@ export default function SavedListingsPage() {
       try {
         setLoading(true);
 
-        const { data, ok } = await api.get('/saved-listings');
-        if (!ok) throw new Error('Failed to fetch');
-
+        const data = await api.get('/saved-listings');
         setListings(data);
       } catch (err) {
         console.error(err);

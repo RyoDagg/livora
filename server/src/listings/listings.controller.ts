@@ -31,7 +31,7 @@ export class ListingsController {
         ...body,
         owner: { connect: { id: req.user.userId } },
       });
-      return { ok: true, data: listing };
+      return listing;
     } catch (error) {
       console.error('Error creating listing:', error);
       throw new InternalServerErrorException('Failed to create listing');
@@ -41,7 +41,7 @@ export class ListingsController {
   @Get()
   async findAll(@Query() query: GetListingsQueryDto) {
     const listings = await this.listingsService.findAll(query);
-    return { ok: true, data: listings };
+    return listings;
   }
 
   @Get(':id')
@@ -50,7 +50,7 @@ export class ListingsController {
     if (!listing) {
       throw new NotFoundException('Listing not found');
     }
-    return { ok: true, data: listing };
+    return listing;
   }
 
   @Put(':id')
@@ -68,7 +68,7 @@ export class ListingsController {
 
     const updated = await this.listingsService.update(id, body);
 
-    return { ok: true, data: updated };
+    return updated;
   }
 
   @Delete(':id')
@@ -81,6 +81,6 @@ export class ListingsController {
     }
 
     await this.listingsService.remove(id);
-    return { ok: true };
+    return { message: 'Listing removed successfully' };
   }
 }

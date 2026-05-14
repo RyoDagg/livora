@@ -31,13 +31,12 @@ export default function RegisterPage() {
 
     try {
       setLoading(true);
-      const { ok, user } = await api.post('/auth/register', {
+      const user = await api.post('/auth/register', {
         email,
         password,
         name,
         isCompany,
       });
-      if (!ok) throw new Error('Registration failed');
 
       toast.success(t('toast_registration_success'));
       setUser(user);

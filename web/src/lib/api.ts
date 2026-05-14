@@ -1,5 +1,35 @@
+export class ApiError extends Error {
+  status: number;
+  code: string;
+  details?: string[];
+
+  constructor(params: {
+    message: string;
+    status: number;
+    code?: string;
+    details?: string[];
+  }) {
+    super(params.message);
+    this.name = 'ApiError';
+    this.status = params.status;
+    this.code = params.code || 'API_ERROR';
+    this.details = params.details;
+  }
+}
+
 class ApiService {
   baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  private async parseResponseBody(res: Response) {
+    const text = await res.text();
+    if (!text) return null;
+
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
+  }
 
   async request(path: string, options?: RequestInit) {
     const res = await fetch(`${this.baseUrl}${path}`, {
@@ -10,12 +40,22 @@ class ApiService {
       credentials: 'include',
     });
 
+    const body = await this.parseResponseBody(res);
+
     if (!res.ok) {
-      const error = await res.json().catch(() => ({}));
-      throw new Error(error.message || res.statusText);
+      const payload = body && typeof body === 'object' ? body : {};
+      const message =
+        (payload as { message?: string }).message ||
+        (payload as { error?: string }).error ||
+        res.statusText ||
+        'Request failed';
+      const code = (payload as { code?: string }).code || 'API_ERROR';
+      const details = (payload as { details?: string[] }).details;
+
+      throw new ApiError({ message, status: res.status, code, details });
     }
 
-    return res.json();
+    return body;
   }
 
   get(path: string, options?: RequestInit) {

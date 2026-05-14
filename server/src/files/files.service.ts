@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UploadApiResponse, v2 } from 'cloudinary';
 
 @Injectable()
@@ -22,7 +22,10 @@ export class FilesService {
       return (uploadResult as UploadApiResponse).secure_url;
     } catch (error) {
       console.error('Error uploading to Cloudinary:', error);
-      throw new Error('Failed to upload file');
+      throw new InternalServerErrorException({
+        code: 'FILE_UPLOAD_FAILED',
+        message: 'Failed to upload file',
+      });
     }
   }
 }

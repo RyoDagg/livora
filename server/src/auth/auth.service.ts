@@ -1,10 +1,18 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'node:crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { MailService } from 'src/mail/mail.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -21,12 +29,24 @@ export class AuthService {
     name: string,
     isCompany: boolean,
   ) {
-    const user = await this.usersService.create(
-      email,
-      password,
-      name,
-      isCompany,
-    );
+    let user;
+    try {
+      user = await this.usersService.create(email, password, name, isCompany);
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException({
+          code: 'EMAIL_ALREADY_EXISTS',
+          message: 'Email already exists',
+        });
+      }
+      throw new InternalServerErrorException({
+        code: 'REGISTER_FAILED',
+        message: 'Could not create account',
+      });
+    }
 
     const token = randomUUID();
     const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
@@ -85,10 +105,18 @@ export class AuthService {
     const record = await this.prismaService.verificationToken.findUnique({
       where: { token },
     });
-    if (!record) throw new Error('Invalid or expired token');
+    if (!record) {
+      throw new BadRequestException({
+        code: 'INVALID_VERIFICATION_TOKEN',
+        message: 'Invalid or expired token',
+      });
+    }
 
     if (record.expiresAt < new Date()) {
-      throw new Error('Verification token expired');
+      throw new BadRequestException({
+        code: 'VERIFICATION_TOKEN_EXPIRED',
+        message: 'Verification token expired',
+      });
     }
 
     await this.prismaService.user.update({
@@ -101,8 +129,18 @@ export class AuthService {
 
   async resendVerificationEmail(email: string) {
     const user = await this.usersService.findByEmail(email);
-    if (!user) throw new Error('NOT_FOUND');
-    if (user.isVerified) throw new Error('ALREADY_VERIFIED');
+    if (!user) {
+      throw new NotFoundException({
+        code: 'NOT_FOUND',
+        message: 'User not found',
+      });
+    }
+    if (user.isVerified) {
+      throw new BadRequestException({
+        code: 'ALREADY_VERIFIED',
+        message: 'Email is already verified',
+      });
+    }
 
     await this.prismaService.verificationToken.deleteMany({
       where: { userId: user.id },

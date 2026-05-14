@@ -70,8 +70,7 @@ function ProfilePage() {
     e.preventDefault();
     try {
       setUpdating(true);
-      const { ok, data } = await api.put('/users/me', form);
-      if (!ok) throw new Error('Échec de la mise à jour');
+      const data = await api.put('/users/me', form);
       setUser(data);
       toast.success(t('toasts.profile_update_success'));
     } catch (err) {
@@ -279,12 +278,10 @@ function UpdatePassword() {
 
     try {
       setUpdatingPassword(true);
-      const { ok } = await api.put('/users/me/password', {
+      await api.put('/users/me/password', {
         currentPassword: passwords.currentPassword,
         newPassword: passwords.newPassword,
       });
-
-      if (!ok) throw new Error('Failed to update password');
       toast.success(t('toasts.password_update_success'));
       setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
     } catch (err) {

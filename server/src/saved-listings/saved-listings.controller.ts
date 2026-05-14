@@ -20,12 +20,8 @@ export class SavedListingsController {
     @Param('listingId') listingId: string,
     @Request() req: any,
   ) {
-    try {
-      await this.savedService.saveListing(req.user.userId, listingId);
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, message: error.message };
-    }
+    await this.savedService.saveListing(req.user.userId, listingId);
+    return { message: 'Listing saved successfully' };
   }
 
   @Delete(':listingId')
@@ -33,24 +29,16 @@ export class SavedListingsController {
     @Param('listingId') listingId: string,
     @Request() req: any,
   ) {
-    try {
-      await this.savedService.unsaveListing(req.user.userId, listingId);
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, message: error.message };
-    }
+    await this.savedService.unsaveListing(req.user.userId, listingId);
+    return { message: 'Listing unsaved successfully' };
   }
 
   @Get()
   async getSavedListings(@Request() req: any) {
-    try {
-      const savedListings = await this.savedService.getSavedListings(
-        req.user.userId,
-      );
-      return { ok: true, data: savedListings };
-    } catch (error) {
-      return { ok: false, message: error.message };
-    }
+    const savedListings = await this.savedService.getSavedListings(
+      req.user.userId,
+    );
+    return savedListings;
   }
 
   @Get(':listingId')
@@ -58,14 +46,10 @@ export class SavedListingsController {
     @Param('listingId') listingId: string,
     @Request() req: any,
   ) {
-    try {
-      const isSaved = await this.savedService.isListingSaved(
-        req.user.userId,
-        listingId,
-      );
-      return { ok: true, data: isSaved };
-    } catch (error) {
-      return { ok: false, message: error.message };
-    }
+    const isSaved = await this.savedService.isListingSaved(
+      req.user.userId,
+      listingId,
+    );
+    return isSaved;
   }
 }

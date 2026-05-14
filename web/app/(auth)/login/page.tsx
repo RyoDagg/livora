@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import { useAuthStore } from '@/src/lib/store';
-import { api } from '@/src/lib/api';
+import { ApiError, api } from '@/src/lib/api';
 
 export default function LoginPage() {
   const t = useTranslations('user');
@@ -31,13 +31,16 @@ export default function LoginPage() {
     setError('');
     try {
       setLoading(true);
-      const { ok, user, error } = await api.post('/auth/login', { email, password });
-      if (!ok) throw new Error(error);
+      const user = await api.post('/auth/login', { email, password });
 
       setUser(user);
       router.push(redirect);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'GENERAL_ERROR');
+      if (err instanceof ApiError) {
+        setError(err.code);
+      } else {
+        setError('GENERAL_ERROR');
+      }
     } finally {
       setLoading(false);
     }

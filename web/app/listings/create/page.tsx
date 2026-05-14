@@ -45,13 +45,11 @@ function CreateListingPage() {
     setError('');
     setLoading(true);
     try {
-      const { ok, data } = await api.post('/listings', {
+      const data = await api.post('/listings', {
         ...form,
         price: Number(form.price),
         availableAt: new Date(form.availableAt).toISOString(),
       });
-
-      if (!ok) throw new Error('Failed to create listing');
 
       router.push(`/listings/${data.id}`);
     } catch (err) {
