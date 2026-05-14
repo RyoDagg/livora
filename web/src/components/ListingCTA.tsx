@@ -21,9 +21,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
     const fetchSavedStatus = async () => {
       try {
         setLoading(true);
-        const { ok, data } = await api.get(`/saved-listings/${listingId}`);
-        if (!ok) throw new Error('Failed to fetch saved status');
-
+        const { data } = await api.get(`/saved-listings/${listingId}`);
         setSaved(data);
       } catch (error) {
         console.error('Error fetching saved listings:', error);
@@ -38,9 +36,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
   const handleSave = async () => {
     try {
       setLoading(true);
-      const { ok } = await api.post(`/saved-listings/${listingId}`);
-      if (!ok) throw new Error('Failed to save listing');
-
+      await api.post(`/saved-listings/${listingId}`);
       setSaved(true);
     } catch (error) {
       console.error('Error saving listing:', error);
@@ -53,9 +49,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
     try {
       setLoading(true);
 
-      const { ok } = await api.delete(`/saved-listings/${listingId}`);
-      if (!ok) throw new Error('Failed to unsave listing');
-
+      await api.delete(`/saved-listings/${listingId}`);
       setSaved(false);
     } catch (error) {
       console.error('Error unsaving listing:', error);

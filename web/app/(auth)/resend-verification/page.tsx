@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { toast } from 'react-hot-toast';
 
-import { api } from '@/src/lib/api';
+import { ApiError, api } from '@/src/lib/api';
 
 export default function ResendVerificationPage() {
   const t = useTranslations('user');
@@ -25,15 +25,13 @@ export default function ResendVerificationPage() {
     try {
       setLoading(true);
 
-      const { ok, error } = await api.post('/auth/resend-verification', { email });
-
-      if (!ok) throw new Error(error);
+      await api.post('/auth/resend-verification', { email });
 
       toast.success(t('verify.resend_verification.success_message'));
       setSuccess(true);
     } catch (err) {
       toast.error(t('verify.resend_verification.errors.request_failed'));
-      setError(err instanceof Error ? err.message : 'request_failed');
+      setError(err instanceof ApiError ? err.code : 'request_failed');
     } finally {
       setLoading(false);
     }

@@ -22,8 +22,7 @@ function DashboardPage() {
     if (!user) return;
     try {
       setLoading(true);
-      const { ok, data } = await api.get(`/listings?ownerId=${user.id}`);
-      if (!ok) throw new Error('Failed to fetch your listings');
+      const { data } = await api.get(`/listings?ownerId=${user.id}`);
       setListings(data);
     } catch (err) {
       console.error('Error fetching listings', err);
@@ -41,8 +40,7 @@ function DashboardPage() {
     try {
       if (!confirm(t('dashboard.confirmDelete'))) return;
 
-      const { ok } = await api.delete(`/listings/${listingId}`);
-      if (!ok) throw new Error('Failed to delete the listing');
+      await api.delete(`/listings/${listingId}`);
 
       toast.success(t('dashboard.toast.deleted'));
       fetchData();
