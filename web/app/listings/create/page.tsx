@@ -45,7 +45,7 @@ function CreateListingPage() {
     setError('');
     setLoading(true);
     try {
-      const { data } = await api.post('/listings', {
+      const data = await api.post('/listings', {
         ...form,
         price: Number(form.price),
         availableAt: new Date(form.availableAt).toISOString(),

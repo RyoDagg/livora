@@ -29,7 +29,7 @@ function EditListingPage() {
   useEffect(() => {
     async function fetchListing() {
       try {
-        const { data } = await api.get(`/listings/${params.id}`);
+        const data = await api.get(`/listings/${params.id}`);
         if (user?.id !== data.ownerId) forbidden();
 
         setForm({
@@ -68,7 +68,7 @@ function EditListingPage() {
     setLoading(true);
 
     try {
-      const { data } = await api.put(`/listings/${params.id}`, {
+      const data = await api.put(`/listings/${params.id}`, {
         ...form,
         price: Number(form.price),
         availableAt: new Date(form.availableAt).toISOString(),

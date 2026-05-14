@@ -26,7 +26,7 @@ export default function SavedListingsPage() {
       try {
         setLoading(true);
 
-        const { data } = await api.get('/saved-listings');
+        const data = await api.get('/saved-listings');
         setListings(data);
       } catch (err) {
         console.error(err);

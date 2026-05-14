@@ -70,7 +70,7 @@ function ProfilePage() {
     e.preventDefault();
     try {
       setUpdating(true);
-      const { data } = await api.put('/users/me', form);
+      const data = await api.put('/users/me', form);
       setUser(data);
       toast.success(t('toasts.profile_update_success'));
     } catch (err) {

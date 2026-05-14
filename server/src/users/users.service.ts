@@ -67,6 +67,6 @@ export class UsersService {
       data: { password_hash: hashed },
     });
 
-    return { ok: true, message: 'Password updated successfully' };
+    return { message: 'Password updated successfully' };
   }
 }

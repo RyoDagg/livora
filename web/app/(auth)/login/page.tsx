@@ -31,7 +31,7 @@ export default function LoginPage() {
     setError('');
     try {
       setLoading(true);
-      const { user } = await api.post('/auth/login', { email, password });
+      const user = await api.post('/auth/login', { email, password });
 
       setUser(user);
       router.push(redirect);

@@ -31,10 +31,10 @@ async function fetchListings(filters: ListingsFilters): Promise<Listing[]> {
     }
   });
 
-  const { data } = await api.get(`/listings?${queryParams.toString()}`, {
+  const listings = await api.get(`/listings?${queryParams.toString()}`, {
     next: { revalidate: 10 },
   });
-  return data;
+  return listings;
 }
 
 export default async function ListingsPage({

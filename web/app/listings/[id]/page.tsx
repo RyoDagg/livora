@@ -10,8 +10,8 @@ import ListingCTA from '@/src/components/ListingCTA';
 import { Metadata } from 'next';
 
 async function fetchListing(id: string): Promise<Listing> {
-  const { data } = await api.get(`/listings/${id}`, { next: { revalidate: 10 } });
-  return data;
+  const listing = await api.get(`/listings/${id}`, { next: { revalidate: 10 } });
+  return listing;
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {

@@ -21,7 +21,7 @@ export class SavedListingsController {
     @Request() req: any,
   ) {
     await this.savedService.saveListing(req.user.userId, listingId);
-    return { ok: true };
+    return { message: 'Listing saved successfully' };
   }
 
   @Delete(':listingId')
@@ -30,13 +30,15 @@ export class SavedListingsController {
     @Request() req: any,
   ) {
     await this.savedService.unsaveListing(req.user.userId, listingId);
-    return { ok: true };
+    return { message: 'Listing unsaved successfully' };
   }
 
   @Get()
   async getSavedListings(@Request() req: any) {
-    const savedListings = await this.savedService.getSavedListings(req.user.userId);
-    return { ok: true, data: savedListings };
+    const savedListings = await this.savedService.getSavedListings(
+      req.user.userId,
+    );
+    return savedListings;
   }
 
   @Get(':listingId')
@@ -48,6 +50,6 @@ export class SavedListingsController {
       req.user.userId,
       listingId,
     );
-    return { ok: true, data: isSaved };
+    return isSaved;
   }
 }

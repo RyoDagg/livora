@@ -39,7 +39,7 @@ export class AuthController {
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       });
 
-      return { ok: true, user };
+      return user;
     } catch (error: unknown) {
       if (error instanceof HttpException) {
         throw error;
@@ -68,7 +68,7 @@ export class AuthController {
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       });
 
-      return { ok: true, user };
+      return user;
     } catch (error: unknown) {
       if (error instanceof HttpException) {
         throw error;
@@ -89,14 +89,14 @@ export class AuthController {
   @Get('verify')
   async verifyEmail(@Query() query: VerifyEmailDto) {
     await this.authService.verifyEmail(query.token);
-    return { ok: true };
+    return { message: 'Email verified successfully' };
   }
 
   @Post('resend-verification')
   async resendVerification(@Body() body: ResendVerificationDto) {
     try {
       await this.authService.resendVerificationEmail(body.email);
-      return { ok: true };
+      return { message: 'Verification email sent' };
     } catch (error: unknown) {
       if (error instanceof HttpException) {
         throw error;

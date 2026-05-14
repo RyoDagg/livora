@@ -21,7 +21,7 @@ function ListingCTA({ listingId }: { listingId: string }) {
     const fetchSavedStatus = async () => {
       try {
         setLoading(true);
-        const { data } = await api.get(`/saved-listings/${listingId}`);
+        const data = await api.get(`/saved-listings/${listingId}`);
         setSaved(data);
       } catch (error) {
         console.error('Error fetching saved listings:', error);
