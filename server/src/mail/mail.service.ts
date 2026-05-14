@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { MailtrapClient } from 'mailtrap';
 
 @Injectable()
@@ -16,8 +16,12 @@ export class MailService {
     fromEmail?: string;
     fromName?: string;
   }) {
-    if (!process.env.MAILTRAP_TOKEN)
-      throw new Error('MAILTRAP_TOKEN is missing in environment variables.');
+    if (!process.env.MAILTRAP_TOKEN) {
+      throw new InternalServerErrorException({
+        code: 'MAIL_CONFIGURATION_ERROR',
+        message: 'Mail service is not configured',
+      });
+    }
 
     const client = new MailtrapClient({
       token: process.env.MAILTRAP_TOKEN!,
@@ -35,7 +39,10 @@ export class MailService {
       });
     } catch (error) {
       console.error(`Failed to send email to ${to}:`, error);
-      throw new Error('Failed to send email.');
+      throw new InternalServerErrorException({
+        code: 'MAIL_SEND_FAILED',
+        message: 'Failed to send email',
+      });
     }
   }
 }

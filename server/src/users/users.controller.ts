@@ -1,4 +1,5 @@
 import {
+  NotFoundException,
   Controller,
   Get,
   Put,
@@ -34,11 +35,14 @@ export class UsersController {
   ) {
     const userId = req.user.userId;
     const updatedUser = await this.usersService.updateUser(userId, body);
-    if (updatedUser) {
-      const { password_hash, ...result } = updatedUser;
-      return { ok: true, data: result };
+    if (!updatedUser) {
+      throw new NotFoundException({
+        code: 'NOT_FOUND',
+        message: 'User not found',
+      });
     }
-    return { ok: false, message: 'User not found' };
+    const { password_hash, ...result } = updatedUser;
+    return { ok: true, data: result };
   }
 
   @UseGuards(JwtAuthGuard)

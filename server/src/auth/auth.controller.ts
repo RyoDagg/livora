@@ -1,7 +1,10 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
+  InternalServerErrorException,
+  HttpException,
   Post,
   Query,
   Res,
@@ -37,8 +40,14 @@ export class AuthController {
       });
 
       return { ok: true, user };
-    } catch (error) {
-      return { ok: false, message: error.message };
+    } catch (error: unknown) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new InternalServerErrorException({
+        code: 'REGISTER_FAILED',
+        message: 'Registration failed',
+      });
     }
   }
 
@@ -60,8 +69,14 @@ export class AuthController {
       });
 
       return { ok: true, user };
-    } catch (error) {
-      return { ok: false, error: error.message || 'SERVER_ERROR' };
+    } catch (error: unknown) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new InternalServerErrorException({
+        code: 'LOGIN_FAILED',
+        message: 'Login failed',
+      });
     }
   }
 
@@ -73,12 +88,8 @@ export class AuthController {
 
   @Get('verify')
   async verifyEmail(@Query() query: VerifyEmailDto) {
-    try {
-      await this.authService.verifyEmail(query.token);
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, message: error.message };
-    }
+    await this.authService.verifyEmail(query.token);
+    return { ok: true };
   }
 
   @Post('resend-verification')
@@ -86,8 +97,14 @@ export class AuthController {
     try {
       await this.authService.resendVerificationEmail(body.email);
       return { ok: true };
-    } catch (error) {
-      return { ok: false, error: error.message || 'SERVER_ERROR' };
+    } catch (error: unknown) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new BadRequestException({
+        code: 'RESEND_VERIFICATION_FAILED',
+        message: 'Failed to resend verification email',
+      });
     }
   }
 }
